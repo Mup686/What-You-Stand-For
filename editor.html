@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saved Results — What You Stand For</title>
+<script>
+(function(){var t={sepia:{'--bg':'#f5f0e8','--text':'#1a1a1a','--text-light':'#4a4a4a','--accent':'#8b0000','--border':'#2a2a2a','--border-light':'#c0b8a8','--card-bg':'#faf8f4','--cat-governance':'#1a3a5c','--cat-economy':'#2d5016','--cat-world':'#5c3a1a','--cat-culture':'#4a1a5c'},dark:{'--bg':'#1a1215','--text':'#e8e0d8','--text-light':'#a09890','--accent':'#c0392b','--border':'#4a2a30','--border-light':'#4a3a3e','--card-bg':'#2a1e22','--cat-governance':'#4a7ab0','--cat-economy':'#5a9a3a','--cat-world':'#b07a3a','--cat-culture':'#9a5ab0'},cold:{'--bg':'#e8ecf0','--text':'#1a2030','--text-light':'#4a5568','--accent':'#2c5282','--border':'#2d3748','--border-light':'#a0aec0','--card-bg':'#f0f4f8','--cat-governance':'#2c5282','--cat-economy':'#2a6b3a','--cat-world':'#7a5a2a','--cat-culture':'#5a3a7a'},ink:{'--bg':'#fafaf5','--text':'#111','--text-light':'#555','--accent':'#000','--border':'#111','--border-light':'#ccc','--card-bg':'#fff','--cat-governance':'#003366','--cat-economy':'#006633','--cat-world':'#663300','--cat-culture':'#660033'},rosewood:{'--bg':'#f5ebe0','--text':'#2a1a1e','--text-light':'#6b4a52','--accent':'#6b3a4a','--border':'#3a2228','--border-light':'#c8a8b0','--card-bg':'#faf2ee','--cat-governance':'#3a4a6b','--cat-economy':'#3a6b3a','--cat-world':'#6b4a2a','--cat-culture':'#6b2a5a'},lavender:{'--bg':'#f0eaf5','--text':'#2a2535','--text-light':'#5a5068','--accent':'#8e7aa0','--border':'#2a2535','--border-light':'#b8a8c8','--card-bg':'#f8f4fa','--cat-governance':'#3a5a8c','--cat-economy':'#3a6a2a','--cat-world':'#7a4a1a','--cat-culture':'#6a3a8c'},telegraph:{'--bg':'#d9cdb4','--text':'#2a2e24','--text-light':'#5c6b4f','--accent':'#5c6b4f','--border':'#2a2e24','--border-light':'#a89e88','--card-bg':'#e4dac4','--cat-governance':'#3a5a3a','--cat-economy':'#4a6a2a','--cat-world':'#6a5a2a','--cat-culture':'#5a3a5a'},forest:{'--bg':'#f0ead6','--text':'#1a2e24','--text-light':'#4a6a5a','--accent':'#2d4a3e','--border':'#1a2e24','--border-light':'#b0c4a8','--card-bg':'#f5f0e0','--cat-governance':'#1a4a5c','--cat-economy':'#2d6b16','--cat-world':'#5c4a1a','--cat-culture':'#4a1a4a'},sandstone:{'--bg':'#d4c5a9','--text':'#2e1f0f','--text-light':'#6a5a3a','--accent':'#8b4513','--border':'#2e1f0f','--border-light':'#b0a080','--card-bg':'#e0d4b8','--cat-governance':'#4a3a6b','--cat-economy':'#4a6b2a','--cat-world':'#8b4513','--cat-culture':'#6b2a4a'}};var n=localStorage.getItem('politicalSpectrumTheme')||'sepia';if(t[n]){var r=document.documentElement.style;Object.entries(t[n]).forEach(function(e){r.setProperty(e[0],e[1])})}})();
+</script>
+<script>
+(function(){try{var s=JSON.parse(localStorage.getItem('politicalSpectrumSettings')||'{}');var css='';if(s.boldText){css+='body,body *{font-weight:700!important}'}var f={arial:'Arial,sans-serif',helvetica:'Helvetica,Arial,sans-serif',verdana:'Verdana,Geneva,sans-serif',atkinson:"'Atkinson Hyperlegible',sans-serif"};if(s.fontFamily&&f[s.fontFamily]){css+='body,body *,body h1,body h2,body h3,body h4{font-family:'+f[s.fontFamily]+'!important}';if(s.fontFamily==='atkinson'){var l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap';document.head.appendChild(l)}}if(css){var st=document.createElement('style');st.textContent=css;document.head.appendChild(st)}}catch(e){}})();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap');
+
+  :root {
+    --bg: #f5f0e8; --text: #1a1a1a; --text-light: #4a4a4a; --accent: #8b0000;
+    --border: #2a2a2a; --border-light: #c0b8a8; --card-bg: #faf8f4;
+    --cat-governance: #1a3a5c; --cat-economy: #2d5016; --cat-world: #5c3a1a; --cat-culture: #4a1a5c;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+
+  .top-nav { background: var(--border); border-bottom: 2px solid var(--accent); padding: 0; position: sticky; top: 0; z-index: 1000; }
+  .top-nav ul { list-style: none; display: flex; justify-content: center; max-width: 780px; margin: 0 auto; }
+  .top-nav li { flex: 1; text-align: center; }
+  .top-nav a { display: block; padding: 12px 10px; color: var(--bg); text-decoration: none; font-family: 'Playfair Display', Georgia, serif; font-size: 0.85em; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; transition: background 0.2s; }
+  .top-nav a:hover, .top-nav a.active { background: var(--accent); }
+
+  .container { max-width: 780px; margin: 0 auto; padding: 20px; }
+
+  .masthead { text-align: center; border-top: 4px double var(--border); border-bottom: 4px double var(--border); padding: 20px 0; margin-bottom: 30px; }
+  .masthead h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 2.2em; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 5px; }
+  .masthead .subtitle { font-style: italic; font-size: 1em; color: var(--text-light); }
+
+  .profile-list { margin-bottom: 30px; }
+  .profile-card { border: 1px solid var(--border-light); background: var(--card-bg); margin-bottom: 12px; padding: 15px 20px; display: flex; align-items: center; gap: 15px; }
+  .profile-card .profile-info { flex: 1; }
+  .profile-card .profile-name { font-family: 'Playfair Display', Georgia, serif; font-size: 1.15em; font-weight: 700; }
+  .profile-card .profile-date { font-size: 0.8em; color: var(--text-light); margin-top: 2px; }
+  .profile-card .profile-count { font-size: 0.8em; color: var(--text-light); }
+  .profile-card .profile-actions { display: flex; gap: 8px; }
+
+  .btn { font-family: 'Playfair Display', Georgia, serif; font-size: 0.9em; font-weight: 700; padding: 8px 20px; border: none; cursor: pointer; letter-spacing: 1px; text-transform: uppercase; transition: all 0.2s; display: inline-block; text-decoration: none; }
+  .btn-view { background: var(--cat-governance); color: white; }
+  .btn-view:hover { background: var(--accent); }
+  .btn-export { background: var(--accent); color: white; }
+  .btn-export:hover { background: #600; }
+  .btn-edit { background: var(--cat-economy); color: white; }
+  .btn-edit:hover { background: var(--accent); }
+  .btn-delete { background: var(--border-light); color: var(--text); }
+  .btn-delete:hover { background: var(--accent); color: white; }
+  .btn-back { background: var(--border); color: var(--bg); }
+  .btn-back:hover { background: var(--accent); }
+  .btn-import { background: var(--border); color: var(--bg); font-size: 1em; padding: 12px 35px; }
+  .btn-import:hover { background: var(--accent); }
+
+  .import-section { text-align: center; margin: 20px 0 30px; padding-top: 15px; border-top: 1px solid var(--border-light); }
+  .import-section input[type="file"] { display: none; }
+
+  .empty-state { text-align: center; padding: 60px 20px; color: var(--text-light); }
+  .empty-state h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.5em; margin-bottom: 10px; color: var(--text); }
+  .empty-state p { font-style: italic; margin-bottom: 20px; }
+  .empty-state a { color: var(--accent); }
+
+  /* RESULTS DISPLAY */
+  .results-header { text-align: center; margin-bottom: 35px; }
+  .results-header h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 2em; font-weight: 900; margin-bottom: 5px; }
+  .results-header .results-label { font-family: 'Playfair Display', Georgia, serif; font-size: 1.3em; font-style: italic; color: var(--accent); margin-bottom: 5px; }
+  .results-header .results-date { font-size: 0.85em; color: var(--text-light); }
+
+  .results-image-section { margin-bottom: 30px; text-align: center; }
+  .results-image-section img { max-width: 100%; border: 2px solid var(--border-light); box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 15px; }
+
+  .results-category { margin-bottom: 35px; border: 1px solid var(--border-light); background: var(--card-bg); }
+  .results-category-header { padding: 15px 20px; font-family: 'Playfair Display', Georgia, serif; font-size: 1.4em; font-weight: 700; color: white; letter-spacing: 1px; }
+  .results-cat-governance .results-category-header { background: var(--cat-governance); }
+  .results-cat-economy .results-category-header { background: var(--cat-economy); }
+  .results-cat-world .results-category-header { background: var(--cat-world); }
+  .results-cat-culture .results-category-header { background: var(--cat-culture); }
+  .results-category-body { padding: 10px 20px 20px; }
+  .results-subcategory { margin-top: 15px; }
+  .results-subcategory-title { font-family: 'Playfair Display', Georgia, serif; font-size: 1.05em; font-weight: 700; margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px solid var(--border-light); }
+  .policy-card { border: 1px solid var(--border-light); margin-bottom: 8px; background: white; }
+  .policy-card-header { display: flex; align-items: center; padding: 10px 14px; cursor: pointer; user-select: none; gap: 12px; }
+  .policy-card-header:hover { background: #f9f7f3; }
+  .policy-symbol { font-size: 1.3em; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid var(--border-light); border-radius: 50%; background: var(--bg); }
+  .policy-name { flex: 1; font-weight: 600; font-size: 0.95em; }
+  .policy-arrow { font-size: 0.8em; transition: transform 0.2s; color: var(--text-light); }
+  .policy-card.open .policy-arrow { transform: rotate(180deg); }
+  .policy-description { display: none; padding: 10px 14px 12px 58px; font-size: 0.9em; color: var(--text-light); line-height: 1.5; border-top: 1px solid var(--border-light); }
+  .policy-card.open .policy-description { display: block; }
+  .no-policies { font-style: italic; color: var(--text-light); font-size: 0.9em; padding: 5px 0; }
+
+  .view-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .compare-section { border: 2px dashed var(--border-light); padding: 20px; margin-bottom: 30px; background: var(--card-bg); text-align: center; }
+  .compare-section h3 { font-family: 'Playfair Display', Georgia, serif; margin-bottom: 10px; }
+  .compare-select { font-family: 'Source Serif 4', Georgia, serif; font-size: 1em; padding: 8px 12px; border: 1px solid var(--border-light); margin: 0 5px; }
+
+  /* COMPACT RESULTS FOR IMAGE */
+  #compact-results {
+    position: absolute; left: -9999px; top: 0; width: 1200px;
+    background: #f5f0e8; font-family: Georgia, 'Times New Roman', serif; color: #1a1a1a; padding: 25px;
+  }
+  #compact-results .cr-header { text-align: center; border-top: 3px double #2a2a2a; border-bottom: 3px double #2a2a2a; padding: 12px 0; margin-bottom: 15px; }
+  #compact-results .cr-header h1 { font-size: 1.6em; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 2px; }
+  #compact-results .cr-header p { font-style: italic; font-size: 0.8em; color: #4a4a4a; }
+  #compact-results .cr-columns { display: flex; gap: 12px; align-items: flex-start; }
+  #compact-results .cr-category { flex: 1; min-width: 0; }
+  #compact-results .cr-category-header { padding: 7px 10px; font-size: 0.95em; font-weight: 700; color: white; letter-spacing: 1px; }
+  #compact-results .cr-cat-gov .cr-category-header { background: #1a3a5c; }
+  #compact-results .cr-cat-eco .cr-category-header { background: #2d5016; }
+  #compact-results .cr-cat-wor .cr-category-header { background: #5c3a1a; }
+  #compact-results .cr-cat-cul .cr-category-header { background: #4a1a5c; }
+  #compact-results .cr-category-body { padding: 8px 10px; background: #faf8f4; border: 1px solid #c0b8a8; border-top: none; }
+  #compact-results .cr-sub { margin-bottom: 7px; }
+  #compact-results .cr-sub-title { font-size: 0.78em; font-weight: 700; margin-bottom: 3px; padding-bottom: 2px; border-bottom: 1px solid #c0b8a8; }
+  #compact-results .cr-policy { font-size: 0.7em; color: #4a4a4a; padding: 1px 0 1px 10px; position: relative; line-height: 1.4; }
+  #compact-results .cr-policy::before { content: "—"; position: absolute; left: 0; color: #8b0000; }
+  #compact-results .cr-footer { text-align: center; font-size: 0.7em; color: #4a4a4a; margin-top: 12px; padding-top: 8px; border-top: 2px double #2a2a2a; font-style: italic; }
+  #compact-results .cr-empty { font-style: italic; color: #999; font-size: 0.75em; }
+
+  @media (max-width: 700px) {
+    .masthead h1 { font-size: 1.5em; }
+    .profile-card { flex-direction: column; align-items: flex-start; }
+    .profile-card .profile-actions { width: 100%; flex-wrap: wrap; }
+    .container { padding: 15px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="what-you-stand-for.html">Test</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="editor.html" class="active">Saved</a></li>
+    <li><a href="settings.html">Settings</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+
+  <div class="masthead">
+    <h1>Saved Profiles</h1>
+    <div class="subtitle">Your stored political spectrum results</div>
+  </div>
+
+  <!-- LIST VIEW -->
+  <div id="list-view">
+    <div id="profile-list"></div>
+    <div class="import-section" id="import-section" style="display: none;">
+      <input type="file" id="import-file" accept=".json" onchange="handleImport(event)" />
+      <button class="btn btn-import" onclick="document.getElementById('import-file').click()">Import Profile</button>
+      <p style="font-size: 0.8em; color: var(--text-light); margin-top: 8px;">Upload a previously exported .json file</p>
+    </div>
+  </div>
+
+  <!-- DETAIL VIEW -->
+  <div id="detail-view" style="display: none;">
+    <div class="view-header">
+      <button class="btn btn-back" onclick="showListView()">&#8592; Back to List</button>
+      <button class="btn btn-delete" id="detail-delete-btn">Delete</button>
+    </div>
+    <div id="detail-content"></div>
+  </div>
+
+  <!-- COMPARE VIEW -->
+  <div id="compare-view" style="display: none;">
+    <div class="view-header">
+      <button class="btn btn-back" onclick="showListView()">&#8592; Back to List</button>
+    </div>
+    <div id="compare-content"></div>
+  </div>
+
+  <!-- Hidden compact results for image rendering -->
+  <div id="compact-results"></div>
+
+</div>
+
+<script>
+const policiesDB = {};
+
+let profiles = [];
+let selectedIndex = -1;
+
+function init() {
+  try { profiles = JSON.parse(localStorage.getItem('politicalSpectrumProfiles') || '[]'); }
+  catch(e) { profiles = []; }
+  renderList();
+}
+
+function renderList() {
+  const list = document.getElementById('profile-list');
+  const importSection = document.getElementById('import-section');
+  importSection.style.display = profiles.length > 0 ? 'block' : 'block';
+
+  if (profiles.length === 0) {
+    list.innerHTML = `
+      <div class="empty-state">
+        <h2>No Saved Profiles Yet</h2>
+        <p>Complete the quiz and save your results to see them here.</p>
+        <a href="what-you-stand-for.html" class="btn btn-view" style="text-decoration: none;">Take the Quiz</a>
+      </div>`;
+    return;
+  }
+
+  let html = '';
+
+  if (profiles.length >= 2) {
+    html += `<div class="compare-section">
+      <h3>Compare Two Profiles</h3>
+      <select class="compare-select" id="compare-a">`;
+    profiles.forEach((p, i) => { html += `<option value="${i}">${p.label} (${formatDate(p.timestamp)})</option>`; });
+    html += `</select> vs <select class="compare-select" id="compare-b">`;
+    profiles.forEach((p, i) => { html += `<option value="${i}"${i === 1 ? ' selected' : ''}>${p.label} (${formatDate(p.timestamp)})</option>`; });
+    html += `</select> <button class="btn btn-view" onclick="compareProfiles()">Compare</button></div>`;
+  }
+
+  profiles.forEach((profile, index) => {
+    const policyCount = countPolicies(profile.answers);
+    html += `
+      <div class="profile-card">
+        <div class="profile-info">
+          <div class="profile-name">${escapeHtml(profile.label)}</div>
+          <div class="profile-date">${formatDate(profile.timestamp)}</div>
+          <div class="profile-count">${policyCount} policies selected</div>
+        </div>
+        <div class="profile-actions">
+          <button class="btn btn-export" onclick="exportProfile(${index})">Export</button>
+          <button class="btn btn-view" onclick="viewProfile(${index})">View</button>
+          <button class="btn btn-edit" onclick="editProfile(${index})">Edit</button>
+          <button class="btn btn-delete" onclick="deleteProfile(${index})">Delete</button>
+        </div>
+      </div>`;
+  });
+
+  list.innerHTML = html;
+}
+
+function countPolicies(answers) {
+  let count = 0;
+  Object.values(answers).forEach(p => { if (Array.isArray(p)) count += p.length; });
+  return count;
+}
+
+function formatDate(iso) {
+  const d = new Date(iso);
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+// ========== EXPORT ==========
+function exportProfile(index) {
+  const profile = profiles[index];
+  const data = JSON.stringify(profile, null, 2);
+  const blob = new Blob([data], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const safeName = profile.label.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+  const date = new Date(profile.timestamp).toISOString().slice(0, 10);
+  a.href = url;
+  a.download = `political-spectrum-${safeName}-${date}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// ========== IMPORT ==========
+function handleImport(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const imported = JSON.parse(e.target.result);
+      // Validate structure
+      if (!imported.label || !imported.answers || !imported.timestamp) {
+        alert('Invalid profile file. Missing required fields (label, answers, timestamp).');
+        return;
+      }
+      // Add to profiles
+      profiles.push(imported);
+      localStorage.setItem('politicalSpectrumProfiles', JSON.stringify(profiles));
+      renderList();
+      alert('Profile "' + imported.label + '" imported successfully!');
+    } catch(err) {
+      alert('Failed to parse file. Make sure it is a valid exported profile (.json).');
+    }
+  };
+  reader.readAsText(file);
+  // Reset input so same file can be imported again
+  event.target.value = '';
+}
+
+// ========== VIEW ==========
+function viewProfile(index) {
+  selectedIndex = index;
+  const profile = profiles[index];
+
+  document.getElementById('list-view').style.display = 'none';
+  document.getElementById('compare-view').style.display = 'none';
+  document.getElementById('detail-view').style.display = 'block';
+
+  document.getElementById('detail-delete-btn').onclick = function() { deleteProfile(index); };
+
+  const db = profile.resolvedPolicies || policiesDB;
+  renderProfileResults(profile, db);
+}
+
+function loadPoliciesDB() {
+  const merged = {};
+  profiles.forEach(p => { if (p.resolvedPolicies) Object.assign(merged, p.resolvedPolicies); });
+  if (Object.keys(merged).length === 0) Object.assign(merged, policiesDB);
+  return Promise.resolve(merged);
+}
+
+function renderProfileResults(profile, db) {
+  const answers = profile.answers;
+  let allPolicies = [];
+  Object.values(answers).forEach(p => { if (Array.isArray(p)) allPolicies.push(...p); });
+  allPolicies = [...new Set(allPolicies)];
+
+  const hasResolved = profile.resolvedPolicies && Object.keys(profile.resolvedPolicies).length > 0;
+  const hasPolicies = allPolicies.length > 0;
+
+  const grouped = {};
+  let missingCount = 0;
+  allPolicies.forEach(key => {
+    const p = db[key];
+    if (!p) { missingCount++; return; }
+    if (!grouped[p.category]) grouped[p.category] = {};
+    if (!grouped[p.category][p.subcategory]) grouped[p.category][p.subcategory] = [];
+    grouped[p.category][p.subcategory].push({ key, ...p });
+  });
+
+  // Add abstained subcategories from saved profile
+  if (profile.abstainedSubcategories) {
+    profile.abstainedSubcategories.forEach(a => {
+      if (!grouped[a.category]) grouped[a.category] = {};
+      if (!grouped[a.category][a.subcategory]) grouped[a.category][a.subcategory] = [];
+      if (!grouped[a.category][a.subcategory].some(p => p.key === a.key)) {
+        grouped[a.category][a.subcategory].push({ key: a.key, description: a.description });
+      }
+    });
+  }
+
+  const catOrder = ["Governance", "Economy", "World", "Culture & Social Issues"];
+  const catCss = { "Governance": "results-cat-governance", "Economy": "results-cat-economy", "World": "results-cat-world", "Culture & Social Issues": "results-cat-culture" };
+
+  // Results image section
+  let html = `
+    <div class="results-header">
+      <div class="results-label">${escapeHtml(profile.label)}</div>
+      <h2>Political Profile</h2>
+      <div class="results-date">${formatDate(profile.timestamp)}</div>
+    </div>
+    <div class="results-image-section" id="results-image-section">
+      <img id="results-image" alt="Results Summary" />
+      <br />
+      <a id="btn-download-image" class="btn btn-view" style="font-size: 0.9em; padding: 10px 25px; text-decoration: none;">Download Results Image</a>
+      <div style="margin-top: 15px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;">
+        <label style="font-size: 0.85em; color: var(--text-light); font-weight: 600;">Image theme:</label>
+        <select id="image-theme-select" onchange="rerenderEditorImage(this.value)" style="font-family: 'Playfair Display', Georgia, serif; font-size: 0.85em; padding: 6px 12px; border: 2px solid var(--border-light); background: var(--card-bg); color: var(--text); cursor: pointer; border-radius: 3px;">
+          <option value="current">Current theme</option>
+          <option value="sepia">Sepia</option>
+          <option value="dark">Dark</option>
+          <option value="cold">Cold</option>
+          <option value="ink">Ink &amp; Ivory</option>
+          <option value="rosewood">Rosewood</option>
+          <option value="lavender">Lavender</option>
+          <option value="telegraph">Telegraph</option>
+          <option value="forest">Forest</option>
+          <option value="sandstone">Sandstone</option>
+        </select>
+        <label style="font-size: 0.85em; color: var(--text-light); font-weight: 600; margin-left: 10px;">Quality:</label>
+        <select id="image-quality-select" onchange="rerenderEditorImage(document.getElementById('image-theme-select').value)" style="font-family: 'Playfair Display', Georgia, serif; font-size: 0.85em; padding: 6px 12px; border: 2px solid var(--border-light); background: var(--card-bg); color: var(--text); cursor: pointer; border-radius: 3px;">
+          <option value="1">Low</option>
+          <option value="1.5">Medium</option>
+          <option value="2" selected>High</option>
+        </select>
+      </div>
+    </div>`;
+
+  if (hasPolicies && !hasResolved) {
+    html += `<div style="background: #fff3cd; border: 1px solid #ffc107; padding: 15px; margin-bottom: 20px; font-size: 0.9em;">
+      ⚠️ This profile was saved before the current version and is missing detailed policy data.
+      Only ${allPolicies.length - missingCount} of ${allPolicies.length} policies can be displayed.
+      <br><strong>To fix:</strong> Retake the quiz and save again with the same name.
+    </div>`;
+  }
+
+  catOrder.forEach(catName => {
+    const catData = grouped[catName] || {};
+    const subs = Object.keys(catData);
+    html += `<div class="results-category ${catCss[catName]}"><div class="results-category-header">${catName}</div><div class="results-category-body">`;
+    if (subs.length === 0) { html += `<div class="no-policies">No policies selected.</div>`; }
+    else {
+      subs.forEach(sub => {
+        html += `<div class="results-subcategory"><div class="results-subcategory-title">${sub}</div>`;
+        catData[sub].forEach(p => {
+          html += `<div class="policy-card" onclick="this.classList.toggle('open')"><div class="policy-card-header"><div class="policy-symbol">${p.symbol || '⬡'}</div><div class="policy-name">${p.key}</div><div class="policy-arrow">▼</div></div><div class="policy-description">${p.description}</div></div>`;
+        });
+        html += `</div>`;
+      });
+    }
+    html += `</div></div>`;
+  });
+
+  document.getElementById('detail-content').innerHTML = html;
+  window.scrollTo(0, 0);
+
+  // Generate compact image
+  generateProfileImage(profile, grouped);
+}
+
+const imageThemes = {
+  sepia: { bg:'#f5f0e8', text:'#1a1a1a', textLight:'#4a4a4a', accent:'#8b0000', border:'#2a2a2a', borderLight:'#c0b8a8', cardBg:'#faf8f4', gov:'#1a3a5c', eco:'#2d5016', wor:'#5c3a1a', cul:'#4a1a5c' },
+  dark: { bg:'#1a1215', text:'#e8e0d8', textLight:'#a09890', accent:'#c0392b', border:'#4a2a30', borderLight:'#4a3a3e', cardBg:'#2a1e22', gov:'#4a7ab0', eco:'#5a9a3a', wor:'#b07a3a', cul:'#9a5ab0' },
+  cold: { bg:'#e8ecf0', text:'#1a2030', textLight:'#4a5568', accent:'#2c5282', border:'#2d3748', borderLight:'#a0aec0', cardBg:'#f0f4f8', gov:'#2c5282', eco:'#2a6b3a', wor:'#7a5a2a', cul:'#5a3a7a' },
+  ink: { bg:'#fafaf5', text:'#111111', textLight:'#555555', accent:'#000000', border:'#111111', borderLight:'#cccccc', cardBg:'#ffffff', gov:'#003366', eco:'#006633', wor:'#663300', cul:'#660033' },
+  rosewood: { bg:'#f5ebe0', text:'#2a1a1e', textLight:'#6b4a52', accent:'#6b3a4a', border:'#3a2228', borderLight:'#c8a8b0', cardBg:'#faf2ee', gov:'#3a4a6b', eco:'#3a6b3a', wor:'#6b4a2a', cul:'#6b2a5a' },
+  lavender: { bg:'#f0eaf5', text:'#2a2535', textLight:'#5a5068', accent:'#8e7aa0', border:'#2a2535', borderLight:'#b8a8c8', cardBg:'#f8f4fa', gov:'#3a5a8c', eco:'#3a6a2a', wor:'#7a4a1a', cul:'#6a3a8c' },
+  telegraph: { bg:'#d9cdb4', text:'#2a2e24', textLight:'#5c6b4f', accent:'#5c6b4f', border:'#2a2e24', borderLight:'#a89e88', cardBg:'#e4dac4', gov:'#3a5a3a', eco:'#4a6a2a', wor:'#6a5a2a', cul:'#5a3a5a' },
+  forest: { bg:'#f0ead6', text:'#1a2e24', textLight:'#4a6a5a', accent:'#2d4a3e', border:'#1a2e24', borderLight:'#b0c4a8', cardBg:'#f5f0e0', gov:'#1a4a5c', eco:'#2d6b16', wor:'#5c4a1a', cul:'#4a1a4a' },
+  sandstone: { bg:'#d4c5a9', text:'#2e1f0f', textLight:'#6a5a3a', accent:'#8b4513', border:'#2e1f0f', borderLight:'#b0a080', cardBg:'#e0d4b8', gov:'#4a3a6b', eco:'#4a6b2a', wor:'#8b4513', cul:'#6b2a4a' }
+};
+
+let lastEditorGrouped = null;
+let lastEditorProfile = null;
+
+function applyThemeToCompact(themeName) {
+  const el = document.getElementById('compact-results');
+  if (!el) return;
+  if (themeName === 'current') {
+    const cs = getComputedStyle(document.documentElement);
+    el.style.background = cs.getPropertyValue('--bg').trim();
+    el.style.color = cs.getPropertyValue('--text').trim();
+    el.querySelectorAll('.cr-category-header').forEach(h => h.style.background = '');
+    el.querySelectorAll('.cr-category').forEach(c => {
+      if (c.classList.contains('cr-cat-gov')) c.querySelector('.cr-category-header').style.background = cs.getPropertyValue('--cat-governance').trim();
+      if (c.classList.contains('cr-cat-eco')) c.querySelector('.cr-category-header').style.background = cs.getPropertyValue('--cat-economy').trim();
+      if (c.classList.contains('cr-cat-wor')) c.querySelector('.cr-category-header').style.background = cs.getPropertyValue('--cat-world').trim();
+      if (c.classList.contains('cr-cat-cul')) c.querySelector('.cr-category-header').style.background = cs.getPropertyValue('--cat-culture').trim();
+    });
+    el.querySelector('.cr-header').style.borderTopColor = cs.getPropertyValue('--border').trim();
+    el.querySelector('.cr-header').style.borderBottomColor = cs.getPropertyValue('--border').trim();
+    el.querySelectorAll('.cr-category-body').forEach(b => { b.style.background = cs.getPropertyValue('--card-bg').trim(); b.style.borderColor = cs.getPropertyValue('--border-light').trim(); });
+    el.querySelectorAll('.cr-sub-title').forEach(t => { t.style.color = cs.getPropertyValue('--text').trim(); t.style.borderBottomColor = cs.getPropertyValue('--border-light').trim(); });
+    el.querySelectorAll('.cr-policy').forEach(p => p.style.color = cs.getPropertyValue('--text-light').trim());
+    el.querySelectorAll('.cr-empty').forEach(p => p.style.color = cs.getPropertyValue('--text-light').trim());
+    el.querySelector('.cr-footer').style.borderTopColor = cs.getPropertyValue('--border').trim();
+    el.querySelector('.cr-footer').style.color = cs.getPropertyValue('--text-light').trim();
+    if (el.querySelector('.cr-header p')) el.querySelector('.cr-header p').style.color = cs.getPropertyValue('--text-light').trim();
+    return;
+  }
+  const t = imageThemes[themeName];
+  if (!t) return;
+  el.style.background = t.bg;
+  el.style.color = t.text;
+  el.querySelector('.cr-header').style.borderTopColor = t.border;
+  el.querySelector('.cr-header').style.borderBottomColor = t.border;
+  if (el.querySelector('.cr-header p')) el.querySelector('.cr-header p').style.color = t.textLight;
+  el.querySelectorAll('.cr-category-body').forEach(b => { b.style.background = t.cardBg; b.style.borderColor = t.borderLight; });
+  el.querySelectorAll('.cr-sub-title').forEach(st => { st.style.color = t.text; st.style.borderBottomColor = t.borderLight; });
+  el.querySelectorAll('.cr-policy').forEach(p => p.style.color = t.textLight);
+  el.querySelectorAll('.cr-empty').forEach(p => p.style.color = t.textLight);
+  el.querySelector('.cr-footer').style.borderTopColor = t.border;
+  el.querySelector('.cr-footer').style.color = t.textLight;
+  el.querySelectorAll('.cr-category').forEach(c => {
+    const h = c.querySelector('.cr-category-header');
+    if (c.classList.contains('cr-cat-gov')) h.style.background = t.gov;
+    if (c.classList.contains('cr-cat-eco')) h.style.background = t.eco;
+    if (c.classList.contains('cr-cat-wor')) h.style.background = t.wor;
+    if (c.classList.contains('cr-cat-cul')) h.style.background = t.cul;
+  });
+}
+
+function rerenderEditorImage(themeName) {
+  applyThemeToCompact(themeName);
+  const el = document.getElementById('compact-results');
+  const qualitySelect = document.getElementById('image-quality-select');
+  const scale = qualitySelect ? parseFloat(qualitySelect.value) : 2;
+  setTimeout(() => {
+    if (typeof html2canvas === 'undefined') return;
+    html2canvas(el, { scale: scale, backgroundColor: el.style.background || '#f5f0e8', useCORS: true }).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      document.getElementById('results-image').src = imgData;
+      const btn = document.getElementById('btn-download-image');
+      btn.href = imgData;
+      btn.download = `political-spectrum-${(lastEditorProfile ? lastEditorProfile.label : 'results').replace(/[^a-z0-9]/gi, '_').toLowerCase()}.png`;
+    });
+  }, 100);
+}
+
+function generateProfileImage(profile, grouped) {
+  lastEditorProfile = profile;
+  lastEditorGrouped = grouped;
+  const el = document.getElementById('compact-results');
+  const catOrder = ["Governance", "Economy", "World", "Culture & Social Issues"];
+  const catCss = { "Governance": "cr-cat-gov", "Economy": "cr-cat-eco", "World": "cr-cat-wor", "Culture & Social Issues": "cr-cat-cul" };
+
+  // Add abstained subcategories to grouped (for image)
+  if (profile.abstainedSubcategories) {
+    profile.abstainedSubcategories.forEach(a => {
+      if (!grouped[a.category]) grouped[a.category] = {};
+      if (!grouped[a.category][a.subcategory]) grouped[a.category][a.subcategory] = [];
+      if (!grouped[a.category][a.subcategory].some(p => p.key === a.key)) {
+        grouped[a.category][a.subcategory].push({ key: a.key });
+      }
+    });
+  }
+
+  // Add "Not answered" for questions without answers AND not abstained (image only)
+  if (profile.questionMeta && Array.isArray(profile.questionMeta)) {
+    const answers = profile.answers || {};
+    const abstained = profile.abstained || {};
+    
+    profile.questionMeta.forEach(meta => {
+      // Build label using position number (e.g., "Q3", "Q3a", "Q12b")
+      let label = 'Q' + meta.num;
+      if (meta.subLetter) {
+        label += meta.subLetter;
+      }
+      
+      const hasAnswer = answers[meta.id] && answers[meta.id].length > 0;
+      const isAbstained = abstained[meta.id];
+      
+      if (!hasAnswer && !isAbstained) {
+        if (!grouped[meta.category]) grouped[meta.category] = {};
+        if (!grouped[meta.category][meta.subcategory]) grouped[meta.category][meta.subcategory] = [];
+        const key = label + ': Not answered';
+        if (!grouped[meta.category][meta.subcategory].some(p => p.key === key)) {
+          grouped[meta.category][meta.subcategory].push({ key: key });
+        }
+      }
+    });
+  }
+
+  let html = `<div class="cr-header"><h1>What You Stand For</h1><p>${escapeHtml(profile.label)}</p></div><div class="cr-columns">`;
+  catOrder.forEach(cat => {
+    const data = grouped[cat] || {};
+    const subs = Object.keys(data);
+    html += `<div class="cr-category ${catCss[cat]}"><div class="cr-category-header">${cat}</div><div class="cr-category-body">`;
+    if (subs.length === 0) { html += `<div class="cr-empty">No policies selected</div>`; }
+    else { subs.forEach(sub => {
+      html += `<div class="cr-sub"><div class="cr-sub-title">${sub}</div>`;
+      
+      // Group policies by prefix
+      const grouped = {};
+      const noPrefix = [];
+      
+      data[sub].forEach(p => {
+        const colonIndex = p.key.indexOf(':');
+        if (colonIndex > 0) {
+          const prefix = p.key.substring(0, colonIndex);
+          const value = p.key.substring(colonIndex + 1).trim();
+          if (!grouped[prefix]) grouped[prefix] = [];
+          grouped[prefix].push(value);
+        } else {
+          noPrefix.push(p.key);
+        }
+      });
+      
+      // Render grouped policies
+      Object.keys(grouped).forEach(prefix => {
+        const values = grouped[prefix];
+        html += `<div class="cr-policy">${prefix}: ${values.join(', ')}</div>`;
+      });
+      
+      // Render non-prefixed policies
+      noPrefix.forEach(key => {
+        html += `<div class="cr-policy">${key}</div>`;
+      });
+      
+      html += `</div>`;
+    }); }
+    html += `</div></div>`;
+  });
+  html += `</div><div class="cr-footer">What You Stand For — A Detailed Policy Assessment</div>`;
+  el.innerHTML = html;
+
+  // Apply current page theme to compact results
+  const cs2 = getComputedStyle(document.documentElement);
+  el.querySelector('.cr-header').style.borderTopColor = cs2.getPropertyValue('--border').trim();
+  el.querySelector('.cr-header').style.borderBottomColor = cs2.getPropertyValue('--border').trim();
+  if (el.querySelector('.cr-header p')) el.querySelector('.cr-header p').style.color = cs2.getPropertyValue('--text-light').trim();
+  el.querySelectorAll('.cr-category').forEach(c => {
+    const h = c.querySelector('.cr-category-header');
+    if (c.classList.contains('cr-cat-gov')) h.style.background = cs2.getPropertyValue('--cat-governance').trim();
+    if (c.classList.contains('cr-cat-eco')) h.style.background = cs2.getPropertyValue('--cat-economy').trim();
+    if (c.classList.contains('cr-cat-wor')) h.style.background = cs2.getPropertyValue('--cat-world').trim();
+    if (c.classList.contains('cr-cat-cul')) h.style.background = cs2.getPropertyValue('--cat-culture').trim();
+  });
+  el.querySelectorAll('.cr-category-body').forEach(b => { b.style.background = cs2.getPropertyValue('--card-bg').trim(); b.style.borderColor = cs2.getPropertyValue('--border-light').trim(); });
+  el.querySelectorAll('.cr-sub-title').forEach(t => { t.style.color = cs2.getPropertyValue('--text').trim(); t.style.borderBottomColor = cs2.getPropertyValue('--border-light').trim(); });
+  el.querySelectorAll('.cr-policy').forEach(p => p.style.color = cs2.getPropertyValue('--text-light').trim());
+  el.querySelectorAll('.cr-empty').forEach(p => p.style.color = cs2.getPropertyValue('--text-light').trim());
+  el.querySelector('.cr-footer').style.borderTopColor = cs2.getPropertyValue('--border').trim();
+  el.querySelector('.cr-footer').style.color = cs2.getPropertyValue('--text-light').trim();
+  el.style.background = cs2.getPropertyValue('--bg').trim();
+  el.style.color = cs2.getPropertyValue('--text').trim();
+
+  // Reset theme and quality selectors
+  const themeSel = document.getElementById('image-theme-select');
+  if (themeSel) themeSel.value = 'current';
+  const qualitySel = document.getElementById('image-quality-select');
+  const scale = qualitySel ? parseFloat(qualitySel.value) : 2;
+
+  setTimeout(() => {
+    if (typeof html2canvas === 'undefined') {
+      document.getElementById('results-image-section').style.display = 'none';
+      return;
+    }
+    html2canvas(el, { scale: scale, backgroundColor: el.style.background || '#f5f0e8', useCORS: true }).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      document.getElementById('results-image').src = imgData;
+      const btn = document.getElementById('btn-download-image');
+      btn.href = imgData;
+      btn.download = `political-spectrum-${profile.label.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.png`;
+    }).catch(() => {
+      document.getElementById('results-image-section').style.display = 'none';
+    });
+  }, 100);
+}
+
+// ========== DELETE ==========
+function deleteProfile(index) {
+  if (!confirm('Delete "' + profiles[index].label + '"? This cannot be undone.')) return;
+  profiles.splice(index, 1);
+  localStorage.setItem('politicalSpectrumProfiles', JSON.stringify(profiles));
+  showListView();
+}
+
+// ========== EDIT ==========
+function editProfile(index) {
+  const profile = profiles[index];
+  localStorage.setItem('politicalSpectrumResume', JSON.stringify({
+    answers: profile.answers,
+    abstained: profile.abstained || {}
+  }));
+  window.location.href = 'what-you-stand-for.html';
+}
+
+// ========== NAVIGATION ==========
+function showListView() {
+  document.getElementById('list-view').style.display = 'block';
+  document.getElementById('detail-view').style.display = 'none';
+  document.getElementById('compare-view').style.display = 'none';
+  renderList();
+}
+
+// ========== COMPARE ==========
+function compareProfiles() {
+  const aIdx = parseInt(document.getElementById('compare-a').value);
+  const bIdx = parseInt(document.getElementById('compare-b').value);
+  if (aIdx === bIdx) { alert('Please select two different profiles.'); return; }
+
+  document.getElementById('list-view').style.display = 'none';
+  document.getElementById('detail-view').style.display = 'none';
+  document.getElementById('compare-view').style.display = 'block';
+
+  loadPoliciesDB().then(db => {
+    // Also merge resolvedPolicies from the two profiles being compared
+    const compareDb = { ...db };
+    if (profiles[aIdx].resolvedPolicies) Object.assign(compareDb, profiles[aIdx].resolvedPolicies);
+    if (profiles[bIdx].resolvedPolicies) Object.assign(compareDb, profiles[bIdx].resolvedPolicies);
+
+    const aPolicies = getPoliciesSet(profiles[aIdx].answers);
+    const bPolicies = getPoliciesSet(profiles[bIdx].answers);
+
+    // Also include abstained entries from both profiles
+    const aAbstained = profiles[aIdx].abstainedSubcategories || [];
+    const bAbstained = profiles[bIdx].abstainedSubcategories || [];
+
+    const allKeys = [...new Set([...aPolicies, ...bPolicies])];
+    const grouped = {};
+    allKeys.forEach(key => {
+      const p = compareDb[key];
+      if (!p) return;
+      if (!grouped[p.category]) grouped[p.category] = {};
+      if (!grouped[p.category][p.subcategory]) grouped[p.category][p.subcategory] = [];
+      grouped[p.category][p.subcategory].push({
+        key, inA: aPolicies.includes(key), inB: bPolicies.includes(key), description: p.description
+      });
+    });
+
+    // Add abstained entries
+    const allAbstained = [...aAbstained.map(a => ({ ...a, source: 'a' })), ...bAbstained.map(a => ({ ...a, source: 'b' }))];
+    allAbstained.forEach(a => {
+      if (!grouped[a.category]) grouped[a.category] = {};
+      if (!grouped[a.category][a.subcategory]) grouped[a.category][a.subcategory] = [];
+      const exists = grouped[a.category][a.subcategory].some(p => p.key === a.key);
+      if (!exists) {
+        const inA = aAbstained.some(x => x.key === a.key);
+        const inB = bAbstained.some(x => x.key === a.key);
+        grouped[a.category][a.subcategory].push({
+          key: a.key, inA, inB, description: a.description || 'Abstained from answering.'
+        });
+      }
+    });
+
+    const catOrder = ["Governance", "Economy", "World", "Culture & Social Issues"];
+    const catCss = { "Governance": "results-cat-governance", "Economy": "results-cat-economy", "World": "results-cat-world", "Culture & Social Issues": "results-cat-culture" };
+
+    let html = `
+      <div class="results-header">
+        <h2>Comparing Profiles</h2>
+        <p style="font-size: 0.9em; color: var(--text-light);">
+          <span style="color: var(--cat-governance); font-weight: 700;">● ${escapeHtml(profiles[aIdx].label)}</span>
+          &nbsp;vs&nbsp;
+          <span style="color: var(--accent); font-weight: 700;">● ${escapeHtml(profiles[bIdx].label)}</span>
+        </p>
+        <p style="font-size: 0.8em; color: var(--text-light); margin-top: 8px;">
+          <span style="background: #d4edda; padding: 2px 8px;">Both agree</span>
+          <span style="background: #cce5ff; padding: 2px 8px; margin-left: 5px;">Only A</span>
+          <span style="background: #f8d7da; padding: 2px 8px; margin-left: 5px;">Only B</span>
+        </p>
+      </div>`;
+
+    catOrder.forEach(catName => {
+      const catData = grouped[catName] || {};
+      const subs = Object.keys(catData);
+      html += `<div class="results-category ${catCss[catName]}"><div class="results-category-header">${catName}</div><div class="results-category-body">`;
+      if (subs.length === 0) { html += `<div class="no-policies">No policies in common.</div>`; }
+      else {
+        subs.forEach(sub => {
+          html += `<div class="results-subcategory"><div class="results-subcategory-title">${sub}</div>`;
+          catData[sub].forEach(p => {
+            let bgColor = 'white', tag = '';
+            if (p.inA && p.inB) { bgColor = '#d4edda'; tag = '✓ Both'; }
+            else if (p.inA) { bgColor = '#cce5ff'; tag = '← A only'; }
+            else { bgColor = '#f8d7da'; tag = '→ B only'; }
+            html += `<div class="policy-card" style="background: ${bgColor};" onclick="this.classList.toggle('open')">
+              <div class="policy-card-header">
+                <div class="policy-symbol">⬡</div>
+                <div class="policy-name">${p.key} <span style="font-weight: 400; font-size: 0.8em; color: var(--text-light);">${tag}</span></div>
+                <div class="policy-arrow">▼</div>
+              </div>
+              <div class="policy-description">${p.description}</div>
+            </div>`;
+          });
+          html += `</div>`;
+        });
+      }
+      html += `</div></div>`;
+    });
+
+    document.getElementById('compare-content').innerHTML = html;
+    window.scrollTo(0, 0);
+  });
+}
+
+function getPoliciesSet(answers) {
+  let all = [];
+  Object.values(answers).forEach(p => { if (Array.isArray(p)) all.push(...p); });
+  return [...new Set(all)];
+}
+
+init();
+</script>
+</body>
+</html>

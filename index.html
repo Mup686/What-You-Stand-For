@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What You Stand For</title>
+<script>
+(function(){var t={sepia:{'--bg':'#f5f0e8','--text':'#1a1a1a','--text-light':'#4a4a4a','--accent':'#8b0000','--border':'#2a2a2a','--border-light':'#c0b8a8','--card-bg':'#faf8f4','--cat-governance':'#1a3a5c','--cat-economy':'#2d5016','--cat-world':'#5c3a1a','--cat-culture':'#4a1a5c'},dark:{'--bg':'#1a1215','--text':'#e8e0d8','--text-light':'#a09890','--accent':'#c0392b','--border':'#4a2a30','--border-light':'#4a3a3e','--card-bg':'#2a1e22','--cat-governance':'#4a7ab0','--cat-economy':'#5a9a3a','--cat-world':'#b07a3a','--cat-culture':'#9a5ab0'},cold:{'--bg':'#e8ecf0','--text':'#1a2030','--text-light':'#4a5568','--accent':'#2c5282','--border':'#2d3748','--border-light':'#a0aec0','--card-bg':'#f0f4f8','--cat-governance':'#2c5282','--cat-economy':'#2a6b3a','--cat-world':'#7a5a2a','--cat-culture':'#5a3a7a'},ink:{'--bg':'#fafaf5','--text':'#111','--text-light':'#555','--accent':'#000','--border':'#111','--border-light':'#ccc','--card-bg':'#fff','--cat-governance':'#003366','--cat-economy':'#006633','--cat-world':'#663300','--cat-culture':'#660033'},rosewood:{'--bg':'#f5ebe0','--text':'#2a1a1e','--text-light':'#6b4a52','--accent':'#6b3a4a','--border':'#3a2228','--border-light':'#c8a8b0','--card-bg':'#faf2ee','--cat-governance':'#3a4a6b','--cat-economy':'#3a6b3a','--cat-world':'#6b4a2a','--cat-culture':'#6b2a5a'},lavender:{'--bg':'#f0eaf5','--text':'#2a2535','--text-light':'#5a5068','--accent':'#8e7aa0','--border':'#2a2535','--border-light':'#b8a8c8','--card-bg':'#f8f4fa','--cat-governance':'#3a5a8c','--cat-economy':'#3a6a2a','--cat-world':'#7a4a1a','--cat-culture':'#6a3a8c'},telegraph:{'--bg':'#d9cdb4','--text':'#2a2e24','--text-light':'#5c6b4f','--accent':'#5c6b4f','--border':'#2a2e24','--border-light':'#a89e88','--card-bg':'#e4dac4','--cat-governance':'#3a5a3a','--cat-economy':'#4a6a2a','--cat-world':'#6a5a2a','--cat-culture':'#5a3a5a'},forest:{'--bg':'#f0ead6','--text':'#1a2e24','--text-light':'#4a6a5a','--accent':'#2d4a3e','--border':'#1a2e24','--border-light':'#b0c4a8','--card-bg':'#f5f0e0','--cat-governance':'#1a4a5c','--cat-economy':'#2d6b16','--cat-world':'#5c4a1a','--cat-culture':'#4a1a4a'},sandstone:{'--bg':'#d4c5a9','--text':'#2e1f0f','--text-light':'#6a5a3a','--accent':'#8b4513','--border':'#2e1f0f','--border-light':'#b0a080','--card-bg':'#e0d4b8','--cat-governance':'#4a3a6b','--cat-economy':'#4a6b2a','--cat-world':'#8b4513','--cat-culture':'#6b2a4a'}};var n=localStorage.getItem('politicalSpectrumTheme')||'sepia';if(t[n]){var r=document.documentElement.style;Object.entries(t[n]).forEach(function(e){r.setProperty(e[0],e[1])})}})();
+</script>
+<script>
+(function(){try{var s=JSON.parse(localStorage.getItem('politicalSpectrumSettings')||'{}');var css='';if(s.boldText){css+='body,body *{font-weight:700!important}'}var f={arial:'Arial,sans-serif',helvetica:'Helvetica,Arial,sans-serif',verdana:'Verdana,Geneva,sans-serif',atkinson:"'Atkinson Hyperlegible',sans-serif"};if(s.fontFamily&&f[s.fontFamily]){css+='body,body *,body h1,body h2,body h3,body h4{font-family:'+f[s.fontFamily]+'!important}';if(s.fontFamily==='atkinson'){var l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap';document.head.appendChild(l)}}if(css){var st=document.createElement('style');st.textContent=css;document.head.appendChild(st)}}catch(e){}})();
+</script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap');
+
+  :root {
+    --bg: #f5f0e8; --text: #1a1a1a; --text-light: #4a4a4a; --accent: #8b0000;
+    --border: #2a2a2a; --border-light: #c0b8a8; --card-bg: #faf8f4;
+    --cat-governance: #1a3a5c; --cat-economy: #2d5016; --cat-world: #5c3a1a; --cat-culture: #4a1a5c;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+
+  .top-nav { background: var(--border); border-bottom: 2px solid var(--accent); padding: 0; position: sticky; top: 0; z-index: 1000; }
+  .top-nav ul { list-style: none; display: flex; justify-content: center; max-width: 780px; margin: 0 auto; }
+  .top-nav li { flex: 1; text-align: center; }
+  .top-nav a { display: block; padding: 12px 10px; color: var(--bg); text-decoration: none; font-family: 'Playfair Display', Georgia, serif; font-size: 0.85em; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; transition: background 0.2s; }
+  .top-nav a:hover, .top-nav a.active { background: var(--accent); }
+
+  .container { max-width: 780px; margin: 0 auto; padding: 20px; }
+
+  .hero {
+    text-align: center;
+    border-top: 4px double var(--border);
+    border-bottom: 4px double var(--border);
+    padding: 40px 20px;
+    margin-bottom: 40px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 3.2em;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    line-height: 1.1;
+  }
+  .hero .subtitle {
+    font-style: italic;
+    font-size: 1.2em;
+    color: var(--text-light);
+    margin-bottom: 15px;
+  }
+  .hero .tagline {
+    font-size: 0.9em;
+    color: var(--text-light);
+    border-top: 1px solid var(--border-light);
+    padding-top: 12px;
+    margin-top: 12px;
+  }
+
+  .lead {
+    font-size: 1.2em;
+    text-align: justify;
+    margin-bottom: 30px;
+    line-height: 1.7;
+  }
+  .lead::first-letter {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 3.5em;
+    float: left;
+    line-height: 0.8;
+    margin-right: 10px;
+    margin-top: 5px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .section-divider {
+    text-align: center;
+    margin: 35px 0;
+    border-top: 1px solid var(--border-light);
+    padding-top: 10px;
+  }
+  .section-divider span {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--text-light);
+  }
+
+  .features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 35px;
+  }
+  .feature-card {
+    border: 1px solid var(--border-light);
+    padding: 20px;
+    background: var(--card-bg);
+  }
+  .feature-card h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.1em;
+    margin-bottom: 8px;
+    color: var(--accent);
+  }
+  .feature-card p {
+    font-size: 0.9em;
+    color: var(--text-light);
+  }
+
+  .categories-preview {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 12px;
+    margin: 25px 0 35px;
+  }
+  .cat-pill {
+    text-align: center;
+    padding: 12px 8px;
+    color: white;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
+    font-size: 0.85em;
+    letter-spacing: 1px;
+  }
+  .cat-pill span {
+    display: block;
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 400;
+    font-size: 0.8em;
+    opacity: 0.85;
+    margin-top: 3px;
+  }
+  .cat-pill-gov { background: var(--cat-governance); }
+  .cat-pill-eco { background: var(--cat-economy); }
+  .cat-pill-wor { background: var(--cat-world); }
+  .cat-pill-cul { background: var(--cat-culture); }
+
+  .stats-row {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 25px 0;
+    padding: 20px;
+    border: 1px solid var(--border-light);
+    background: var(--card-bg);
+  }
+  .stat { text-align: center; }
+  .stat .num {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 2em;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .stat .label {
+    font-size: 0.8em;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .btn {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.3em;
+    font-weight: 700;
+    padding: 16px 50px;
+    background: var(--border);
+    color: var(--bg);
+    border: none;
+    cursor: pointer;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    display: inline-block;
+    text-decoration: none;
+  }
+  .btn:hover { background: var(--accent); }
+  .btn-center { text-align: center; margin: 35px 0; }
+
+  .how-it-works { margin-bottom: 35px; }
+  .how-it-works h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  .steps {
+    display: flex;
+    gap: 20px;
+  }
+  .step {
+    flex: 1;
+    text-align: center;
+    padding: 15px;
+  }
+  .step-num {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 2.5em;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .step h4 {
+    font-family: 'Playfair Display', Georgia, serif;
+    margin-bottom: 6px;
+  }
+  .step p {
+    font-size: 0.85em;
+    color: var(--text-light);
+  }
+
+  .footer-note {
+    text-align: center;
+    font-size: 0.8em;
+    color: var(--text-light);
+    margin-top: 40px;
+    padding-top: 15px;
+    border-top: 4px double var(--border);
+    font-style: italic;
+  }
+
+  @media (max-width: 700px) {
+    .hero h1 { font-size: 2em; }
+    .features { grid-template-columns: 1fr; }
+    .categories-preview { grid-template-columns: 1fr 1fr; }
+    .stats-row { flex-direction: column; gap: 15px; }
+    .steps { flex-direction: column; }
+    .container { padding: 15px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <ul>
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="what-you-stand-for.html">Test</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="editor.html">Saved</a></li>
+    <li><a href="settings.html">Settings</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+
+  <div class="hero">
+    <h1>What You Stand For</h1>
+    <div class="subtitle">A Detailed Policy Assessment</div>
+    <div class="tagline">Go beyond left and right — discover the specific policies that define your political worldview.</div>
+  </div>
+
+  <div class="lead">
+    Most political quizzes reduce your beliefs to a single point on a two-dimensional chart. What You Stand For takes a fundamentally different approach. Across 66 carefully crafted questions spanning governance, economics, international affairs, and social issues, this assessment identifies the <em>specific policies</em> you support — from how judges should be selected, to who should own the banks, to what kind of speech should be lawful. The result is not a label, but a detailed ideological portrait.
+  </div>
+
+  <div class="categories-preview">
+    <div class="cat-pill cat-pill-gov">Governance<span>12 subcategories</span></div>
+    <div class="cat-pill cat-pill-eco">Economy<span>8 subcategories</span></div>
+    <div class="cat-pill cat-pill-wor">World<span>4 subcategories</span></div>
+    <div class="cat-pill cat-pill-cul">Culture &amp; Social<span>11 subcategories</span></div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat"><div class="num">66</div><div class="label">Questions</div></div>
+    <div class="stat"><div class="num">35</div><div class="label">Subcategories</div></div>
+    <div class="stat"><div class="num">200+</div><div class="label">Unique Policies</div></div>
+    <div class="stat"><div class="num">4</div><div class="label">Categories</div></div>
+  </div>
+
+  <div class="section-divider"><span>What Makes This Different</span></div>
+
+  <div class="features">
+    <div class="feature-card">
+      <h3>Policy-Level Detail</h3>
+      <p>No vague axes or abstract scores. Every answer maps to concrete policies — you'll see exactly what you support on taxation, property rights, free speech, immigration, and dozens more topics.</p>
+    </div>
+    <div class="feature-card">
+      <h3>Multi-Option Questions</h3>
+      <p>Many questions allow you to select multiple answers, capturing the nuance of real political views. Some options are mutually exclusive — the quiz handles this automatically.</p>
+    </div>
+    <div class="feature-card">
+      <h3>Save &amp; Compare</h3>
+      <p>Save your results locally and come back anytime. Take the quiz again later to see how your views evolved, or compare your profile with a friend's side by side.</p>
+    </div>
+    <div class="feature-card">
+      <h3>Shareable Image</h3>
+      <p>Your results are rendered into a compact, newspaper-styled image you can download and share — a four-column summary of your entire ideological profile.</p>
+    </div>
+  </div>
+
+  <div class="section-divider"><span>How It Works</span></div>
+
+  <div class="how-it-works">
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>Answer</h4>
+        <p>Work through 66 questions across four domains. Pick the option that best reflects your view, or select multiple when allowed.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>Discover</h4>
+        <p>See your results organized by category and subcategory. Click any policy to read its full description.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>Save</h4>
+        <p>Give your profile a name and save it. Download the results image. Compare profiles anytime from the Saved page.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-center">
+    <a href="what-you-stand-for.html" class="btn">Begin the Assessment</a>
+  </div>
+
+  <div class="footer-note">
+    What You Stand For — A Detailed Policy Assessment<br>
+    All data is stored locally in your browser. Nothing is sent to any server.
+  </div>
+
+</div>
+
+</body>
+</html>

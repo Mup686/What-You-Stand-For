@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Settings — What You Stand For</title>
+<script>
+// Apply theme before render to prevent flash
+(function() {
+  const themes = {
+    sepia: { '--bg':'#f5f0e8','--text':'#1a1a1a','--text-light':'#4a4a4a','--accent':'#8b0000','--border':'#2a2a2a','--border-light':'#c0b8a8','--card-bg':'#faf8f4','--cat-governance':'#1a3a5c','--cat-economy':'#2d5016','--cat-world':'#5c3a1a','--cat-culture':'#4a1a5c' },
+    dark: { '--bg':'#1a1215','--text':'#e8e0d8','--text-light':'#a09890','--accent':'#c0392b','--border':'#4a2a30','--border-light':'#4a3a3e','--card-bg':'#2a1e22','--cat-governance':'#4a7ab0','--cat-economy':'#5a9a3a','--cat-world':'#b07a3a','--cat-culture':'#9a5ab0' },
+    cold: { '--bg':'#e8ecf0','--text':'#1a2030','--text-light':'#4a5568','--accent':'#2c5282','--border':'#2d3748','--border-light':'#a0aec0','--card-bg':'#f0f4f8','--cat-governance':'#2c5282','--cat-economy':'#2a6b3a','--cat-world':'#7a5a2a','--cat-culture':'#5a3a7a' },
+    ink: { '--bg':'#fafaf5','--text':'#111111','--text-light':'#555555','--accent':'#000000','--border':'#111111','--border-light':'#cccccc','--card-bg':'#ffffff','--cat-governance':'#003366','--cat-economy':'#006633','--cat-world':'#663300','--cat-culture':'#660033' },
+    rosewood: { '--bg':'#f5ebe0','--text':'#2a1a1e','--text-light':'#6b4a52','--accent':'#6b3a4a','--border':'#3a2228','--border-light':'#c8a8b0','--card-bg':'#faf2ee','--cat-governance':'#3a4a6b','--cat-economy':'#3a6b3a','--cat-world':'#6b4a2a','--cat-culture':'#6b2a5a' },
+    lavender: { '--bg':'#f0eaf5','--text':'#2a2535','--text-light':'#5a5068','--accent':'#8e7aa0','--border':'#2a2535','--border-light':'#b8a8c8','--card-bg':'#f8f4fa','--cat-governance':'#3a5a8c','--cat-economy':'#3a6a2a','--cat-world':'#7a4a1a','--cat-culture':'#6a3a8c' },
+    telegraph: { '--bg':'#d9cdb4','--text':'#2a2e24','--text-light':'#5c6b4f','--accent':'#5c6b4f','--border':'#2a2e24','--border-light':'#a89e88','--card-bg':'#e4dac4','--cat-governance':'#3a5a3a','--cat-economy':'#4a6a2a','--cat-world':'#6a5a2a','--cat-culture':'#5a3a5a' },
+    forest: { '--bg':'#f0ead6','--text':'#1a2e24','--text-light':'#4a6a5a','--accent':'#2d4a3e','--border':'#1a2e24','--border-light':'#b0c4a8','--card-bg':'#f5f0e0','--cat-governance':'#1a4a5c','--cat-economy':'#2d6b16','--cat-world':'#5c4a1a','--cat-culture':'#4a1a4a' },
+    sandstone: { '--bg':'#d4c5a9','--text':'#2e1f0f','--text-light':'#6a5a3a','--accent':'#8b4513','--border':'#2e1f0f','--border-light':'#b0a080','--card-bg':'#e0d4b8','--cat-governance':'#4a3a6b','--cat-economy':'#4a6b2a','--cat-world':'#8b4513','--cat-culture':'#6b2a4a' }
+  };
+  const t = localStorage.getItem('politicalSpectrumTheme') || 'sepia';
+  if (themes[t]) { const r = document.documentElement.style; Object.entries(themes[t]).forEach(([k,v]) => r.setProperty(k,v)); }
+})();
+</script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap');
+
+  :root {
+    --bg: #f5f0e8; --text: #1a1a1a; --text-light: #4a4a4a; --accent: #8b0000;
+    --border: #2a2a2a; --border-light: #c0b8a8; --card-bg: #faf8f4;
+    --cat-governance: #1a3a5c; --cat-economy: #2d5016; --cat-world: #5c3a1a; --cat-culture: #4a1a5c;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; transition: background 0.3s, color 0.3s; }
+
+  .top-nav { background: var(--border); border-bottom: 2px solid var(--accent); padding: 0; position: sticky; top: 0; z-index: 1000; }
+  .top-nav ul { list-style: none; display: flex; justify-content: center; max-width: 780px; margin: 0 auto; }
+  .top-nav li { flex: 1; text-align: center; }
+  .top-nav a { display: block; padding: 12px 10px; color: var(--bg); text-decoration: none; font-family: 'Playfair Display', Georgia, serif; font-size: 0.85em; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; transition: background 0.2s; }
+  .top-nav a:hover, .top-nav a.active { background: var(--accent); }
+
+  .container { max-width: 780px; margin: 0 auto; padding: 20px; }
+
+  .masthead { text-align: center; border-top: 4px double var(--border); border-bottom: 4px double var(--border); padding: 20px 0; margin-bottom: 30px; }
+  .masthead h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 2.2em; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 5px; }
+  .masthead .subtitle { font-style: italic; font-size: 1em; color: var(--text-light); }
+
+  .settings-category { margin-bottom: 30px; border: 1px solid var(--border-light); background: var(--card-bg); }
+  .settings-category-header { padding: 14px 20px; font-family: 'Playfair Display', Georgia, serif; font-size: 1.2em; font-weight: 700; border-bottom: 1px solid var(--border-light); }
+  .settings-category-body { padding: 15px 20px; }
+
+  .setting-item { margin-bottom: 18px; }
+  .setting-item:last-child { margin-bottom: 0; }
+  .setting-item h4 { font-family: 'Playfair Display', Georgia, serif; font-size: 1em; margin-bottom: 6px; }
+  .setting-item p { font-size: 0.85em; color: var(--text-light); margin-bottom: 10px; }
+
+  .theme-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .theme-card {
+    border: 2px solid var(--border-light);
+    border-radius: 6px;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.2s;
+    overflow: hidden;
+  }
+  .theme-card:hover { border-color: var(--text-light); }
+  .theme-card.active { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+
+  .theme-preview {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 0.7em;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .theme-label {
+    padding: 8px 10px;
+    font-size: 0.8em;
+    font-weight: 600;
+    text-align: center;
+    background: var(--card-bg);
+  }
+
+  .empty-category {
+    font-style: italic;
+    color: var(--text-light);
+    font-size: 0.9em;
+  }
+
+  /* TOGGLE SWITCH */
+  .setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+  }
+  .setting-info { flex: 1; }
+  .setting-info h4 { margin-bottom: 3px; }
+  .setting-info p { margin-bottom: 0; }
+  .toggle {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 26px;
+    flex-shrink: 0;
+  }
+  .toggle input { opacity: 0; width: 0; height: 0; }
+  .toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--border-light);
+    border-radius: 26px;
+    transition: 0.3s;
+  }
+  .toggle-slider::before {
+    content: "";
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: 0.3s;
+  }
+  .toggle input:checked + .toggle-slider {
+    background: var(--accent);
+  }
+  .toggle input:checked + .toggle-slider::before {
+    transform: translateX(22px);
+  }
+
+  /* FONT OPTIONS */
+  .font-options { display: flex; flex-wrap: wrap; gap: 8px; }
+  .font-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border: 2px solid var(--border-light);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.9em;
+  }
+  .font-option:hover { border-color: var(--text-light); }
+  .font-option:has(input:checked) { border-color: var(--accent); background: var(--card-bg); }
+  .font-option input { display: none; }
+  .font-swatch {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    font-size: 1.1em;
+    font-weight: 700;
+    background: var(--bg);
+    border-radius: 4px;
+  }
+
+  .footer-note { text-align: center; font-size: 0.8em; color: var(--text-light); margin-top: 40px; padding-top: 15px; border-top: 4px double var(--border); font-style: italic; }
+
+  @media (max-width: 500px) {
+    .theme-grid { grid-template-columns: repeat(2, 1fr); }
+    .masthead h1 { font-size: 1.5em; }
+    .container { padding: 15px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="what-you-stand-for.html">Test</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="editor.html">Saved</a></li>
+    <li><a href="settings.html" class="active">Settings</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+
+  <div class="masthead">
+    <h1>Settings</h1>
+    <div class="subtitle">Customize your Political Spectrum experience</div>
+  </div>
+
+  <!-- VISUAL -->
+  <div class="settings-category">
+    <div class="settings-category-header">Visual</div>
+    <div class="settings-category-body">
+      <div class="setting-item">
+        <h4>Theme</h4>
+        <p>Choose a newspaper-inspired color theme. All pages will update immediately.</p>
+        <div class="theme-grid">
+
+          <div class="theme-card" data-theme="sepia" onclick="setTheme('sepia')">
+            <div class="theme-preview" style="background: #f5f0e8; color: #8b0000; border-bottom: 2px solid #c0b8a8;">Aa</div>
+            <div class="theme-label" style="background: #faf8f4; color: #1a1a1a;">Sepia</div>
+          </div>
+
+          <div class="theme-card" data-theme="dark" onclick="setTheme('dark')">
+            <div class="theme-preview" style="background: #1a1215; color: #c0392b; border-bottom: 2px solid #4a3a3e;">Aa</div>
+            <div class="theme-label" style="background: #2a1e22; color: #e8e0d8;">Dark</div>
+          </div>
+
+          <div class="theme-card" data-theme="cold" onclick="setTheme('cold')">
+            <div class="theme-preview" style="background: #e8ecf0; color: #2c5282; border-bottom: 2px solid #a0aec0;">Aa</div>
+            <div class="theme-label" style="background: #f0f4f8; color: #1a2030;">Cold</div>
+          </div>
+
+          <div class="theme-card" data-theme="ink" onclick="setTheme('ink')">
+            <div class="theme-preview" style="background: #fafaf5; color: #000; border-bottom: 2px solid #ccc;">Aa</div>
+            <div class="theme-label" style="background: #fff; color: #111;">Ink &amp; Ivory</div>
+          </div>
+
+          <div class="theme-card" data-theme="rosewood" onclick="setTheme('rosewood')">
+            <div class="theme-preview" style="background: #f5ebe0; color: #6b3a4a; border-bottom: 2px solid #c8a8b0;">Aa</div>
+            <div class="theme-label" style="background: #faf2ee; color: #2a1a1e;">Rosewood</div>
+          </div>
+
+          <div class="theme-card" data-theme="lavender" onclick="setTheme('lavender')">
+            <div class="theme-preview" style="background: #f0eaf5; color: #8e7aa0; border-bottom: 2px solid #b8a8c8;">Aa</div>
+            <div class="theme-label" style="background: #f8f4fa; color: #2a2535;">Lavender</div>
+          </div>
+
+          <div class="theme-card" data-theme="telegraph" onclick="setTheme('telegraph')">
+            <div class="theme-preview" style="background: #d9cdb4; color: #5c6b4f; border-bottom: 2px solid #a89e88;">Aa</div>
+            <div class="theme-label" style="background: #e4dac4; color: #2a2e24;">Telegraph</div>
+          </div>
+
+          <div class="theme-card" data-theme="forest" onclick="setTheme('forest')">
+            <div class="theme-preview" style="background: #f0ead6; color: #2d4a3e; border-bottom: 2px solid #b0c4a8;">Aa</div>
+            <div class="theme-label" style="background: #f5f0e0; color: #1a2e24;">Forest</div>
+          </div>
+
+          <div class="theme-card" data-theme="sandstone" onclick="setTheme('sandstone')">
+            <div class="theme-preview" style="background: #d4c5a9; color: #8b4513; border-bottom: 2px solid #b0a080;">Aa</div>
+            <div class="theme-label" style="background: #e0d4b8; color: #2e1f0f;">Sandstone</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BEHAVIOR -->
+  <div class="settings-category">
+    <div class="settings-category-header">Behavior</div>
+    <div class="settings-category-body">
+
+      <div class="setting-item">
+        <div class="setting-row">
+          <div class="setting-info">
+            <h4>Auto-save results</h4>
+            <p>Automatically save your results after completing the quiz with a generated name.</p>
+          </div>
+          <label class="toggle"><input type="checkbox" id="set-autoSave" onchange="saveSetting('autoSave', this.checked)"><span class="toggle-slider"></span></label>
+        </div>
+      </div>
+
+      <div class="setting-item">
+        <div class="setting-row">
+          <div class="setting-info">
+            <h4>Auto-save progress</h4>
+            <p>Automatically save your progress every time you select an answer, so you can resume later if you close the browser.</p>
+          </div>
+          <label class="toggle"><input type="checkbox" id="set-autoSaveProgress" onchange="saveSetting('autoSaveProgress', this.checked)"><span class="toggle-slider"></span></label>
+        </div>
+      </div>
+
+      <div class="setting-item">
+        <div class="setting-row">
+          <div class="setting-info">
+            <h4>Expand descriptions by default</h4>
+            <p>Show all policy descriptions open on the results page instead of collapsed.</p>
+          </div>
+          <label class="toggle"><input type="checkbox" id="set-expandDescriptions" onchange="saveSetting('expandDescriptions', this.checked)"><span class="toggle-slider"></span></label>
+        </div>
+      </div>
+
+      <div class="setting-item">
+        <div class="setting-row">
+          <div class="setting-info">
+            <h4>Disable results image</h4>
+            <p>Skip generating the compact results image for faster results loading.</p>
+          </div>
+          <label class="toggle"><input type="checkbox" id="set-disableImage" onchange="saveSetting('disableImage', this.checked)"><span class="toggle-slider"></span></label>
+        </div>
+      </div>
+
+      <div class="setting-item">
+        <div class="setting-row">
+          <div class="setting-info">
+            <h4>Show total time</h4>
+            <p>Show how much time you've spent answering questions so far during the quiz.</p>
+          </div>
+          <label class="toggle"><input type="checkbox" id="set-showTime" onchange="saveSetting('showTime', this.checked)"><span class="toggle-slider"></span></label>
+        </div>
+      </div>
+
+      <div class="setting-item">
+        <div class="setting-row">
+          <div class="setting-info">
+            <h4>Shuffle answer order</h4>
+            <p>Randomize the order of answer options within each question.</p>
+          </div>
+          <label class="toggle"><input type="checkbox" id="set-shuffleAnswers" onchange="saveSetting('shuffleAnswers', this.checked)"><span class="toggle-slider"></span></label>
+        </div>
+      </div>
+
+      <div class="setting-item">
+        <div class="setting-row">
+          <div class="setting-info">
+            <h4>Shuffle question order</h4>
+            <p>Randomize the order questions appear (intro always stays first).</p>
+          </div>
+          <label class="toggle"><input type="checkbox" id="set-shuffleQuestions" onchange="saveSetting('shuffleQuestions', this.checked)"><span class="toggle-slider"></span></label>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ACCESSIBILITY -->
+  <div class="settings-category">
+    <div class="settings-category-header">Accessibility</div>
+    <div class="settings-category-body">
+
+      <div class="setting-item">
+        <div class="setting-row">
+          <div class="setting-info">
+            <h4>Make all text bold</h4>
+            <p>Increases font weight across all text for better readability.</p>
+          </div>
+          <label class="toggle"><input type="checkbox" id="set-boldText" onchange="saveSetting('boldText', this.checked); applyAccessibility();"><span class="toggle-slider"></span></label>
+        </div>
+      </div>
+
+      <div class="setting-item">
+        <div class="setting-info">
+          <h4>Font family</h4>
+          <p>Choose a font for all text. Default uses the site's original serif fonts.</p>
+        </div>
+        <div class="font-options" style="margin-top: 10px;">
+          <label class="font-option"><input type="radio" name="fontFamily" value="default" onchange="saveSetting('fontFamily', this.value); applyAccessibility();"><span class="font-swatch" style="font-family: 'Playfair Display', Georgia, serif;">Aa</span> Default</label>
+          <label class="font-option"><input type="radio" name="fontFamily" value="arial" onchange="saveSetting('fontFamily', this.value); applyAccessibility();"><span class="font-swatch" style="font-family: Arial, sans-serif;">Aa</span> Arial</label>
+          <label class="font-option"><input type="radio" name="fontFamily" value="helvetica" onchange="saveSetting('fontFamily', this.value); applyAccessibility();"><span class="font-swatch" style="font-family: Helvetica, Arial, sans-serif;">Aa</span> Helvetica</label>
+          <label class="font-option"><input type="radio" name="fontFamily" value="verdana" onchange="saveSetting('fontFamily', this.value); applyAccessibility();"><span class="font-swatch" style="font-family: Verdana, Geneva, sans-serif;">Aa</span> Verdana</label>
+          <label class="font-option"><input type="radio" name="fontFamily" value="atkinson" onchange="saveSetting('fontFamily', this.value); applyAccessibility();"><span class="font-swatch" style="font-family: 'Atkinson Hyperlegible', sans-serif;">Aa</span> Atkinson Hyperlegible</label>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DEBUG -->
+  <div class="settings-category">
+    <div class="settings-category-header">Debug</div>
+    <div class="settings-category-body">
+      <div id="debug-locked" style="text-align: center; padding: 20px 0;">
+        <button id="debug-unlock-btn" onclick="debugClick()" style="width: 100%; height: 80px; border: none; background: #1a1a1a; cursor: pointer;"></button>
+      </div>
+      <div id="debug-unlocked" style="display: none;">
+        <div class="setting-item">
+          <div class="setting-row">
+            <div class="setting-info">
+              <h4>Question skip bar</h4>
+              <p>Show the input and button that lets you jump to any question by number.</p>
+            </div>
+            <label class="toggle"><input type="checkbox" id="set-debugSkipBar" onchange="saveSetting('debugSkipBar', this.checked)"><span class="toggle-slider"></span></label>
+          </div>
+        </div>
+        <div class="setting-item">
+          <div class="setting-row">
+            <div class="setting-info">
+              <h4>Skip without answering</h4>
+              <p>Allow going to the next question without selecting any answer or abstaining.</p>
+            </div>
+            <label class="toggle"><input type="checkbox" id="set-debugSkipWithoutAnswer" onchange="saveSetting('debugSkipWithoutAnswer', this.checked)"><span class="toggle-slider"></span></label>
+          </div>
+        </div>
+        <div class="setting-item">
+          <div class="setting-info">
+            <h4>Skip to results</h4>
+            <p>Go directly to the results page with all current answers.</p>
+          </div>
+          <button onclick="skipToResults()" style="margin-top: 8px; padding: 8px 24px; border: 1px solid var(--border); background: var(--border); color: var(--bg); cursor: pointer; font-family: 'Playfair Display', Georgia, serif; font-size: 0.85em; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">Go to Results</button>
+        </div>
+        <div class="setting-item">
+          <div class="setting-row">
+            <div class="setting-info">
+              <h4>Keyboard shortcuts (N = Next, M = Abstain)</h4>
+              <p>Press N to advance to the next question, M to toggle abstain. Only works during the quiz.</p>
+            </div>
+            <label class="toggle"><input type="checkbox" id="set-debugKeyboard" onchange="saveSetting('debugKeyboard', this.checked)"><span class="toggle-slider"></span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    What You Stand For — A Detailed Policy Assessment<br>
+    Settings are stored locally in your browser.
+  </div>
+
+</div>
+
+<script>
+const themes = {
+  sepia: { '--bg':'#f5f0e8','--text':'#1a1a1a','--text-light':'#4a4a4a','--accent':'#8b0000','--border':'#2a2a2a','--border-light':'#c0b8a8','--card-bg':'#faf8f4','--cat-governance':'#1a3a5c','--cat-economy':'#2d5016','--cat-world':'#5c3a1a','--cat-culture':'#4a1a5c' },
+  dark: { '--bg':'#1a1215','--text':'#e8e0d8','--text-light':'#a09890','--accent':'#c0392b','--border':'#4a2a30','--border-light':'#4a3a3e','--card-bg':'#2a1e22','--cat-governance':'#4a7ab0','--cat-economy':'#5a9a3a','--cat-world':'#b07a3a','--cat-culture':'#9a5ab0' },
+  cold: { '--bg':'#e8ecf0','--text':'#1a2030','--text-light':'#4a5568','--accent':'#2c5282','--border':'#2d3748','--border-light':'#a0aec0','--card-bg':'#f0f4f8','--cat-governance':'#2c5282','--cat-economy':'#2a6b3a','--cat-world':'#7a5a2a','--cat-culture':'#5a3a7a' },
+  ink: { '--bg':'#fafaf5','--text':'#111111','--text-light':'#555555','--accent':'#000000','--border':'#111111','--border-light':'#cccccc','--card-bg':'#ffffff','--cat-governance':'#003366','--cat-economy':'#006633','--cat-world':'#663300','--cat-culture':'#660033' },
+  rosewood: { '--bg':'#f5ebe0','--text':'#2a1a1e','--text-light':'#6b4a52','--accent':'#6b3a4a','--border':'#3a2228','--border-light':'#c8a8b0','--card-bg':'#faf2ee','--cat-governance':'#3a4a6b','--cat-economy':'#3a6b3a','--cat-world':'#6b4a2a','--cat-culture':'#6b2a5a' },
+  lavender: { '--bg':'#f0eaf5','--text':'#2a2535','--text-light':'#5a5068','--accent':'#8e7aa0','--border':'#2a2535','--border-light':'#b8a8c8','--card-bg':'#f8f4fa','--cat-governance':'#3a5a8c','--cat-economy':'#3a6a2a','--cat-world':'#7a4a1a','--cat-culture':'#6a3a8c' },
+  telegraph: { '--bg':'#d9cdb4','--text':'#2a2e24','--text-light':'#5c6b4f','--accent':'#5c6b4f','--border':'#2a2e24','--border-light':'#a89e88','--card-bg':'#e4dac4','--cat-governance':'#3a5a3a','--cat-economy':'#4a6a2a','--cat-world':'#6a5a2a','--cat-culture':'#5a3a5a' },
+  forest: { '--bg':'#f0ead6','--text':'#1a2e24','--text-light':'#4a6a5a','--accent':'#2d4a3e','--border':'#1a2e24','--border-light':'#b0c4a8','--card-bg':'#f5f0e0','--cat-governance':'#1a4a5c','--cat-economy':'#2d6b16','--cat-world':'#5c4a1a','--cat-culture':'#4a1a4a' },
+  sandstone: { '--bg':'#d4c5a9','--text':'#2e1f0f','--text-light':'#6a5a3a','--accent':'#8b4513','--border':'#2e1f0f','--border-light':'#b0a080','--card-bg':'#e0d4b8','--cat-governance':'#4a3a6b','--cat-economy':'#4a6b2a','--cat-world':'#8b4513','--cat-culture':'#6b2a4a' }
+};
+
+function setTheme(name) {
+  if (!themes[name]) return;
+  localStorage.setItem('politicalSpectrumTheme', name);
+  const r = document.documentElement.style;
+  Object.entries(themes[name]).forEach(([k, v]) => r.setProperty(k, v));
+  updateActiveCard();
+}
+
+function updateActiveCard() {
+  const current = localStorage.getItem('politicalSpectrumTheme') || 'sepia';
+  document.querySelectorAll('.theme-card').forEach(card => {
+    card.classList.toggle('active', card.dataset.theme === current);
+  });
+}
+
+// Settings management
+function getSettings() {
+  try { return JSON.parse(localStorage.getItem('politicalSpectrumSettings') || '{}'); }
+  catch(e) { return {}; }
+}
+
+function saveSetting(key, value) {
+  const settings = getSettings();
+  settings[key] = value;
+  localStorage.setItem('politicalSpectrumSettings', JSON.stringify(settings));
+}
+
+function loadSettings() {
+  const settings = getSettings();
+  const keys = ['autoSave', 'autoSaveProgress', 'expandDescriptions', 'disableImage', 'showTime', 'shuffleAnswers', 'shuffleQuestions', 'boldText', 'debugKeyboard'];
+  keys.forEach(key => {
+    const el = document.getElementById('set-' + key);
+    if (el) el.checked = !!settings[key];
+  });
+  // Font family radio
+  const fontVal = settings.fontFamily || 'default';
+  const fontRadio = document.querySelector(`input[name="fontFamily"][value="${fontVal}"]`);
+  if (fontRadio) fontRadio.checked = true;
+  applyAccessibility();
+}
+
+function applyAccessibility() {
+  const settings = getSettings();
+  let styleEl = document.getElementById('accessibility-styles');
+  if (!styleEl) {
+    styleEl = document.createElement('style');
+    styleEl.id = 'accessibility-styles';
+    document.head.appendChild(styleEl);
+  }
+  let css = '';
+  if (settings.boldText) {
+    css += `body, body * { font-weight: 700 !important; } `;
+  }
+  const fonts = {
+    arial: "Arial, sans-serif",
+    helvetica: "Helvetica, Arial, sans-serif",
+    verdana: "Verdana, Geneva, sans-serif",
+    atkinson: "'Atkinson Hyperlegible', sans-serif"
+  };
+  if (settings.fontFamily && fonts[settings.fontFamily]) {
+    css += `body, body *, body h1, body h2, body h3, body h4, body .masthead h1, body .question-text, body .btn, body .policy-name, body .results-category-header, body .results-subcategory-title, body .top-nav a { font-family: ${fonts[settings.fontFamily]} !important; } `;
+    if (settings.fontFamily === 'atkinson') {
+      if (!document.getElementById('atkinson-font-link')) {
+        const link = document.createElement('link');
+        link.id = 'atkinson-font-link';
+        link.rel = 'stylesheet';
+        link.href = 'https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap';
+        document.head.appendChild(link);
+      }
+    }
+  }
+  styleEl.textContent = css;
+}
+
+updateActiveCard();
+loadSettings();
+
+// Debug unlock
+let debugClicks = 0;
+function debugClick() {
+  debugClicks++;
+  if (debugClicks >= 10) {
+    document.getElementById('debug-locked').style.display = 'none';
+    document.getElementById('debug-unlocked').style.display = 'block';
+  }
+}
+
+function skipToResults() {
+  localStorage.setItem('politicalSpectrumSkipToResults', 'true');
+  window.location.href = 'what-you-stand-for.html';
+}
+</script>
+</body>
+</html>
