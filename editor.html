@@ -524,6 +524,7 @@ function generateProfileImage(profile, grouped) {
   if (profile.questionMeta && Array.isArray(profile.questionMeta)) {
     const answers = profile.answers || {};
     const abstained = profile.abstained || {};
+    const disabledQuestions = new Set(profile.disabledQuestions || []);
     
     profile.questionMeta.forEach(meta => {
       // Build label using position number (e.g., "Q3", "Q3a", "Q12b")
@@ -534,8 +535,9 @@ function generateProfileImage(profile, grouped) {
       
       const hasAnswer = answers[meta.id] && answers[meta.id].length > 0;
       const isAbstained = abstained[meta.id];
+      const isDisabled = disabledQuestions.has(meta.id);
       
-      if (!hasAnswer && !isAbstained) {
+      if (!hasAnswer && !isAbstained && !isDisabled) {
         if (!grouped[meta.category]) grouped[meta.category] = {};
         if (!grouped[meta.category][meta.subcategory]) grouped[meta.category][meta.subcategory] = [];
         const key = label + ': Not answered';
