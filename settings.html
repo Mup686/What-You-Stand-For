@@ -278,6 +278,16 @@
       <div class="setting-item">
         <div class="setting-row">
           <div class="setting-info">
+            <h4>Disable save popups</h4>
+            <p>Don't show confirmation messages when saving progress or results (saving still works, just no popup).</p>
+          </div>
+          <label class="toggle"><input type="checkbox" id="set-disableSavePopup" onchange="saveSetting('disableSavePopup', this.checked)"><span class="toggle-slider"></span></label>
+        </div>
+      </div>
+
+      <div class="setting-item">
+        <div class="setting-row">
+          <div class="setting-info">
             <h4>Expand descriptions by default</h4>
             <p>Show all policy descriptions open on the results page instead of collapsed.</p>
           </div>
@@ -455,7 +465,7 @@ function saveSetting(key, value) {
 
 function loadSettings() {
   const settings = getSettings();
-  const keys = ['autoSave', 'autoSaveProgress', 'expandDescriptions', 'disableImage', 'showTime', 'shuffleAnswers', 'shuffleQuestions', 'boldText', 'debugKeyboard'];
+  const keys = ['autoSave', 'autoSaveProgress', 'expandDescriptions', 'disableImage', 'showTime', 'shuffleAnswers', 'shuffleQuestions', 'boldText', 'debugKeyboard', 'debugSkipBar', 'debugSkipWithoutAnswer', 'disableSavePopup'];
   keys.forEach(key => {
     const el = document.getElementById('set-' + key);
     if (el) el.checked = !!settings[key];

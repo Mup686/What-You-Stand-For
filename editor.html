@@ -11,6 +11,978 @@
 (function(){try{var s=JSON.parse(localStorage.getItem('politicalSpectrumSettings')||'{}');var css='';if(s.boldText){css+='body,body *{font-weight:700!important}'}var f={arial:'Arial,sans-serif',helvetica:'Helvetica,Arial,sans-serif',verdana:'Verdana,Geneva,sans-serif',atkinson:"'Atkinson Hyperlegible',sans-serif"};if(s.fontFamily&&f[s.fontFamily]){css+='body,body *,body h1,body h2,body h3,body h4{font-family:'+f[s.fontFamily]+'!important}';if(s.fontFamily==='atkinson'){var l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap';document.head.appendChild(l)}}if(css){var st=document.createElement('style');st.textContent=css;document.head.appendChild(st)}}catch(e){}})();
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="questions.js"></script>
+
+<!-- LZ-String Compression Library -->
+<script>
+var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",n="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-$",e={};function t(r,o){if(!e[r]){e[r]={};for(var n=0;n<r.length;n++)e[r][r.charAt(n)]=n}return e[r][o]}var i={compressToBase64:function(r){if(null==r)return"";var n=i._compress(r,6,function(r){return o.charAt(r)});switch(n.length%4){default:case 0:return n;case 1:return n+"===";case 2:return n+"==";case 3:return n+"="}},decompressFromBase64:function(r){return null==r?"":""==r?null:i._decompress(r.length,32,function(n){return t(o,r.charAt(n))})},compressToUTF16:function(o){return null==o?"":i._compress(o,15,function(o){return r(o+32)})+" "},decompressFromUTF16:function(r){return null==r?"":""==r?null:i._decompress(r.length,16384,function(o){return r.charCodeAt(o)-32})},compressToUint8Array:function(r){for(var o=i.compress(r),n=new Uint8Array(2*o.length),e=0,t=o.length;e<t;e++){var s=o.charCodeAt(e);n[2*e]=s>>>8,n[2*e+1]=s%256}return n},decompressFromUint8Array:function(o){if(null==o)return i.decompress(o);for(var n=new Array(o.length/2),e=0,t=n.length;e<t;e++)n[e]=256*o[2*e]+o[2*e+1];var s=[];return n.forEach(function(o){s.push(r(o))}),i.decompress(s.join(""))},compressToEncodedURIComponent:function(r){return null==r?"":i._compress(r,6,function(r){return n.charAt(r)})},decompressFromEncodedURIComponent:function(r){return null==r?"":""==r?null:(r=r.replace(/ /g,"+"),i._decompress(r.length,32,function(o){return t(n,r.charAt(o))}))},compress:function(o){return i._compress(o,16,function(o){return r(o)})},_compress:function(r,o,n){if(null==r)return"";var e,t,i,s={},u={},a="",p="",c="",l=2,f=3,h=2,d=[],m=0,v=0;for(i=0;i<r.length;i+=1)if(a=r.charAt(i),Object.prototype.hasOwnProperty.call(s,a)||(s[a]=f++,u[a]=!0),p=c+a,Object.prototype.hasOwnProperty.call(s,p))c=p;else{if(Object.prototype.hasOwnProperty.call(u,c)){if(c.charCodeAt(0)<256){for(e=0;e<h;e++)m<<=1,v==o-1?(v=0,d.push(n(m)),m=0):v++;for(t=c.charCodeAt(0),e=0;e<8;e++)m=m<<1|1&t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t>>=1}else{for(t=1,e=0;e<h;e++)m=m<<1|t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t=0;for(t=c.charCodeAt(0),e=0;e<16;e++)m=m<<1|1&t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t>>=1}0==--l&&(l=Math.pow(2,h),h++),delete u[c]}else for(t=s[c],e=0;e<h;e++)m=m<<1|1&t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t>>=1;0==--l&&(l=Math.pow(2,h),h++),s[p]=f++,c=String(a)}if(""!==c){if(Object.prototype.hasOwnProperty.call(u,c)){if(c.charCodeAt(0)<256){for(e=0;e<h;e++)m<<=1,v==o-1?(v=0,d.push(n(m)),m=0):v++;for(t=c.charCodeAt(0),e=0;e<8;e++)m=m<<1|1&t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t>>=1}else{for(t=1,e=0;e<h;e++)m=m<<1|t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t=0;for(t=c.charCodeAt(0),e=0;e<16;e++)m=m<<1|1&t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t>>=1}0==--l&&(l=Math.pow(2,h),h++),delete u[c]}else for(t=s[c],e=0;e<h;e++)m=m<<1|1&t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t>>=1;0==--l&&(l=Math.pow(2,h),h++)}for(t=2,e=0;e<h;e++)m=m<<1|1&t,v==o-1?(v=0,d.push(n(m)),m=0):v++,t>>=1;for(;;){if(m<<=1,v==o-1){d.push(n(m));break}v++}return d.join("")},decompress:function(r){return null==r?"":""==r?null:i._decompress(r.length,32768,function(o){return r.charCodeAt(o)})},_decompress:function(o,n,e){var t,i,s,u,a,p,c,l=[],f=4,h=4,d=3,m="",v=[],g={val:e(0),position:n,index:1};for(t=0;t<3;t+=1)l[t]=t;for(s=0,a=Math.pow(2,2),p=1;p!=a;)u=g.val&g.position,g.position>>=1,0==g.position&&(g.position=n,g.val=e(g.index++)),s|=(u>0?1:0)*p,p<<=1;switch(s){case 0:for(s=0,a=Math.pow(2,8),p=1;p!=a;)u=g.val&g.position,g.position>>=1,0==g.position&&(g.position=n,g.val=e(g.index++)),s|=(u>0?1:0)*p,p<<=1;c=r(s);break;case 1:for(s=0,a=Math.pow(2,16),p=1;p!=a;)u=g.val&g.position,g.position>>=1,0==g.position&&(g.position=n,g.val=e(g.index++)),s|=(u>0?1:0)*p,p<<=1;c=r(s);break;case 2:return""}for(l[3]=c,i=c,v.push(c);;){if(g.index>o)return"";for(s=0,a=Math.pow(2,d),p=1;p!=a;)u=g.val&g.position,g.position>>=1,0==g.position&&(g.position=n,g.val=e(g.index++)),s|=(u>0?1:0)*p,p<<=1;switch(c=s){case 0:for(s=0,a=Math.pow(2,8),p=1;p!=a;)u=g.val&g.position,g.position>>=1,0==g.position&&(g.position=n,g.val=e(g.index++)),s|=(u>0?1:0)*p,p<<=1;l[h++]=r(s),c=h-1,f--;break;case 1:for(s=0,a=Math.pow(2,16),p=1;p!=a;)u=g.val&g.position,g.position>>=1,0==g.position&&(g.position=n,g.val=e(g.index++)),s|=(u>0?1:0)*p,p<<=1;l[h++]=r(s),c=h-1,f--;break;case 2:return v.join("")}if(0==f&&(f=Math.pow(2,d),d++),l[c])m=l[c];else{if(c!==h)return null;m=i+i.charAt(0)}v.push(m),l[h++]=i+m.charAt(0),i=m,0==--f&&(f=Math.pow(2,d),d++)}}};return i}();"function"==typeof define&&define.amd?define(function(){return LZString}):"undefined"!=typeof module&&null!=module?module.exports=LZString:"undefined"!=typeof angular&&null!=angular&&angular.module("LZString",[]).factory("LZString",function(){return LZString});
+</script>
+
+<!-- Policy Dictionary for Encoding -->
+<script>
+// Policy Dictionary (445 policies)
+const POLICY_DICT = {
+  "0": "AI: Minimal Regulation",
+  "1": "AI: Moneyless Automated Society",
+  "10": "Consensual marriage between adults",
+  "11": "Consensual marriage between adults with limitations on divorce",
+  "12": "Constitutional Court: Independent",
+  "13": "Constitutional Court: No",
+  "14": "Constitutional Court: No Constitution",
+  "15": "Constitutional Court: With Override",
+  "16": "Courts: Customs",
+  "17": "Courts: Justice and Precedents",
+  "18": "Courts: Legality",
+  "19": "Courts: Legality and Interpretation",
+  "1a": "Courts: Legality and Justice",
+  "1b": "Courts: No Law Reference",
+  "1c": "Cultural Diversity: Assimilation",
+  "1d": "Cultural Diversity: Integration",
+  "1e": "Cultural Diversity: Separation",
+  "1f": "Death Penalty: No",
+  "1g": "Death Penalty: Yes",
+  "1h": "Devolution",
+  "1i": "Economic Intervention: Eminent Domain",
+  "1j": "Economic Intervention: Export Taxes",
+  "1k": "Economic Intervention: Incentives",
+  "1l": "Economic Intervention: Minimum Wage",
+  "1m": "Economic Intervention: Nationalization",
+  "1n": "Economic Intervention: None",
+  "1o": "Economic Intervention: Price Control",
+  "1p": "Economic Intervention: Rationing",
+  "1q": "Economic Intervention: Stimulus",
+  "1r": "Economic Intervention: Subsidies",
+  "1s": "Economic Intervention: Tariffs",
+  "1t": "Education Compulsory: No",
+  "1u": "Education Compulsory: Yes Penalties",
+  "1v": "Education End: Adulthood",
+  "1w": "Education End: Either",
+  "1x": "Education End: Knowledge Proof",
+  "1y": "Education Free: Higher",
+  "1z": "Education Free: None",
+  "2": "AI: No Regulation",
+  "20": "Education Free: Primary",
+  "21": "Education Free: Technical",
+  "22": "Education Goals: Basic Knowledge",
+  "23": "Education Goals: Civic Duty",
+  "24": "Education Goals: Compliance",
+  "25": "Education Goals: Critical Thinking",
+  "26": "Education Goals: Cultural Heritage",
+  "27": "Education Goals: Holistic",
+  "28": "Education Goals: Parent Decision",
+  "29": "Education Goals: Practical Skills",
+  "2a": "Education Goals: Vocational",
+  "2b": "Education Goals: World History",
+  "2c": "Education Subsidized: Higher",
+  "2d": "Education Subsidized: None",
+  "2e": "Education Subsidized: Primary",
+  "2f": "Education Subsidized: Technical",
+  "2g": "Forced Labor: Corvée/Serfs",
+  "2h": "Forced Labor: Debt Compensation",
+  "2i": "Forced Labor: National Service",
+  "2j": "Forced Labor: None",
+  "2k": "Forced Labor: Prison",
+  "2l": "Forced Labor: Rehabilitation",
+  "2m": "Forced Labor: Victim Compensation",
+  "2n": "Forced Labor: Work Requirement",
+  "2o": "Foreign Property: None",
+  "2p": "Foreign Property: Personal",
+  "2q": "Foreign Property: Real Estate",
+  "2r": "Foreign Property: Stocks and Companies",
+  "2s": "Free federation",
+  "2t": "GMO Policy: Consumer Information",
+  "2u": "GMO Policy: Ethical Guidelines",
+  "2v": "GMO Policy: Illegal Commercial",
+  "2w": "GMO Policy: Illegal Private",
+  "2x": "GMO Policy: Unethical Allowed",
+  "2y": "GMO: All Acceptable",
+  "2z": "GMO: Crops",
+  "3": "AI: Regulation and Oversight",
+  "30": "GMO: Cure Human Diseases",
+  "31": "GMO: Erase Animal Diseases",
+  "32": "GMO: Farm Animals",
+  "33": "GMO: Human Treatment",
+  "34": "GMO: Improve Humans",
+  "35": "GMO: Non-Domestic Animals",
+  "36": "GMO: Non-Farm Domestic Animals",
+  "37": "GMO: None Acceptable",
+  "38": "Gender schools",
+  "39": "Gendered classes",
+  "3a": "Global Cooperation: Complete",
+  "3b": "Global Cooperation: Limited",
+  "3c": "Global Cooperation: Minimal",
+  "3d": "Global Cooperation: Relevant",
+  "3e": "Globalisation: No, Countries Self-Sufficient",
+  "3f": "Globalisation: No, Localised",
+  "3g": "Globalisation: State Self-Sufficiency",
+  "3h": "Globalisation: Yes",
+  "3i": "Globalisation: Yes with Local Diversity",
+  "3j": "Healthcare Funding: Free",
+  "3k": "Healthcare Funding: Private",
+  "3l": "Healthcare Funding: Public Option",
+  "3m": "Healthcare Funding: Subsidies",
+  "3n": "Healthcare Ownership: Government",
+  "3o": "Healthcare Ownership: Mixed",
+  "3p": "Healthcare Ownership: Non-Government",
+  "3q": "Ignore racism as long it's not a big problem",
+  "3r": "Immigration: Closed",
+  "3s": "Immigration: Controlled Open",
+  "3t": "Immigration: Cultural Similarity",
+  "3u": "Immigration: Open Borders",
+  "3v": "Immigration: Skilled Workers",
+  "3w": "Industry Ownership: Communal",
+  "3x": "Industry Ownership: Decentralized",
+  "3y": "Industry Ownership: Private Minimal",
+  "3z": "Industry Ownership: Private Regulated",
+  "4": "AI: Regulation and Worker Programs",
+  "40": "Industry Ownership: State",
+  "41": "Judges: Appointed",
+  "42": "Judges: Citizen Juries",
+  "43": "Judges: Elected",
+  "44": "Judges: None",
+  "45": "Judges: Professional",
+  "46": "Judges: Traditional",
+  "47": "Juries: Assist Only",
+  "48": "Juries: Full Functions",
+  "49": "Juries: None",
+  "4a": "Juries: Verdict Only",
+  "4b": "Jury Cases: All",
+  "4c": "Jury Cases: All Criminal",
+  "4d": "Jury Cases: Civil Only",
+  "4e": "Jury Cases: Criminal and Civil",
+  "4f": "Jury Cases: Serious Criminal",
+  "4g": "Jury Cases: Specialized",
+  "4h": "Justice Purpose: Deterrence",
+  "4i": "Justice Purpose: Expulsion",
+  "4j": "Justice Purpose: Incapacitation",
+  "4k": "Justice Purpose: Rehabilitation",
+  "4l": "Justice Purpose: Restoration",
+  "4m": "Justice Purpose: Retribution",
+  "4n": "Land Administration: Aristocratic",
+  "4o": "Land Administration: Commercial Companies",
+  "4p": "Land Administration: Cooperatives",
+  "4q": "Land Administration: Family Farms",
+  "4r": "Land Administration: Government Committees",
+  "4s": "Land Administration: Local Councils",
+  "4t": "Land Administration: Local Managers",
+  "4u": "Land Administration: State Companies",
+  "4v": "Land Administration: Traditional Communes",
+  "4w": "Land Administration: Worker Cooperatives",
+  "4x": "Land Labor: Community Members",
+  "4y": "Land Labor: Corvée",
+  "4z": "Land Labor: Prison/Slaves",
+  "5": "AI: Worker Programs Only",
+  "50": "Land Labor: Small-Holders",
+  "51": "Land Labor: Tenant Farmers",
+  "52": "Land Labor: Wage Laborers",
+  "53": "Land Ownership: Commodity",
+  "54": "Land Ownership: Common Property",
+  "55": "Land Ownership: Crown",
+  "56": "Land Ownership: Government Majority",
+  "57": "Land Ownership: Government Some",
+  "58": "Land Ownership: Inheritable Only",
+  "59": "Land Ownership: Local Communities",
+  "5a": "Land Ownership: User Property",
+  "5b": "Legal Equality: Equitable",
+  "5c": "Legal Equality: No",
+  "5d": "Legal Equality: Yes",
+  "5e": "Legal Inequality: Ability",
+  "5f": "Legal Inequality: Aristocratic",
+  "5g": "Legal Inequality: Caste System",
+  "5h": "Legal Inequality: Economic/Political",
+  "5i": "Legal Inequality: Race/Ethnicity",
+  "5j": "Legal Inequality: Sex/Gender",
+  "5k": "Local Admin: Central Appointment",
+  "5l": "Local Admin: Fully Elected",
+  "5m": "Local Admin: Hereditary",
+  "5n": "Local Admin: Mixed Elected",
+  "5o": "Local Admin: Sortition",
+  "5p": "Local Admin: Subunit Appointment",
+  "5q": "Local Autonomy",
+  "5r": "Media Funding: Educational/Utility",
+  "5s": "Media Funding: No Criteria",
+  "5t": "Media Funding: None",
+  "5u": "Media Ownership: Non-Profit Only",
+  "5v": "Media Ownership: Private Only",
+  "5w": "Media Ownership: State Only",
+  "5x": "Media Ownership: State and Private Free",
+  "5y": "Media Ownership: State and Private Permitted",
+  "5z": "Military Force: Humanitarian",
+  "6": "Abortion: Banned",
+  "60": "Military Force: Ideological",
+  "61": "Military Force: Material Gain",
+  "62": "Military Force: Never",
+  "63": "Military Force: Preemptive",
+  "64": "Military Force: Self-Defense",
+  "65": "Military: Conscripted",
+  "66": "Military: Militia",
+  "67": "Military: Private",
+  "68": "Military: Professional",
+  "69": "Military: Soldier Caste",
+  "6a": "Mix of national and federal organisation",
+  "6b": "Multicameralism (>3)",
+  "6c": "No child marriage",
+  "6d": "No legal marriage",
+  "6e": "No legislature",
+  "6f": "No slavery",
+  "6g": "Not gendered schools",
+  "6h": "Officers: Elected",
+  "6i": "Officers: Loyalty",
+  "6j": "Officers: Merit",
+  "6k": "Officers: Nobility",
+  "6l": "Officers: Purchasable",
+  "6m": "Police Duty: Body Cam",
+  "6n": "Police Duty: Defend Civilians",
+  "6o": "Police Duty: Prohibition",
+  "6p": "Police Privilege: Arms",
+  "6q": "Police Privilege: Arrest",
+  "6r": "Police Privilege: Confiscation",
+  "6s": "Police Privilege: Entry",
+  "6t": "Police Privilege: Immunity",
+  "6u": "Police Privilege: Surveillance",
+  "6v": "Police Responsibility: Civilians",
+  "6w": "Police Responsibility: Criminals",
+  "6x": "Police Responsibility: Crowd Control",
+  "6y": "Police Responsibility: Investigation",
+  "6z": "Police Responsibility: Private Property",
+  "7": "Abortion: Extreme Cases",
+  "70": "Police Responsibility: Public Property",
+  "71": "Police: Local Professional",
+  "72": "Police: Militarized National",
+  "73": "Police: National Professional",
+  "74": "Police: None",
+  "75": "Police: Private Companies",
+  "76": "Police: Rotating Community",
+  "77": "Power Division: Checks National",
+  "78": "Power Division: Checks Subunit",
+  "79": "Power Division: Efficient National",
+  "7a": "Power Division: Efficient Subunit",
+  "7b": "Power Division: Neither National",
+  "7c": "Power Division: Neither Subunit",
+  "7d": "Prisons: Dangerous Only",
+  "7e": "Prisons: No",
+  "7f": "Prisons: Yes",
+  "7g": "Promoting gender roles in schools",
+  "7h": "Public Constitution Without State",
+  "7i": "Racial segregation",
+  "7j": "Racial seperatism",
+  "7k": "Racism should be tolerated or supported",
+  "7l": "Racism should not be tolerated",
+  "7m": "Religion Power: All Subordinate to State",
+  "7n": "Religion Power: Formal Agreement",
+  "7o": "Religion Power: No Relationship",
+  "7p": "Religion Power: State Controls Religion",
+  "7q": "Religion Power: State Subordinate",
+  "7r": "Religion Status: Laicism",
+  "7s": "Religion Status: No Official No Secularism",
+  "7t": "Religion Status: Official",
+  "7u": "Religion Status: Official Separation",
+  "7v": "Religion Status: State Atheism",
+  "7w": "Religious Freedom: No",
+  "7x": "Religious Freedom: Yes",
+  "7y": "Religious Tax: All Equal",
+  "7z": "Religious Tax: Marginalized",
+  "8": "Abortion: Legal",
+  "80": "Religious Tax: No Privilege",
+  "81": "Religious Tax: No Public Funding",
+  "82": "Religious Tax: Official Preference",
+  "83": "Religious Tax: Only Official",
+  "84": "School Gender: Case by Case",
+  "85": "School Organization: Central Control",
+  "86": "School Organization: Teachers",
+  "87": "School Organization: Teachers and Parents",
+  "88": "School Organization: Teachers and Students Equal",
+  "89": "School Organization: Teachers, Parents, Students",
+  "8a": "School Ownership: Communities",
+  "8b": "School Ownership: Families",
+  "8c": "School Ownership: Private",
+  "8d": "School Ownership: State",
+  "8e": "School Segregation: Case by Case",
+  "8f": "School Segregation: No",
+  "8g": "School Segregation: Yes",
+  "8h": "School Standards: Local Curriculum",
+  "8i": "School Standards: Minimum Local",
+  "8j": "School Standards: Minimum National",
+  "8k": "School Standards: National Curriculum",
+  "8l": "School Standards: None",
+  "8m": "Separation of Powers: Anti-State",
+  "8n": "Separation of Powers: None",
+  "8o": "Separation of Powers: Partial",
+  "8p": "Separation of Powers: Strict",
+  "8q": "Slavery Exempt: Citizens",
+  "8r": "Slavery Exempt: None",
+  "8s": "Slavery Exempt: Specific Groups",
+  "8t": "Slavery: Birth",
+  "8u": "Slavery: Criminal Punishment",
+  "8v": "Slavery: Debt",
+  "8w": "Slavery: Government Wish",
+  "8x": "Slavery: Parents",
+  "8y": "Slavery: Pre-Existing",
+  "8z": "Slavery: Victim Claim",
+  "9": "Abortion: Restricted",
+  "90": "Slavery: Voluntary Contract",
+  "91": "Slavery: War Captives",
+  "92": "Span: Continent",
+  "93": "Span: Local Community",
+  "94": "Span: Medium/Large Country",
+  "95": "Span: Panarchy",
+  "96": "Span: Small Country",
+  "97": "Span: Town/City",
+  "98": "Span: World",
+  "99": "Speech Restrictions: Any Disobedience",
+  "9a": "Speech Restrictions: Blasphemy",
+  "9b": "Speech Restrictions: Contract Violation",
+  "9c": "Speech Restrictions: Disinformation",
+  "9d": "Speech Restrictions: False Alarms",
+  "9e": "Speech Restrictions: Hate Speech",
+  "9f": "Speech Restrictions: None",
+  "9g": "Speech Restrictions: Opposition",
+  "9h": "Speech Restrictions: Slander Organizations",
+  "9i": "Speech Restrictions: Slander Private Figures",
+  "9j": "Speech Restrictions: Slander Public Figures",
+  "9k": "Speech Restrictions: Symbol Disrespect",
+  "9l": "Speech Restrictions: Violence",
+  "9m": "Speech Restrictions: Violent Disobedience",
+  "9n": "Supreme executive",
+  "9o": "Supreme legislature",
+  "9p": "Surveillance: Extensive",
+  "9q": "Surveillance: Minimal",
+  "9r": "Surveillance: None",
+  "9s": "Surveillance: Targeted No Warrants",
+  "9t": "Surveillance: Targeted Warrants",
+  "9u": "System Scale: Ethnic Group",
+  "9v": "System Scale: Many Places",
+  "9w": "System Scale: My Country",
+  "9x": "System Scale: Universal",
+  "9y": "Taxation Type: Progressive",
+  "9z": "Taxation Type: Proportional",
+  "a": "Any Monogamy",
+  "a0": "Taxation Type: Regressive",
+  "a1": "Taxation: Capital Gains",
+  "a2": "Taxation: Consumption",
+  "a3": "Taxation: Corporate",
+  "a4": "Taxation: Inheritance",
+  "a5": "Taxation: Lifestyle",
+  "a6": "Taxation: Luxury",
+  "a7": "Taxation: None",
+  "a8": "Taxation: Poll",
+  "a9": "Taxation: Resource Rent",
+  "aa": "Taxation: Wealth",
+  "ab": "Trade Policy: Closed Economy",
+  "ac": "Trade Policy: Fair Trade",
+  "ad": "Trade Policy: Free Trade",
+  "ae": "Trade Policy: Mercantilism",
+  "af": "Trade Policy: Protectionism",
+  "ag": "Trade Restrictions: Ideology",
+  "ah": "Trade Restrictions: None",
+  "ai": "Trade Restrictions: Unethical Practices",
+  "aj": "Traditional Monogamy",
+  "ak": "Traditional Polygyny",
+  "al": "Transparency: Balanced",
+  "am": "Transparency: Government Secrecy",
+  "an": "Transparency: Opaque",
+  "ao": "Transparency: Radical",
+  "ap": "Tricameralism",
+  "aq": "Unconsensual marriage between adults allowed",
+  "ar": "Unicameral",
+  "as": "Unions Operation: Accurate Representation",
+  "at": "Unions Operation: Collective Bargaining",
+  "au": "Unions Operation: Government Control",
+  "av": "Unions Operation: Non-Radical Only",
+  "aw": "Unions Operation: Public Funding",
+  "ax": "Unions Operation: Strictly Regulated",
+  "ay": "Unions Operation: Tripartism",
+  "az": "Unions Role: Banned",
+  "b": "Any Polygamy",
+  "b0": "Unions Role: Discouraged",
+  "b1": "Unions Role: Optional",
+  "b2": "Unions Role: Promoted",
+  "b3": "Unions Role: Unnecessary",
+  "b4": "Unions Role: Widespread",
+  "b5": "Unions Structure: Elective",
+  "b6": "Unions Structure: Hierarchical",
+  "b7": "Unions Structure: No Preference",
+  "b8": "Unions Structure: Rank-and-File",
+  "b9": "Unitary State",
+  "ba": "Veto Right: Citizens Referendum",
+  "bb": "Veto Right: Constitutional Court",
+  "bc": "Veto Right: Head of State",
+  "bd": "Veto Right: None",
+  "be": "Veto Right: Regional/Local",
+  "bf": "Veto Right: Upper Chamber",
+  "bg": "Vote Weight: None",
+  "bh": "Vote Weight: Older",
+  "bi": "Vote Weight: Racial",
+  "bj": "Vote Weight: Sex/Gender",
+  "bk": "Vote Weight: Wealth",
+  "bl": "Vote Weight: Younger",
+  "bm": "Vote: Age Requirement",
+  "bn": "Vote: Aristocratic Title",
+  "bo": "Vote: Birth Citizenship",
+  "bp": "Vote: Citizenship",
+  "bq": "Vote: Land Ownership",
+  "br": "Vote: Literacy/Civic Knowledge",
+  "bs": "Vote: Male Only",
+  "bt": "Vote: Married",
+  "bu": "Vote: No Criminal Record",
+  "bv": "Vote: No Voting",
+  "bw": "Vote: Not Imprisoned",
+  "bx": "Vote: Parenthood",
+  "by": "Vote: Party Membership",
+  "bz": "Vote: Racial Requirement",
+  "c": "Bicameral",
+  "c0": "Vote: Religious Requirement",
+  "c1": "Vote: Residency",
+  "c2": "Vote: Stable Income",
+  "c3": "Vote: State Shares",
+  "c4": "Vote: Wealth Requirement",
+  "c5": "Wavelength Regulation: Government",
+  "c6": "Wavelength Regulation: Homestead",
+  "c7": "Wavelength Regulation: Local",
+  "c8": "Wavelength Regulation: None",
+  "c9": "Workplace: Balanced",
+  "ca": "Workplace: Employer Control",
+  "cb": "Workplace: Traditional Hierarchy",
+  "cc": "Workplace: Worker Self-Management",
+  "d": "Child marriage between two minors allowed",
+  "e": "Child marriage with an adult allowed",
+  "f": "Citizenship: Birthright",
+  "g": "Citizenship: Bloodline",
+  "h": "Citizenship: Long-term Residents",
+  "i": "Co-existence of legislature and executive",
+  "j": "Confederation",
+  "k": "Conscription Exempt: Businessmen",
+  "l": "Conscription Exempt: Celebrities",
+  "m": "Conscription Exempt: Certain Groups",
+  "n": "Conscription Exempt: Influential Families",
+  "o": "Conscription Exempt: LGBT",
+  "p": "Conscription Exempt: No One",
+  "q": "Conscription Exempt: Politicians",
+  "r": "Conscription Exempt: Women",
+  "s": "Conscription Timing: Defense Shortages",
+  "t": "Conscription Timing: Emergencies",
+  "u": "Conscription Timing: Peacetime",
+  "v": "Conscription Timing: Wartime",
+  "w": "Conscription: Lottery",
+  "x": "Conscription: None",
+  "y": "Conscription: Selective",
+  "z": "Conscription: Universal",
+};
+
+const REVERSE_POLICY_DICT = {
+  "AI: Minimal Regulation": "0",
+  "AI: Moneyless Automated Society": "1",
+  "Consensual marriage between adults": "10",
+  "Consensual marriage between adults with limitations on divorce": "11",
+  "Constitutional Court: Independent": "12",
+  "Constitutional Court: No": "13",
+  "Constitutional Court: No Constitution": "14",
+  "Constitutional Court: With Override": "15",
+  "Courts: Customs": "16",
+  "Courts: Justice and Precedents": "17",
+  "Courts: Legality": "18",
+  "Courts: Legality and Interpretation": "19",
+  "Courts: Legality and Justice": "1a",
+  "Courts: No Law Reference": "1b",
+  "Cultural Diversity: Assimilation": "1c",
+  "Cultural Diversity: Integration": "1d",
+  "Cultural Diversity: Separation": "1e",
+  "Death Penalty: No": "1f",
+  "Death Penalty: Yes": "1g",
+  "Devolution": "1h",
+  "Economic Intervention: Eminent Domain": "1i",
+  "Economic Intervention: Export Taxes": "1j",
+  "Economic Intervention: Incentives": "1k",
+  "Economic Intervention: Minimum Wage": "1l",
+  "Economic Intervention: Nationalization": "1m",
+  "Economic Intervention: None": "1n",
+  "Economic Intervention: Price Control": "1o",
+  "Economic Intervention: Rationing": "1p",
+  "Economic Intervention: Stimulus": "1q",
+  "Economic Intervention: Subsidies": "1r",
+  "Economic Intervention: Tariffs": "1s",
+  "Education Compulsory: No": "1t",
+  "Education Compulsory: Yes Penalties": "1u",
+  "Education End: Adulthood": "1v",
+  "Education End: Either": "1w",
+  "Education End: Knowledge Proof": "1x",
+  "Education Free: Higher": "1y",
+  "Education Free: None": "1z",
+  "AI: No Regulation": "2",
+  "Education Free: Primary": "20",
+  "Education Free: Technical": "21",
+  "Education Goals: Basic Knowledge": "22",
+  "Education Goals: Civic Duty": "23",
+  "Education Goals: Compliance": "24",
+  "Education Goals: Critical Thinking": "25",
+  "Education Goals: Cultural Heritage": "26",
+  "Education Goals: Holistic": "27",
+  "Education Goals: Parent Decision": "28",
+  "Education Goals: Practical Skills": "29",
+  "Education Goals: Vocational": "2a",
+  "Education Goals: World History": "2b",
+  "Education Subsidized: Higher": "2c",
+  "Education Subsidized: None": "2d",
+  "Education Subsidized: Primary": "2e",
+  "Education Subsidized: Technical": "2f",
+  "Forced Labor: Corvée/Serfs": "2g",
+  "Forced Labor: Debt Compensation": "2h",
+  "Forced Labor: National Service": "2i",
+  "Forced Labor: None": "2j",
+  "Forced Labor: Prison": "2k",
+  "Forced Labor: Rehabilitation": "2l",
+  "Forced Labor: Victim Compensation": "2m",
+  "Forced Labor: Work Requirement": "2n",
+  "Foreign Property: None": "2o",
+  "Foreign Property: Personal": "2p",
+  "Foreign Property: Real Estate": "2q",
+  "Foreign Property: Stocks and Companies": "2r",
+  "Free federation": "2s",
+  "GMO Policy: Consumer Information": "2t",
+  "GMO Policy: Ethical Guidelines": "2u",
+  "GMO Policy: Illegal Commercial": "2v",
+  "GMO Policy: Illegal Private": "2w",
+  "GMO Policy: Unethical Allowed": "2x",
+  "GMO: All Acceptable": "2y",
+  "GMO: Crops": "2z",
+  "AI: Regulation and Oversight": "3",
+  "GMO: Cure Human Diseases": "30",
+  "GMO: Erase Animal Diseases": "31",
+  "GMO: Farm Animals": "32",
+  "GMO: Human Treatment": "33",
+  "GMO: Improve Humans": "34",
+  "GMO: Non-Domestic Animals": "35",
+  "GMO: Non-Farm Domestic Animals": "36",
+  "GMO: None Acceptable": "37",
+  "Gender schools": "38",
+  "Gendered classes": "39",
+  "Global Cooperation: Complete": "3a",
+  "Global Cooperation: Limited": "3b",
+  "Global Cooperation: Minimal": "3c",
+  "Global Cooperation: Relevant": "3d",
+  "Globalisation: No, Countries Self-Sufficient": "3e",
+  "Globalisation: No, Localised": "3f",
+  "Globalisation: State Self-Sufficiency": "3g",
+  "Globalisation: Yes": "3h",
+  "Globalisation: Yes with Local Diversity": "3i",
+  "Healthcare Funding: Free": "3j",
+  "Healthcare Funding: Private": "3k",
+  "Healthcare Funding: Public Option": "3l",
+  "Healthcare Funding: Subsidies": "3m",
+  "Healthcare Ownership: Government": "3n",
+  "Healthcare Ownership: Mixed": "3o",
+  "Healthcare Ownership: Non-Government": "3p",
+  "Ignore racism as long it's not a big problem": "3q",
+  "Immigration: Closed": "3r",
+  "Immigration: Controlled Open": "3s",
+  "Immigration: Cultural Similarity": "3t",
+  "Immigration: Open Borders": "3u",
+  "Immigration: Skilled Workers": "3v",
+  "Industry Ownership: Communal": "3w",
+  "Industry Ownership: Decentralized": "3x",
+  "Industry Ownership: Private Minimal": "3y",
+  "Industry Ownership: Private Regulated": "3z",
+  "AI: Regulation and Worker Programs": "4",
+  "Industry Ownership: State": "40",
+  "Judges: Appointed": "41",
+  "Judges: Citizen Juries": "42",
+  "Judges: Elected": "43",
+  "Judges: None": "44",
+  "Judges: Professional": "45",
+  "Judges: Traditional": "46",
+  "Juries: Assist Only": "47",
+  "Juries: Full Functions": "48",
+  "Juries: None": "49",
+  "Juries: Verdict Only": "4a",
+  "Jury Cases: All": "4b",
+  "Jury Cases: All Criminal": "4c",
+  "Jury Cases: Civil Only": "4d",
+  "Jury Cases: Criminal and Civil": "4e",
+  "Jury Cases: Serious Criminal": "4f",
+  "Jury Cases: Specialized": "4g",
+  "Justice Purpose: Deterrence": "4h",
+  "Justice Purpose: Expulsion": "4i",
+  "Justice Purpose: Incapacitation": "4j",
+  "Justice Purpose: Rehabilitation": "4k",
+  "Justice Purpose: Restoration": "4l",
+  "Justice Purpose: Retribution": "4m",
+  "Land Administration: Aristocratic": "4n",
+  "Land Administration: Commercial Companies": "4o",
+  "Land Administration: Cooperatives": "4p",
+  "Land Administration: Family Farms": "4q",
+  "Land Administration: Government Committees": "4r",
+  "Land Administration: Local Councils": "4s",
+  "Land Administration: Local Managers": "4t",
+  "Land Administration: State Companies": "4u",
+  "Land Administration: Traditional Communes": "4v",
+  "Land Administration: Worker Cooperatives": "4w",
+  "Land Labor: Community Members": "4x",
+  "Land Labor: Corvée": "4y",
+  "Land Labor: Prison/Slaves": "4z",
+  "AI: Worker Programs Only": "5",
+  "Land Labor: Small-Holders": "50",
+  "Land Labor: Tenant Farmers": "51",
+  "Land Labor: Wage Laborers": "52",
+  "Land Ownership: Commodity": "53",
+  "Land Ownership: Common Property": "54",
+  "Land Ownership: Crown": "55",
+  "Land Ownership: Government Majority": "56",
+  "Land Ownership: Government Some": "57",
+  "Land Ownership: Inheritable Only": "58",
+  "Land Ownership: Local Communities": "59",
+  "Land Ownership: User Property": "5a",
+  "Legal Equality: Equitable": "5b",
+  "Legal Equality: No": "5c",
+  "Legal Equality: Yes": "5d",
+  "Legal Inequality: Ability": "5e",
+  "Legal Inequality: Aristocratic": "5f",
+  "Legal Inequality: Caste System": "5g",
+  "Legal Inequality: Economic/Political": "5h",
+  "Legal Inequality: Race/Ethnicity": "5i",
+  "Legal Inequality: Sex/Gender": "5j",
+  "Local Admin: Central Appointment": "5k",
+  "Local Admin: Fully Elected": "5l",
+  "Local Admin: Hereditary": "5m",
+  "Local Admin: Mixed Elected": "5n",
+  "Local Admin: Sortition": "5o",
+  "Local Admin: Subunit Appointment": "5p",
+  "Local Autonomy": "5q",
+  "Media Funding: Educational/Utility": "5r",
+  "Media Funding: No Criteria": "5s",
+  "Media Funding: None": "5t",
+  "Media Ownership: Non-Profit Only": "5u",
+  "Media Ownership: Private Only": "5v",
+  "Media Ownership: State Only": "5w",
+  "Media Ownership: State and Private Free": "5x",
+  "Media Ownership: State and Private Permitted": "5y",
+  "Military Force: Humanitarian": "5z",
+  "Abortion: Banned": "6",
+  "Military Force: Ideological": "60",
+  "Military Force: Material Gain": "61",
+  "Military Force: Never": "62",
+  "Military Force: Preemptive": "63",
+  "Military Force: Self-Defense": "64",
+  "Military: Conscripted": "65",
+  "Military: Militia": "66",
+  "Military: Private": "67",
+  "Military: Professional": "68",
+  "Military: Soldier Caste": "69",
+  "Mix of national and federal organisation": "6a",
+  "Multicameralism (>3)": "6b",
+  "No child marriage": "6c",
+  "No legal marriage": "6d",
+  "No legislature": "6e",
+  "No slavery": "6f",
+  "Not gendered schools": "6g",
+  "Officers: Elected": "6h",
+  "Officers: Loyalty": "6i",
+  "Officers: Merit": "6j",
+  "Officers: Nobility": "6k",
+  "Officers: Purchasable": "6l",
+  "Police Duty: Body Cam": "6m",
+  "Police Duty: Defend Civilians": "6n",
+  "Police Duty: Prohibition": "6o",
+  "Police Privilege: Arms": "6p",
+  "Police Privilege: Arrest": "6q",
+  "Police Privilege: Confiscation": "6r",
+  "Police Privilege: Entry": "6s",
+  "Police Privilege: Immunity": "6t",
+  "Police Privilege: Surveillance": "6u",
+  "Police Responsibility: Civilians": "6v",
+  "Police Responsibility: Criminals": "6w",
+  "Police Responsibility: Crowd Control": "6x",
+  "Police Responsibility: Investigation": "6y",
+  "Police Responsibility: Private Property": "6z",
+  "Abortion: Extreme Cases": "7",
+  "Police Responsibility: Public Property": "70",
+  "Police: Local Professional": "71",
+  "Police: Militarized National": "72",
+  "Police: National Professional": "73",
+  "Police: None": "74",
+  "Police: Private Companies": "75",
+  "Police: Rotating Community": "76",
+  "Power Division: Checks National": "77",
+  "Power Division: Checks Subunit": "78",
+  "Power Division: Efficient National": "79",
+  "Power Division: Efficient Subunit": "7a",
+  "Power Division: Neither National": "7b",
+  "Power Division: Neither Subunit": "7c",
+  "Prisons: Dangerous Only": "7d",
+  "Prisons: No": "7e",
+  "Prisons: Yes": "7f",
+  "Promoting gender roles in schools": "7g",
+  "Public Constitution Without State": "7h",
+  "Racial segregation": "7i",
+  "Racial seperatism": "7j",
+  "Racism should be tolerated or supported": "7k",
+  "Racism should not be tolerated": "7l",
+  "Religion Power: All Subordinate to State": "7m",
+  "Religion Power: Formal Agreement": "7n",
+  "Religion Power: No Relationship": "7o",
+  "Religion Power: State Controls Religion": "7p",
+  "Religion Power: State Subordinate": "7q",
+  "Religion Status: Laicism": "7r",
+  "Religion Status: No Official No Secularism": "7s",
+  "Religion Status: Official": "7t",
+  "Religion Status: Official Separation": "7u",
+  "Religion Status: State Atheism": "7v",
+  "Religious Freedom: No": "7w",
+  "Religious Freedom: Yes": "7x",
+  "Religious Tax: All Equal": "7y",
+  "Religious Tax: Marginalized": "7z",
+  "Abortion: Legal": "8",
+  "Religious Tax: No Privilege": "80",
+  "Religious Tax: No Public Funding": "81",
+  "Religious Tax: Official Preference": "82",
+  "Religious Tax: Only Official": "83",
+  "School Gender: Case by Case": "84",
+  "School Organization: Central Control": "85",
+  "School Organization: Teachers": "86",
+  "School Organization: Teachers and Parents": "87",
+  "School Organization: Teachers and Students Equal": "88",
+  "School Organization: Teachers, Parents, Students": "89",
+  "School Ownership: Communities": "8a",
+  "School Ownership: Families": "8b",
+  "School Ownership: Private": "8c",
+  "School Ownership: State": "8d",
+  "School Segregation: Case by Case": "8e",
+  "School Segregation: No": "8f",
+  "School Segregation: Yes": "8g",
+  "School Standards: Local Curriculum": "8h",
+  "School Standards: Minimum Local": "8i",
+  "School Standards: Minimum National": "8j",
+  "School Standards: National Curriculum": "8k",
+  "School Standards: None": "8l",
+  "Separation of Powers: Anti-State": "8m",
+  "Separation of Powers: None": "8n",
+  "Separation of Powers: Partial": "8o",
+  "Separation of Powers: Strict": "8p",
+  "Slavery Exempt: Citizens": "8q",
+  "Slavery Exempt: None": "8r",
+  "Slavery Exempt: Specific Groups": "8s",
+  "Slavery: Birth": "8t",
+  "Slavery: Criminal Punishment": "8u",
+  "Slavery: Debt": "8v",
+  "Slavery: Government Wish": "8w",
+  "Slavery: Parents": "8x",
+  "Slavery: Pre-Existing": "8y",
+  "Slavery: Victim Claim": "8z",
+  "Abortion: Restricted": "9",
+  "Slavery: Voluntary Contract": "90",
+  "Slavery: War Captives": "91",
+  "Span: Continent": "92",
+  "Span: Local Community": "93",
+  "Span: Medium/Large Country": "94",
+  "Span: Panarchy": "95",
+  "Span: Small Country": "96",
+  "Span: Town/City": "97",
+  "Span: World": "98",
+  "Speech Restrictions: Any Disobedience": "99",
+  "Speech Restrictions: Blasphemy": "9a",
+  "Speech Restrictions: Contract Violation": "9b",
+  "Speech Restrictions: Disinformation": "9c",
+  "Speech Restrictions: False Alarms": "9d",
+  "Speech Restrictions: Hate Speech": "9e",
+  "Speech Restrictions: None": "9f",
+  "Speech Restrictions: Opposition": "9g",
+  "Speech Restrictions: Slander Organizations": "9h",
+  "Speech Restrictions: Slander Private Figures": "9i",
+  "Speech Restrictions: Slander Public Figures": "9j",
+  "Speech Restrictions: Symbol Disrespect": "9k",
+  "Speech Restrictions: Violence": "9l",
+  "Speech Restrictions: Violent Disobedience": "9m",
+  "Supreme executive": "9n",
+  "Supreme legislature": "9o",
+  "Surveillance: Extensive": "9p",
+  "Surveillance: Minimal": "9q",
+  "Surveillance: None": "9r",
+  "Surveillance: Targeted No Warrants": "9s",
+  "Surveillance: Targeted Warrants": "9t",
+  "System Scale: Ethnic Group": "9u",
+  "System Scale: Many Places": "9v",
+  "System Scale: My Country": "9w",
+  "System Scale: Universal": "9x",
+  "Taxation Type: Progressive": "9y",
+  "Taxation Type: Proportional": "9z",
+  "Any Monogamy": "a",
+  "Taxation Type: Regressive": "a0",
+  "Taxation: Capital Gains": "a1",
+  "Taxation: Consumption": "a2",
+  "Taxation: Corporate": "a3",
+  "Taxation: Inheritance": "a4",
+  "Taxation: Lifestyle": "a5",
+  "Taxation: Luxury": "a6",
+  "Taxation: None": "a7",
+  "Taxation: Poll": "a8",
+  "Taxation: Resource Rent": "a9",
+  "Taxation: Wealth": "aa",
+  "Trade Policy: Closed Economy": "ab",
+  "Trade Policy: Fair Trade": "ac",
+  "Trade Policy: Free Trade": "ad",
+  "Trade Policy: Mercantilism": "ae",
+  "Trade Policy: Protectionism": "af",
+  "Trade Restrictions: Ideology": "ag",
+  "Trade Restrictions: None": "ah",
+  "Trade Restrictions: Unethical Practices": "ai",
+  "Traditional Monogamy": "aj",
+  "Traditional Polygyny": "ak",
+  "Transparency: Balanced": "al",
+  "Transparency: Government Secrecy": "am",
+  "Transparency: Opaque": "an",
+  "Transparency: Radical": "ao",
+  "Tricameralism": "ap",
+  "Unconsensual marriage between adults allowed": "aq",
+  "Unicameral": "ar",
+  "Unions Operation: Accurate Representation": "as",
+  "Unions Operation: Collective Bargaining": "at",
+  "Unions Operation: Government Control": "au",
+  "Unions Operation: Non-Radical Only": "av",
+  "Unions Operation: Public Funding": "aw",
+  "Unions Operation: Strictly Regulated": "ax",
+  "Unions Operation: Tripartism": "ay",
+  "Unions Role: Banned": "az",
+  "Any Polygamy": "b",
+  "Unions Role: Discouraged": "b0",
+  "Unions Role: Optional": "b1",
+  "Unions Role: Promoted": "b2",
+  "Unions Role: Unnecessary": "b3",
+  "Unions Role: Widespread": "b4",
+  "Unions Structure: Elective": "b5",
+  "Unions Structure: Hierarchical": "b6",
+  "Unions Structure: No Preference": "b7",
+  "Unions Structure: Rank-and-File": "b8",
+  "Unitary State": "b9",
+  "Veto Right: Citizens Referendum": "ba",
+  "Veto Right: Constitutional Court": "bb",
+  "Veto Right: Head of State": "bc",
+  "Veto Right: None": "bd",
+  "Veto Right: Regional/Local": "be",
+  "Veto Right: Upper Chamber": "bf",
+  "Vote Weight: None": "bg",
+  "Vote Weight: Older": "bh",
+  "Vote Weight: Racial": "bi",
+  "Vote Weight: Sex/Gender": "bj",
+  "Vote Weight: Wealth": "bk",
+  "Vote Weight: Younger": "bl",
+  "Vote: Age Requirement": "bm",
+  "Vote: Aristocratic Title": "bn",
+  "Vote: Birth Citizenship": "bo",
+  "Vote: Citizenship": "bp",
+  "Vote: Land Ownership": "bq",
+  "Vote: Literacy/Civic Knowledge": "br",
+  "Vote: Male Only": "bs",
+  "Vote: Married": "bt",
+  "Vote: No Criminal Record": "bu",
+  "Vote: No Voting": "bv",
+  "Vote: Not Imprisoned": "bw",
+  "Vote: Parenthood": "bx",
+  "Vote: Party Membership": "by",
+  "Vote: Racial Requirement": "bz",
+  "Bicameral": "c",
+  "Vote: Religious Requirement": "c0",
+  "Vote: Residency": "c1",
+  "Vote: Stable Income": "c2",
+  "Vote: State Shares": "c3",
+  "Vote: Wealth Requirement": "c4",
+  "Wavelength Regulation: Government": "c5",
+  "Wavelength Regulation: Homestead": "c6",
+  "Wavelength Regulation: Local": "c7",
+  "Wavelength Regulation: None": "c8",
+  "Workplace: Balanced": "c9",
+  "Workplace: Employer Control": "ca",
+  "Workplace: Traditional Hierarchy": "cb",
+  "Workplace: Worker Self-Management": "cc",
+  "Child marriage between two minors allowed": "d",
+  "Child marriage with an adult allowed": "e",
+  "Citizenship: Birthright": "f",
+  "Citizenship: Bloodline": "g",
+  "Citizenship: Long-term Residents": "h",
+  "Co-existence of legislature and executive": "i",
+  "Confederation": "j",
+  "Conscription Exempt: Businessmen": "k",
+  "Conscription Exempt: Celebrities": "l",
+  "Conscription Exempt: Certain Groups": "m",
+  "Conscription Exempt: Influential Families": "n",
+  "Conscription Exempt: LGBT": "o",
+  "Conscription Exempt: No One": "p",
+  "Conscription Exempt: Politicians": "q",
+  "Conscription Exempt: Women": "r",
+  "Conscription Timing: Defense Shortages": "s",
+  "Conscription Timing: Emergencies": "t",
+  "Conscription Timing: Peacetime": "u",
+  "Conscription Timing: Wartime": "v",
+  "Conscription: Lottery": "w",
+  "Conscription: None": "x",
+  "Conscription: Selective": "y",
+  "Conscription: Universal": "z",
+};
+
+
+// Encoding/Decoding Functions
+function encodeProfile(profile) {
+  // 1. Encode policy keys using dictionary
+  const encodedAnswers = {};
+  for (const [qId, policies] of Object.entries(profile.answers)) {
+    encodedAnswers[qId] = policies.map(p => REVERSE_POLICY_DICT[p] || p);
+  }
+  
+  // 2. Convert abstained object to array (compact representation)
+  const abstainedArray = Object.keys(profile.abstained || {}).map(Number);
+  
+  // 3. Use Unix timestamp (seconds instead of ISO string)
+  const timestamp = Math.floor(new Date(profile.timestamp).getTime() / 1000);
+  
+  // 4. Create compact profile
+  const compact = {
+    l: profile.label,
+    t: timestamp,
+    a: encodedAnswers,
+    b: abstainedArray
+  };
+  
+  // 5. Compress with LZ-string
+  return LZString.compressToUTF16(JSON.stringify(compact));
+}
+
+function decodeProfile(compressed) {
+  // 1. Decompress
+  const json = LZString.decompressFromUTF16(compressed);
+  if (!json) return null;
+  
+  const compact = JSON.parse(json);
+  
+  // 2. Decode policy keys
+  const answers = {};
+  for (const [qId, codes] of Object.entries(compact.a)) {
+    answers[qId] = codes.map(c => POLICY_DICT[c] || c);
+  }
+  
+  // 3. Convert abstained array back to object
+  const abstained = {};
+  (compact.b || []).forEach(id => { abstained[id] = true; });
+  
+  // 4. Convert Unix timestamp back to ISO string
+  const timestamp = new Date(compact.t * 1000).toISOString();
+  
+  return {
+    label: compact.l,
+    timestamp: timestamp,
+    answers: answers,
+    abstained: abstained
+  };
+}
+
+function isCompressedProfile(data) {
+  return typeof data === 'string' && data.length > 0;
+}
+
+// Helper function to save profiles to localStorage
+function saveProfilesToStorage() {
+  // Save profiles as-is (don't compress in editor to preserve derived fields)
+  localStorage.setItem('politicalSpectrumProfiles', JSON.stringify(profiles));
+}
+</script>
+
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap');
 
@@ -181,13 +1153,470 @@
 </div>
 
 <script>
-const policiesDB = {};
+const policiesDB = {
+  "AI: Minimal Regulation": { category: "Culture & Social Issues", subcategory: "Technology", symbol: "●", description: "AI - Minimal Regulation" },
+  "AI: Moneyless Automated Society": { category: "Culture & Social Issues", subcategory: "Technology", symbol: "●", description: "AI - Moneyless Automated Society" },
+  "AI: No Regulation": { category: "Culture & Social Issues", subcategory: "Technology", symbol: "●", description: "AI - No Regulation" },
+  "AI: Regulation and Oversight": { category: "Culture & Social Issues", subcategory: "Technology", symbol: "●", description: "AI - Regulation and Oversight" },
+  "AI: Regulation and Worker Programs": { category: "Culture & Social Issues", subcategory: "Technology", symbol: "●", description: "AI - Regulation and Worker Programs" },
+  "AI: Worker Programs Only": { category: "Culture & Social Issues", subcategory: "Technology", symbol: "●", description: "AI - Worker Programs Only" },
+  "Abortion: Banned": { category: "Culture & Social Issues", subcategory: "Family & Sex", symbol: "●", description: "Abortion - Banned" },
+  "Abortion: Extreme Cases": { category: "Culture & Social Issues", subcategory: "Family & Sex", symbol: "●", description: "Abortion - Extreme Cases" },
+  "Abortion: Legal": { category: "Culture & Social Issues", subcategory: "Family & Sex", symbol: "●", description: "Abortion - Legal" },
+  "Abortion: Restricted": { category: "Culture & Social Issues", subcategory: "Family & Sex", symbol: "●", description: "Abortion - Restricted" },
+  "Any Monogamy": { category: "Culture & Social Issues", subcategory: "Family & Sex", symbol: "●", description: "Any Monogamy" },
+  "Any Polygamy": { category: "Culture & Social Issues", subcategory: "Family & Sex", symbol: "●", description: "Any Polygamy" },
+  "Bicameral": { category: "Governance", subcategory: "Executive and Legislative Structure", symbol: "●", description: "Bicameral" },
+  "Child marriage between two minors allowed": { category: "Culture & Social Issues", subcategory: "Family & Sex", symbol: "●", description: "Child marriage between two minors allowed" },
+  "Child marriage with an adult allowed": { category: "Culture & Social Issues", subcategory: "Family & Sex", symbol: "●", description: "Child marriage with an adult allowed" },
+  "Citizenship: Birthright": { category: "Governance", subcategory: "Citizenship", symbol: "●", description: "Citizenship - Birthright" },
+  "Citizenship: Bloodline": { category: "Governance", subcategory: "Citizenship", symbol: "●", description: "Citizenship - Bloodline" },
+  "Citizenship: Long-term Residents": { category: "Governance", subcategory: "Citizenship", symbol: "●", description: "Citizenship - Long-term Residents" },
+  "Co-existence of legislature and executive": { category: "Governance", subcategory: "Executive and Legislative Structure", symbol: "●", description: "Co-existence of legislature and executive" },
+  "Confederation": { category: "Governance", subcategory: "Centralization", symbol: "●", description: "Confederation" },
+  "Conscription Exempt: Businessmen": { category: "Governance", subcategory: "Army Model", symbol: "●", description: "Conscription Exempt - Businessmen" },
+  "Conscription Exempt: Celebrities": { category: "Governance", subcategory: "Army Model", symbol: "●", description: "Conscription Exempt - Celebrities" },
+  "Conscription Exempt: Certain Groups": { category: "Governance", subcategory: "Army Model", symbol: "●", description: "Conscription Exempt - Certain Groups" },
+  "Conscription Exempt: Influential Families": { category: "Governance", subcategory: "Army Model", symbol: "●", description: "Conscription Exempt - Influential Families" },
+  "Conscription Exempt: LGBT": { category: "Governance", subcategory: "Army Model", symbol: "●", description: "Conscription Exempt - LGBT" },
+  "Conscription Exempt: No One": { category: "Governance", subcategory: "Army Model", symbol: "●", description: "Conscription Exempt - No One" },
+  "Conscription Exempt: Politicians": { category: "Governance", subcategory: "Army Model", symbol: "●", description: "Conscription Exempt - Politicians" },
+  "Conscription Exempt: Women": { category: "Governance", subcategory: "Army Model", symbol: "●", description: "Conscription Exempt - Women" },
+  "Conscription Timing: Defense Shortages": { category: "Governance", subcategory: "Army Model", symbol: "●", description: "Conscription Timing - Defense Shortages" },
+  "Conscription Timing: Emergencies": { category: "Governance", subcategory: "Army Model", symbol: "●", description: "Conscription Timing - Emergencies" },
+  "Conscription Timing: Peacetime": { category: "Governance", subcategory: "Army Model", symbol: "●", description: "Conscription Timing - Peacetime" },
+  "Conscription Timing: Wartime": { category: "Governance", subcategory: "Army Model", symbol: "●", description: "Conscription Timing - Wartime" },
+  "Conscription: Lottery": { category: "Governance", subcategory: "Army Model", symbol: "●", description: "Conscription - Lottery" },
+  "Conscription: None": { category: "Governance", subcategory: "Army Model", symbol: "●", description: "Conscription - None" },
+  "Conscription: Selective": { category: "Governance", subcategory: "Army Model", symbol: "●", description: "Conscription - Selective" },
+  "Conscription: Universal": { category: "Governance", subcategory: "Army Model", symbol: "●", description: "Conscription - Universal" },
+  "Consensual marriage between adults": { category: "Culture & Social Issues", subcategory: "Family & Sex", symbol: "●", description: "Consensual marriage between adults" },
+  "Consensual marriage between adults with limitations on divorce": { category: "Culture & Social Issues", subcategory: "Family & Sex", symbol: "●", description: "Consensual marriage between adults with limitations on divorce" },
+  "Constitutional Court: Independent": { category: "Governance", subcategory: "Judiciary", symbol: "●", description: "Constitutional Court - Independent" },
+  "Constitutional Court: No": { category: "Governance", subcategory: "Judiciary", symbol: "●", description: "Constitutional Court - No" },
+  "Constitutional Court: No Constitution": { category: "Governance", subcategory: "Judiciary", symbol: "●", description: "Constitutional Court - No Constitution" },
+  "Constitutional Court: With Override": { category: "Governance", subcategory: "Judiciary", symbol: "●", description: "Constitutional Court - With Override" },
+  "Courts: Customs": { category: "Governance", subcategory: "Judiciary", symbol: "●", description: "Courts - Customs" },
+  "Courts: Justice and Precedents": { category: "Governance", subcategory: "Judiciary", symbol: "●", description: "Courts - Justice and Precedents" },
+  "Courts: Legality": { category: "Governance", subcategory: "Judiciary", symbol: "●", description: "Courts - Legality" },
+  "Courts: Legality and Interpretation": { category: "Governance", subcategory: "Judiciary", symbol: "●", description: "Courts - Legality and Interpretation" },
+  "Courts: Legality and Justice": { category: "Governance", subcategory: "Judiciary", symbol: "●", description: "Courts - Legality and Justice" },
+  "Courts: No Law Reference": { category: "Governance", subcategory: "Judiciary", symbol: "●", description: "Courts - No Law Reference" },
+  "Cultural Diversity: Assimilation": { category: "Culture & Social Issues", subcategory: "Ethnicities and Cultures", symbol: "●", description: "Cultural Diversity - Assimilation" },
+  "Cultural Diversity: Integration": { category: "Culture & Social Issues", subcategory: "Ethnicities and Cultures", symbol: "●", description: "Cultural Diversity - Integration" },
+  "Cultural Diversity: Separation": { category: "Culture & Social Issues", subcategory: "Ethnicities and Cultures", symbol: "●", description: "Cultural Diversity - Separation" },
+  "Death Penalty: No": { category: "Governance", subcategory: "Justice", symbol: "●", description: "Death Penalty - No" },
+  "Death Penalty: Yes": { category: "Governance", subcategory: "Justice", symbol: "●", description: "Death Penalty - Yes" },
+  "Devolution": { category: "Governance", subcategory: "Centralization", symbol: "●", description: "Devolution" },
+  "Economic Intervention: Eminent Domain": { category: "Economy", subcategory: "Regulation", symbol: "●", description: "Economic Intervention - Eminent Domain" },
+  "Economic Intervention: Export Taxes": { category: "Economy", subcategory: "Regulation", symbol: "●", description: "Economic Intervention - Export Taxes" },
+  "Economic Intervention: Incentives": { category: "Economy", subcategory: "Regulation", symbol: "●", description: "Economic Intervention - Incentives" },
+  "Economic Intervention: Minimum Wage": { category: "Economy", subcategory: "Regulation", symbol: "●", description: "Economic Intervention - Minimum Wage" },
+  "Economic Intervention: Nationalization": { category: "Economy", subcategory: "Regulation", symbol: "●", description: "Economic Intervention - Nationalization" },
+  "Economic Intervention: None": { category: "Economy", subcategory: "Regulation", symbol: "●", description: "Economic Intervention - None" },
+  "Economic Intervention: Price Control": { category: "Economy", subcategory: "Regulation", symbol: "●", description: "Economic Intervention - Price Control" },
+  "Economic Intervention: Rationing": { category: "Economy", subcategory: "Regulation", symbol: "●", description: "Economic Intervention - Rationing" },
+  "Economic Intervention: Stimulus": { category: "Economy", subcategory: "Regulation", symbol: "●", description: "Economic Intervention - Stimulus" },
+  "Economic Intervention: Subsidies": { category: "Economy", subcategory: "Regulation", symbol: "●", description: "Economic Intervention - Subsidies" },
+  "Economic Intervention: Tariffs": { category: "Economy", subcategory: "Regulation", symbol: "●", description: "Economic Intervention - Tariffs" },
+  "Education Compulsory: No": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "Education Compulsory - No" },
+  "Education Compulsory: Yes Penalties": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "Education Compulsory - Yes Penalties" },
+  "Education End: Adulthood": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "Education End - Adulthood" },
+  "Education End: Either": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "Education End - Either" },
+  "Education End: Knowledge Proof": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "Education End - Knowledge Proof" },
+  "Education Free: Higher": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "Education Free - Higher" },
+  "Education Free: None": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "Education Free - None" },
+  "Education Free: Primary": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "Education Free - Primary" },
+  "Education Free: Technical": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "Education Free - Technical" },
+  "Education Goals: Basic Knowledge": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "Education Goals - Basic Knowledge" },
+  "Education Goals: Civic Duty": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "Education Goals - Civic Duty" },
+  "Education Goals: Compliance": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "Education Goals - Compliance" },
+  "Education Goals: Critical Thinking": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "Education Goals - Critical Thinking" },
+  "Education Goals: Cultural Heritage": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "Education Goals - Cultural Heritage" },
+  "Education Goals: Holistic": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "Education Goals - Holistic" },
+  "Education Goals: Parent Decision": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "Education Goals - Parent Decision" },
+  "Education Goals: Practical Skills": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "Education Goals - Practical Skills" },
+  "Education Goals: Vocational": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "Education Goals - Vocational" },
+  "Education Goals: World History": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "Education Goals - World History" },
+  "Education Subsidized: Higher": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "Education Subsidized - Higher" },
+  "Education Subsidized: None": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "Education Subsidized - None" },
+  "Education Subsidized: Primary": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "Education Subsidized - Primary" },
+  "Education Subsidized: Technical": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "Education Subsidized - Technical" },
+  "Forced Labor: Corvée/Serfs": { category: "Culture & Social Issues", subcategory: "Forced Labor", symbol: "●", description: "Forced Labor - Corvée/Serfs" },
+  "Forced Labor: Debt Compensation": { category: "Culture & Social Issues", subcategory: "Forced Labor", symbol: "●", description: "Forced Labor - Debt Compensation" },
+  "Forced Labor: National Service": { category: "Culture & Social Issues", subcategory: "Forced Labor", symbol: "●", description: "Forced Labor - National Service" },
+  "Forced Labor: None": { category: "Culture & Social Issues", subcategory: "Forced Labor", symbol: "●", description: "Forced Labor - None" },
+  "Forced Labor: Prison": { category: "Culture & Social Issues", subcategory: "Forced Labor", symbol: "●", description: "Forced Labor - Prison" },
+  "Forced Labor: Rehabilitation": { category: "Culture & Social Issues", subcategory: "Forced Labor", symbol: "●", description: "Forced Labor - Rehabilitation" },
+  "Forced Labor: Victim Compensation": { category: "Culture & Social Issues", subcategory: "Forced Labor", symbol: "●", description: "Forced Labor - Victim Compensation" },
+  "Forced Labor: Work Requirement": { category: "Culture & Social Issues", subcategory: "Forced Labor", symbol: "●", description: "Forced Labor - Work Requirement" },
+  "Foreign Property: None": { category: "World", subcategory: "Economic globalization", symbol: "●", description: "Foreign Property - None" },
+  "Foreign Property: Personal": { category: "World", subcategory: "Economic globalization", symbol: "●", description: "Foreign Property - Personal" },
+  "Foreign Property: Real Estate": { category: "World", subcategory: "Economic globalization", symbol: "●", description: "Foreign Property - Real Estate" },
+  "Foreign Property: Stocks and Companies": { category: "World", subcategory: "Economic globalization", symbol: "●", description: "Foreign Property - Stocks and Companies" },
+  "Free federation": { category: "Governance", subcategory: "Centralization", symbol: "●", description: "Free federation" },
+  "GMO Policy: Consumer Information": { category: "Culture & Social Issues", subcategory: "Technology", symbol: "●", description: "GMO Policy - Consumer Information" },
+  "GMO Policy: Ethical Guidelines": { category: "Culture & Social Issues", subcategory: "Technology", symbol: "●", description: "GMO Policy - Ethical Guidelines" },
+  "GMO Policy: Illegal Commercial": { category: "Culture & Social Issues", subcategory: "Technology", symbol: "●", description: "GMO Policy - Illegal Commercial" },
+  "GMO Policy: Illegal Private": { category: "Culture & Social Issues", subcategory: "Technology", symbol: "●", description: "GMO Policy - Illegal Private" },
+  "GMO Policy: Unethical Allowed": { category: "Culture & Social Issues", subcategory: "Technology", symbol: "●", description: "GMO Policy - Unethical Allowed" },
+  "GMO: All Acceptable": { category: "Culture & Social Issues", subcategory: "Technology", symbol: "●", description: "GMO - All Acceptable" },
+  "GMO: Crops": { category: "Culture & Social Issues", subcategory: "Technology", symbol: "●", description: "GMO - Crops" },
+  "GMO: Cure Human Diseases": { category: "Culture & Social Issues", subcategory: "Technology", symbol: "●", description: "GMO - Cure Human Diseases" },
+  "GMO: Erase Animal Diseases": { category: "Culture & Social Issues", subcategory: "Technology", symbol: "●", description: "GMO - Erase Animal Diseases" },
+  "GMO: Farm Animals": { category: "Culture & Social Issues", subcategory: "Technology", symbol: "●", description: "GMO - Farm Animals" },
+  "GMO: Human Treatment": { category: "Culture & Social Issues", subcategory: "Technology", symbol: "●", description: "GMO - Human Treatment" },
+  "GMO: Improve Humans": { category: "Culture & Social Issues", subcategory: "Technology", symbol: "●", description: "GMO - Improve Humans" },
+  "GMO: Non-Domestic Animals": { category: "Culture & Social Issues", subcategory: "Technology", symbol: "●", description: "GMO - Non-Domestic Animals" },
+  "GMO: Non-Farm Domestic Animals": { category: "Culture & Social Issues", subcategory: "Technology", symbol: "●", description: "GMO - Non-Farm Domestic Animals" },
+  "GMO: None Acceptable": { category: "Culture & Social Issues", subcategory: "Technology", symbol: "●", description: "GMO - None Acceptable" },
+  "Gender schools": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "Gender schools" },
+  "Gendered classes": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "Gendered classes" },
+  "Global Cooperation: Complete": { category: "World", subcategory: "International Cooperation", symbol: "●", description: "Global Cooperation - Complete" },
+  "Global Cooperation: Limited": { category: "World", subcategory: "International Cooperation", symbol: "●", description: "Global Cooperation - Limited" },
+  "Global Cooperation: Minimal": { category: "World", subcategory: "International Cooperation", symbol: "●", description: "Global Cooperation - Minimal" },
+  "Global Cooperation: Relevant": { category: "World", subcategory: "International Cooperation", symbol: "●", description: "Global Cooperation - Relevant" },
+  "Globalisation: No, Countries Self-Sufficient": { category: "World", subcategory: "Economic globalization", symbol: "●", description: "Globalisation - No, Countries Self-Sufficient" },
+  "Globalisation: No, Localised": { category: "World", subcategory: "Economic globalization", symbol: "●", description: "Globalisation - No, Localised" },
+  "Globalisation: State Self-Sufficiency": { category: "World", subcategory: "Economic globalization", symbol: "●", description: "Globalisation - State Self-Sufficiency" },
+  "Globalisation: Yes": { category: "World", subcategory: "Economic globalization", symbol: "●", description: "Globalisation - Yes" },
+  "Globalisation: Yes with Local Diversity": { category: "World", subcategory: "Economic globalization", symbol: "●", description: "Globalisation - Yes with Local Diversity" },
+  "Healthcare Funding: Free": { category: "Economy", subcategory: "Healthcare", symbol: "●", description: "Healthcare Funding - Free" },
+  "Healthcare Funding: Private": { category: "Economy", subcategory: "Healthcare", symbol: "●", description: "Healthcare Funding - Private" },
+  "Healthcare Funding: Public Option": { category: "Economy", subcategory: "Healthcare", symbol: "●", description: "Healthcare Funding - Public Option" },
+  "Healthcare Funding: Subsidies": { category: "Economy", subcategory: "Healthcare", symbol: "●", description: "Healthcare Funding - Subsidies" },
+  "Healthcare Ownership: Government": { category: "Economy", subcategory: "Healthcare", symbol: "●", description: "Healthcare Ownership - Government" },
+  "Healthcare Ownership: Mixed": { category: "Economy", subcategory: "Healthcare", symbol: "●", description: "Healthcare Ownership - Mixed" },
+  "Healthcare Ownership: Non-Government": { category: "Economy", subcategory: "Healthcare", symbol: "●", description: "Healthcare Ownership - Non-Government" },
+  "Ignore racism as long it's not a big problem": { category: "Culture & Social Issues", subcategory: "Ethnicities and Cultures", symbol: "●", description: "Ignore racism as long it's not a big problem" },
+  "Immigration: Closed": { category: "World", subcategory: "Immigration", symbol: "●", description: "Immigration - Closed" },
+  "Immigration: Controlled Open": { category: "World", subcategory: "Immigration", symbol: "●", description: "Immigration - Controlled Open" },
+  "Immigration: Cultural Similarity": { category: "World", subcategory: "Immigration", symbol: "●", description: "Immigration - Cultural Similarity" },
+  "Immigration: Open Borders": { category: "World", subcategory: "Immigration", symbol: "●", description: "Immigration - Open Borders" },
+  "Immigration: Skilled Workers": { category: "World", subcategory: "Immigration", symbol: "●", description: "Immigration - Skilled Workers" },
+  "Industry Ownership: Communal": { category: "Economy", subcategory: "Ownership", symbol: "●", description: "Industry Ownership - Communal" },
+  "Industry Ownership: Decentralized": { category: "Economy", subcategory: "Ownership", symbol: "●", description: "Industry Ownership - Decentralized" },
+  "Industry Ownership: Private Minimal": { category: "Economy", subcategory: "Ownership", symbol: "●", description: "Industry Ownership - Private Minimal" },
+  "Industry Ownership: Private Regulated": { category: "Economy", subcategory: "Ownership", symbol: "●", description: "Industry Ownership - Private Regulated" },
+  "Industry Ownership: State": { category: "Economy", subcategory: "Ownership", symbol: "●", description: "Industry Ownership - State" },
+  "Judges: Appointed": { category: "Governance", subcategory: "Judiciary", symbol: "●", description: "Judges - Appointed" },
+  "Judges: Citizen Juries": { category: "Governance", subcategory: "Judiciary", symbol: "●", description: "Judges - Citizen Juries" },
+  "Judges: Elected": { category: "Governance", subcategory: "Judiciary", symbol: "●", description: "Judges - Elected" },
+  "Judges: None": { category: "Governance", subcategory: "Judiciary", symbol: "●", description: "Judges - None" },
+  "Judges: Professional": { category: "Governance", subcategory: "Judiciary", symbol: "●", description: "Judges - Professional" },
+  "Judges: Traditional": { category: "Governance", subcategory: "Judiciary", symbol: "●", description: "Judges - Traditional" },
+  "Juries: Assist Only": { category: "Governance", subcategory: "Judiciary", symbol: "●", description: "Juries - Assist Only" },
+  "Juries: Full Functions": { category: "Governance", subcategory: "Judiciary", symbol: "●", description: "Juries - Full Functions" },
+  "Juries: None": { category: "Governance", subcategory: "Judiciary", symbol: "●", description: "Juries - None" },
+  "Juries: Verdict Only": { category: "Governance", subcategory: "Judiciary", symbol: "●", description: "Juries - Verdict Only" },
+  "Jury Cases: All": { category: "Governance", subcategory: "Judiciary", symbol: "●", description: "Jury Cases - All" },
+  "Jury Cases: All Criminal": { category: "Governance", subcategory: "Judiciary", symbol: "●", description: "Jury Cases - All Criminal" },
+  "Jury Cases: Civil Only": { category: "Governance", subcategory: "Judiciary", symbol: "●", description: "Jury Cases - Civil Only" },
+  "Jury Cases: Criminal and Civil": { category: "Governance", subcategory: "Judiciary", symbol: "●", description: "Jury Cases - Criminal and Civil" },
+  "Jury Cases: Serious Criminal": { category: "Governance", subcategory: "Judiciary", symbol: "●", description: "Jury Cases - Serious Criminal" },
+  "Jury Cases: Specialized": { category: "Governance", subcategory: "Judiciary", symbol: "●", description: "Jury Cases - Specialized" },
+  "Justice Purpose: Deterrence": { category: "Governance", subcategory: "Justice", symbol: "●", description: "Justice Purpose - Deterrence" },
+  "Justice Purpose: Expulsion": { category: "Governance", subcategory: "Justice", symbol: "●", description: "Justice Purpose - Expulsion" },
+  "Justice Purpose: Incapacitation": { category: "Governance", subcategory: "Justice", symbol: "●", description: "Justice Purpose - Incapacitation" },
+  "Justice Purpose: Rehabilitation": { category: "Governance", subcategory: "Justice", symbol: "●", description: "Justice Purpose - Rehabilitation" },
+  "Justice Purpose: Restoration": { category: "Governance", subcategory: "Justice", symbol: "●", description: "Justice Purpose - Restoration" },
+  "Justice Purpose: Retribution": { category: "Governance", subcategory: "Justice", symbol: "●", description: "Justice Purpose - Retribution" },
+  "Land Administration: Aristocratic": { category: "Economy", subcategory: "Agriculture", symbol: "●", description: "Land Administration - Aristocratic" },
+  "Land Administration: Commercial Companies": { category: "Economy", subcategory: "Agriculture", symbol: "●", description: "Land Administration - Commercial Companies" },
+  "Land Administration: Cooperatives": { category: "Economy", subcategory: "Agriculture", symbol: "●", description: "Land Administration - Cooperatives" },
+  "Land Administration: Family Farms": { category: "Economy", subcategory: "Agriculture", symbol: "●", description: "Land Administration - Family Farms" },
+  "Land Administration: Government Committees": { category: "Economy", subcategory: "Agriculture", symbol: "●", description: "Land Administration - Government Committees" },
+  "Land Administration: Local Councils": { category: "Economy", subcategory: "Agriculture", symbol: "●", description: "Land Administration - Local Councils" },
+  "Land Administration: Local Managers": { category: "Economy", subcategory: "Agriculture", symbol: "●", description: "Land Administration - Local Managers" },
+  "Land Administration: State Companies": { category: "Economy", subcategory: "Agriculture", symbol: "●", description: "Land Administration - State Companies" },
+  "Land Administration: Traditional Communes": { category: "Economy", subcategory: "Agriculture", symbol: "●", description: "Land Administration - Traditional Communes" },
+  "Land Administration: Worker Cooperatives": { category: "Economy", subcategory: "Agriculture", symbol: "●", description: "Land Administration - Worker Cooperatives" },
+  "Land Labor: Community Members": { category: "Economy", subcategory: "Agriculture", symbol: "●", description: "Land Labor - Community Members" },
+  "Land Labor: Corvée": { category: "Economy", subcategory: "Agriculture", symbol: "●", description: "Land Labor - Corvée" },
+  "Land Labor: Prison/Slaves": { category: "Economy", subcategory: "Agriculture", symbol: "●", description: "Land Labor - Prison/Slaves" },
+  "Land Labor: Small-Holders": { category: "Economy", subcategory: "Agriculture", symbol: "●", description: "Land Labor - Small-Holders" },
+  "Land Labor: Tenant Farmers": { category: "Economy", subcategory: "Agriculture", symbol: "●", description: "Land Labor - Tenant Farmers" },
+  "Land Labor: Wage Laborers": { category: "Economy", subcategory: "Agriculture", symbol: "●", description: "Land Labor - Wage Laborers" },
+  "Land Ownership: Commodity": { category: "Economy", subcategory: "Agriculture", symbol: "●", description: "Land Ownership - Commodity" },
+  "Land Ownership: Common Property": { category: "Economy", subcategory: "Agriculture", symbol: "●", description: "Land Ownership - Common Property" },
+  "Land Ownership: Crown": { category: "Economy", subcategory: "Agriculture", symbol: "●", description: "Land Ownership - Crown" },
+  "Land Ownership: Government Majority": { category: "Economy", subcategory: "Agriculture", symbol: "●", description: "Land Ownership - Government Majority" },
+  "Land Ownership: Government Some": { category: "Economy", subcategory: "Agriculture", symbol: "●", description: "Land Ownership - Government Some" },
+  "Land Ownership: Inheritable Only": { category: "Economy", subcategory: "Agriculture", symbol: "●", description: "Land Ownership - Inheritable Only" },
+  "Land Ownership: Local Communities": { category: "Economy", subcategory: "Agriculture", symbol: "●", description: "Land Ownership - Local Communities" },
+  "Land Ownership: User Property": { category: "Economy", subcategory: "Agriculture", symbol: "●", description: "Land Ownership - User Property" },
+  "Legal Equality: Equitable": { category: "Culture & Social Issues", subcategory: "Caste and Estate System", symbol: "●", description: "Legal Equality - Equitable" },
+  "Legal Equality: No": { category: "Culture & Social Issues", subcategory: "Caste and Estate System", symbol: "●", description: "Legal Equality - No" },
+  "Legal Equality: Yes": { category: "Culture & Social Issues", subcategory: "Caste and Estate System", symbol: "●", description: "Legal Equality - Yes" },
+  "Legal Inequality: Ability": { category: "Culture & Social Issues", subcategory: "Caste and Estate System", symbol: "●", description: "Legal Inequality - Ability" },
+  "Legal Inequality: Aristocratic": { category: "Culture & Social Issues", subcategory: "Caste and Estate System", symbol: "●", description: "Legal Inequality - Aristocratic" },
+  "Legal Inequality: Caste System": { category: "Culture & Social Issues", subcategory: "Caste and Estate System", symbol: "●", description: "Legal Inequality - Caste System" },
+  "Legal Inequality: Economic/Political": { category: "Culture & Social Issues", subcategory: "Caste and Estate System", symbol: "●", description: "Legal Inequality - Economic/Political" },
+  "Legal Inequality: Race/Ethnicity": { category: "Culture & Social Issues", subcategory: "Caste and Estate System", symbol: "●", description: "Legal Inequality - Race/Ethnicity" },
+  "Legal Inequality: Sex/Gender": { category: "Culture & Social Issues", subcategory: "Caste and Estate System", symbol: "●", description: "Legal Inequality - Sex/Gender" },
+  "Local Admin: Central Appointment": { category: "Governance", subcategory: "Bureaucracy", symbol: "●", description: "Local Admin - Central Appointment" },
+  "Local Admin: Fully Elected": { category: "Governance", subcategory: "Bureaucracy", symbol: "●", description: "Local Admin - Fully Elected" },
+  "Local Admin: Hereditary": { category: "Governance", subcategory: "Bureaucracy", symbol: "●", description: "Local Admin - Hereditary" },
+  "Local Admin: Mixed Elected": { category: "Governance", subcategory: "Bureaucracy", symbol: "●", description: "Local Admin - Mixed Elected" },
+  "Local Admin: Sortition": { category: "Governance", subcategory: "Bureaucracy", symbol: "●", description: "Local Admin - Sortition" },
+  "Local Admin: Subunit Appointment": { category: "Governance", subcategory: "Bureaucracy", symbol: "●", description: "Local Admin - Subunit Appointment" },
+  "Local Autonomy": { category: "Governance", subcategory: "Centralization", symbol: "●", description: "Local Autonomy" },
+  "Media Funding: Educational/Utility": { category: "Culture & Social Issues", subcategory: "Media and Speech", symbol: "●", description: "Media Funding - Educational/Utility" },
+  "Media Funding: No Criteria": { category: "Culture & Social Issues", subcategory: "Media and Speech", symbol: "●", description: "Media Funding - No Criteria" },
+  "Media Funding: None": { category: "Culture & Social Issues", subcategory: "Media and Speech", symbol: "●", description: "Media Funding - None" },
+  "Media Ownership: Non-Profit Only": { category: "Culture & Social Issues", subcategory: "Media and Speech", symbol: "●", description: "Media Ownership - Non-Profit Only" },
+  "Media Ownership: Private Only": { category: "Culture & Social Issues", subcategory: "Media and Speech", symbol: "●", description: "Media Ownership - Private Only" },
+  "Media Ownership: State Only": { category: "Culture & Social Issues", subcategory: "Media and Speech", symbol: "●", description: "Media Ownership - State Only" },
+  "Media Ownership: State and Private Free": { category: "Culture & Social Issues", subcategory: "Media and Speech", symbol: "●", description: "Media Ownership - State and Private Free" },
+  "Media Ownership: State and Private Permitted": { category: "Culture & Social Issues", subcategory: "Media and Speech", symbol: "●", description: "Media Ownership - State and Private Permitted" },
+  "Military Force: Humanitarian": { category: "World", subcategory: "War Policy", symbol: "●", description: "Military Force - Humanitarian" },
+  "Military Force: Ideological": { category: "World", subcategory: "War Policy", symbol: "●", description: "Military Force - Ideological" },
+  "Military Force: Material Gain": { category: "World", subcategory: "War Policy", symbol: "●", description: "Military Force - Material Gain" },
+  "Military Force: Never": { category: "World", subcategory: "War Policy", symbol: "●", description: "Military Force - Never" },
+  "Military Force: Preemptive": { category: "World", subcategory: "War Policy", symbol: "●", description: "Military Force - Preemptive" },
+  "Military Force: Self-Defense": { category: "World", subcategory: "War Policy", symbol: "●", description: "Military Force - Self-Defense" },
+  "Military: Conscripted": { category: "Governance", subcategory: "Army Model", symbol: "●", description: "Military - Conscripted" },
+  "Military: Militia": { category: "Governance", subcategory: "Army Model", symbol: "●", description: "Military - Militia" },
+  "Military: Private": { category: "Governance", subcategory: "Army Model", symbol: "●", description: "Military - Private" },
+  "Military: Professional": { category: "Governance", subcategory: "Army Model", symbol: "●", description: "Military - Professional" },
+  "Military: Soldier Caste": { category: "Governance", subcategory: "Army Model", symbol: "●", description: "Military - Soldier Caste" },
+  "Mix of national and federal organisation": { category: "Governance", subcategory: "Centralization", symbol: "●", description: "Mix of national and federal organisation" },
+  "Multicameralism (>3)": { category: "Governance", subcategory: "Executive and Legislative Structure", symbol: "●", description: "Multicameralism (>3)" },
+  "No child marriage": { category: "Culture & Social Issues", subcategory: "Family & Sex", symbol: "●", description: "No child marriage" },
+  "No legal marriage": { category: "Culture & Social Issues", subcategory: "Family & Sex", symbol: "●", description: "No legal marriage" },
+  "No legislature": { category: "Governance", subcategory: "Executive and Legislative Structure", symbol: "●", description: "No legislature" },
+  "No slavery": { category: "Culture & Social Issues", subcategory: "Forced Labor", symbol: "●", description: "No slavery" },
+  "Not gendered schools": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "Not gendered schools" },
+  "Officers: Elected": { category: "Governance", subcategory: "Army Model", symbol: "●", description: "Officers - Elected" },
+  "Officers: Loyalty": { category: "Governance", subcategory: "Army Model", symbol: "●", description: "Officers - Loyalty" },
+  "Officers: Merit": { category: "Governance", subcategory: "Army Model", symbol: "●", description: "Officers - Merit" },
+  "Officers: Nobility": { category: "Governance", subcategory: "Army Model", symbol: "●", description: "Officers - Nobility" },
+  "Officers: Purchasable": { category: "Governance", subcategory: "Army Model", symbol: "●", description: "Officers - Purchasable" },
+  "Police Duty: Body Cam": { category: "Governance", subcategory: "Policing", symbol: "●", description: "Police Duty - Body Cam" },
+  "Police Duty: Defend Civilians": { category: "Governance", subcategory: "Policing", symbol: "●", description: "Police Duty - Defend Civilians" },
+  "Police Duty: Prohibition": { category: "Governance", subcategory: "Policing", symbol: "●", description: "Police Duty - Prohibition" },
+  "Police Privilege: Arms": { category: "Governance", subcategory: "Policing", symbol: "●", description: "Police Privilege - Arms" },
+  "Police Privilege: Arrest": { category: "Governance", subcategory: "Policing", symbol: "●", description: "Police Privilege - Arrest" },
+  "Police Privilege: Confiscation": { category: "Governance", subcategory: "Policing", symbol: "●", description: "Police Privilege - Confiscation" },
+  "Police Privilege: Entry": { category: "Governance", subcategory: "Policing", symbol: "●", description: "Police Privilege - Entry" },
+  "Police Privilege: Immunity": { category: "Governance", subcategory: "Policing", symbol: "●", description: "Police Privilege - Immunity" },
+  "Police Privilege: Surveillance": { category: "Governance", subcategory: "Policing", symbol: "●", description: "Police Privilege - Surveillance" },
+  "Police Responsibility: Civilians": { category: "Governance", subcategory: "Policing", symbol: "●", description: "Police Responsibility - Civilians" },
+  "Police Responsibility: Criminals": { category: "Governance", subcategory: "Policing", symbol: "●", description: "Police Responsibility - Criminals" },
+  "Police Responsibility: Crowd Control": { category: "Governance", subcategory: "Policing", symbol: "●", description: "Police Responsibility - Crowd Control" },
+  "Police Responsibility: Investigation": { category: "Governance", subcategory: "Policing", symbol: "●", description: "Police Responsibility - Investigation" },
+  "Police Responsibility: Private Property": { category: "Governance", subcategory: "Policing", symbol: "●", description: "Police Responsibility - Private Property" },
+  "Police Responsibility: Public Property": { category: "Governance", subcategory: "Policing", symbol: "●", description: "Police Responsibility - Public Property" },
+  "Police: Local Professional": { category: "Governance", subcategory: "Policing", symbol: "●", description: "Police - Local Professional" },
+  "Police: Militarized National": { category: "Governance", subcategory: "Policing", symbol: "●", description: "Police - Militarized National" },
+  "Police: National Professional": { category: "Governance", subcategory: "Policing", symbol: "●", description: "Police - National Professional" },
+  "Police: None": { category: "Governance", subcategory: "Policing", symbol: "●", description: "Police - None" },
+  "Police: Private Companies": { category: "Governance", subcategory: "Policing", symbol: "●", description: "Police - Private Companies" },
+  "Police: Rotating Community": { category: "Governance", subcategory: "Policing", symbol: "●", description: "Police - Rotating Community" },
+  "Power Division: Checks National": { category: "Governance", subcategory: "Centralization", symbol: "●", description: "Power Division - Checks National" },
+  "Power Division: Checks Subunit": { category: "Governance", subcategory: "Centralization", symbol: "●", description: "Power Division - Checks Subunit" },
+  "Power Division: Efficient National": { category: "Governance", subcategory: "Centralization", symbol: "●", description: "Power Division - Efficient National" },
+  "Power Division: Efficient Subunit": { category: "Governance", subcategory: "Centralization", symbol: "●", description: "Power Division - Efficient Subunit" },
+  "Power Division: Neither National": { category: "Governance", subcategory: "Centralization", symbol: "●", description: "Power Division - Neither National" },
+  "Power Division: Neither Subunit": { category: "Governance", subcategory: "Centralization", symbol: "●", description: "Power Division - Neither Subunit" },
+  "Prisons: Dangerous Only": { category: "Governance", subcategory: "Justice", symbol: "●", description: "Prisons - Dangerous Only" },
+  "Prisons: No": { category: "Governance", subcategory: "Justice", symbol: "●", description: "Prisons - No" },
+  "Prisons: Yes": { category: "Governance", subcategory: "Justice", symbol: "●", description: "Prisons - Yes" },
+  "Promoting gender roles in schools": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "Promoting gender roles in schools" },
+  "Public Constitution Without State": { category: "Governance", subcategory: "Centralization", symbol: "●", description: "Public Constitution Without State" },
+  "Racial segregation": { category: "Culture & Social Issues", subcategory: "Ethnicities and Cultures", symbol: "●", description: "Racial segregation" },
+  "Racial seperatism": { category: "Culture & Social Issues", subcategory: "Ethnicities and Cultures", symbol: "●", description: "Racial seperatism" },
+  "Racism should be tolerated or supported": { category: "Culture & Social Issues", subcategory: "Ethnicities and Cultures", symbol: "●", description: "Racism should be tolerated or supported" },
+  "Racism should not be tolerated": { category: "Culture & Social Issues", subcategory: "Ethnicities and Cultures", symbol: "●", description: "Racism should not be tolerated" },
+  "Religion Power: All Subordinate to State": { category: "Governance", subcategory: "Church and State", symbol: "●", description: "Religion Power - All Subordinate to State" },
+  "Religion Power: Formal Agreement": { category: "Governance", subcategory: "Church and State", symbol: "●", description: "Religion Power - Formal Agreement" },
+  "Religion Power: No Relationship": { category: "Governance", subcategory: "Church and State", symbol: "●", description: "Religion Power - No Relationship" },
+  "Religion Power: State Controls Religion": { category: "Governance", subcategory: "Church and State", symbol: "●", description: "Religion Power - State Controls Religion" },
+  "Religion Power: State Subordinate": { category: "Governance", subcategory: "Church and State", symbol: "●", description: "Religion Power - State Subordinate" },
+  "Religion Status: Laicism": { category: "Governance", subcategory: "Church and State", symbol: "●", description: "Religion Status - Laicism" },
+  "Religion Status: No Official No Secularism": { category: "Governance", subcategory: "Church and State", symbol: "●", description: "Religion Status - No Official No Secularism" },
+  "Religion Status: Official": { category: "Governance", subcategory: "Church and State", symbol: "●", description: "Religion Status - Official" },
+  "Religion Status: Official Separation": { category: "Governance", subcategory: "Church and State", symbol: "●", description: "Religion Status - Official Separation" },
+  "Religion Status: State Atheism": { category: "Governance", subcategory: "Church and State", symbol: "●", description: "Religion Status - State Atheism" },
+  "Religious Freedom: No": { category: "Governance", subcategory: "Church and State", symbol: "●", description: "Religious Freedom - No" },
+  "Religious Freedom: Yes": { category: "Governance", subcategory: "Church and State", symbol: "●", description: "Religious Freedom - Yes" },
+  "Religious Tax: All Equal": { category: "Governance", subcategory: "Church and State", symbol: "●", description: "Religious Tax - All Equal" },
+  "Religious Tax: Marginalized": { category: "Governance", subcategory: "Church and State", symbol: "●", description: "Religious Tax - Marginalized" },
+  "Religious Tax: No Privilege": { category: "Governance", subcategory: "Church and State", symbol: "●", description: "Religious Tax - No Privilege" },
+  "Religious Tax: No Public Funding": { category: "Governance", subcategory: "Church and State", symbol: "●", description: "Religious Tax - No Public Funding" },
+  "Religious Tax: Official Preference": { category: "Governance", subcategory: "Church and State", symbol: "●", description: "Religious Tax - Official Preference" },
+  "Religious Tax: Only Official": { category: "Governance", subcategory: "Church and State", symbol: "●", description: "Religious Tax - Only Official" },
+  "School Gender: Case by Case": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "School Gender - Case by Case" },
+  "School Organization: Central Control": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "School Organization - Central Control" },
+  "School Organization: Teachers": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "School Organization - Teachers" },
+  "School Organization: Teachers and Parents": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "School Organization - Teachers and Parents" },
+  "School Organization: Teachers and Students Equal": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "School Organization - Teachers and Students Equal" },
+  "School Organization: Teachers, Parents, Students": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "School Organization - Teachers, Parents, Students" },
+  "School Ownership: Communities": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "School Ownership - Communities" },
+  "School Ownership: Families": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "School Ownership - Families" },
+  "School Ownership: Private": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "School Ownership - Private" },
+  "School Ownership: State": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "School Ownership - State" },
+  "School Segregation: Case by Case": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "School Segregation - Case by Case" },
+  "School Segregation: No": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "School Segregation - No" },
+  "School Segregation: Yes": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "School Segregation - Yes" },
+  "School Standards: Local Curriculum": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "School Standards - Local Curriculum" },
+  "School Standards: Minimum Local": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "School Standards - Minimum Local" },
+  "School Standards: Minimum National": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "School Standards - Minimum National" },
+  "School Standards: National Curriculum": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "School Standards - National Curriculum" },
+  "School Standards: None": { category: "Culture & Social Issues", subcategory: "Education", symbol: "●", description: "School Standards - None" },
+  "Separation of Powers: Anti-State": { category: "Governance", subcategory: "Executive and Legislative Structure", symbol: "●", description: "Separation of Powers - Anti-State" },
+  "Separation of Powers: None": { category: "Governance", subcategory: "Executive and Legislative Structure", symbol: "●", description: "Separation of Powers - None" },
+  "Separation of Powers: Partial": { category: "Governance", subcategory: "Executive and Legislative Structure", symbol: "●", description: "Separation of Powers - Partial" },
+  "Separation of Powers: Strict": { category: "Governance", subcategory: "Executive and Legislative Structure", symbol: "●", description: "Separation of Powers - Strict" },
+  "Slavery Exempt: Citizens": { category: "Culture & Social Issues", subcategory: "Forced Labor", symbol: "●", description: "Slavery Exempt - Citizens" },
+  "Slavery Exempt: None": { category: "Culture & Social Issues", subcategory: "Forced Labor", symbol: "●", description: "Slavery Exempt - None" },
+  "Slavery Exempt: Specific Groups": { category: "Culture & Social Issues", subcategory: "Forced Labor", symbol: "●", description: "Slavery Exempt - Specific Groups" },
+  "Slavery: Birth": { category: "Culture & Social Issues", subcategory: "Forced Labor", symbol: "●", description: "Slavery - Birth" },
+  "Slavery: Criminal Punishment": { category: "Culture & Social Issues", subcategory: "Forced Labor", symbol: "●", description: "Slavery - Criminal Punishment" },
+  "Slavery: Debt": { category: "Culture & Social Issues", subcategory: "Forced Labor", symbol: "●", description: "Slavery - Debt" },
+  "Slavery: Government Wish": { category: "Culture & Social Issues", subcategory: "Forced Labor", symbol: "●", description: "Slavery - Government Wish" },
+  "Slavery: Parents": { category: "Culture & Social Issues", subcategory: "Forced Labor", symbol: "●", description: "Slavery - Parents" },
+  "Slavery: Pre-Existing": { category: "Culture & Social Issues", subcategory: "Forced Labor", symbol: "●", description: "Slavery - Pre-Existing" },
+  "Slavery: Victim Claim": { category: "Culture & Social Issues", subcategory: "Forced Labor", symbol: "●", description: "Slavery - Victim Claim" },
+  "Slavery: Voluntary Contract": { category: "Culture & Social Issues", subcategory: "Forced Labor", symbol: "●", description: "Slavery - Voluntary Contract" },
+  "Slavery: War Captives": { category: "Culture & Social Issues", subcategory: "Forced Labor", symbol: "●", description: "Slavery - War Captives" },
+  "Span: Continent": { category: "Governance", subcategory: "Governance Principle", symbol: "●", description: "Span - Continent" },
+  "Span: Local Community": { category: "Governance", subcategory: "Governance Principle", symbol: "●", description: "Span - Local Community" },
+  "Span: Medium/Large Country": { category: "Governance", subcategory: "Governance Principle", symbol: "●", description: "Span - Medium/Large Country" },
+  "Span: Panarchy": { category: "Governance", subcategory: "Governance Principle", symbol: "●", description: "Span - Panarchy" },
+  "Span: Small Country": { category: "Governance", subcategory: "Governance Principle", symbol: "●", description: "Span - Small Country" },
+  "Span: Town/City": { category: "Governance", subcategory: "Governance Principle", symbol: "●", description: "Span - Town/City" },
+  "Span: World": { category: "Governance", subcategory: "Governance Principle", symbol: "●", description: "Span - World" },
+  "Speech Restrictions: Any Disobedience": { category: "Culture & Social Issues", subcategory: "Media and Speech", symbol: "●", description: "Speech Restrictions - Any Disobedience" },
+  "Speech Restrictions: Blasphemy": { category: "Culture & Social Issues", subcategory: "Media and Speech", symbol: "●", description: "Speech Restrictions - Blasphemy" },
+  "Speech Restrictions: Contract Violation": { category: "Culture & Social Issues", subcategory: "Media and Speech", symbol: "●", description: "Speech Restrictions - Contract Violation" },
+  "Speech Restrictions: Disinformation": { category: "Culture & Social Issues", subcategory: "Media and Speech", symbol: "●", description: "Speech Restrictions - Disinformation" },
+  "Speech Restrictions: False Alarms": { category: "Culture & Social Issues", subcategory: "Media and Speech", symbol: "●", description: "Speech Restrictions - False Alarms" },
+  "Speech Restrictions: Hate Speech": { category: "Culture & Social Issues", subcategory: "Media and Speech", symbol: "●", description: "Speech Restrictions - Hate Speech" },
+  "Speech Restrictions: None": { category: "Culture & Social Issues", subcategory: "Media and Speech", symbol: "●", description: "Speech Restrictions - None" },
+  "Speech Restrictions: Opposition": { category: "Culture & Social Issues", subcategory: "Media and Speech", symbol: "●", description: "Speech Restrictions - Opposition" },
+  "Speech Restrictions: Slander Organizations": { category: "Culture & Social Issues", subcategory: "Media and Speech", symbol: "●", description: "Speech Restrictions - Slander Organizations" },
+  "Speech Restrictions: Slander Private Figures": { category: "Culture & Social Issues", subcategory: "Media and Speech", symbol: "●", description: "Speech Restrictions - Slander Private Figures" },
+  "Speech Restrictions: Slander Public Figures": { category: "Culture & Social Issues", subcategory: "Media and Speech", symbol: "●", description: "Speech Restrictions - Slander Public Figures" },
+  "Speech Restrictions: Symbol Disrespect": { category: "Culture & Social Issues", subcategory: "Media and Speech", symbol: "●", description: "Speech Restrictions - Symbol Disrespect" },
+  "Speech Restrictions: Violence": { category: "Culture & Social Issues", subcategory: "Media and Speech", symbol: "●", description: "Speech Restrictions - Violence" },
+  "Speech Restrictions: Violent Disobedience": { category: "Culture & Social Issues", subcategory: "Media and Speech", symbol: "●", description: "Speech Restrictions - Violent Disobedience" },
+  "Supreme executive": { category: "Governance", subcategory: "Executive and Legislative Structure", symbol: "●", description: "Supreme executive" },
+  "Supreme legislature": { category: "Governance", subcategory: "Executive and Legislative Structure", symbol: "●", description: "Supreme legislature" },
+  "Surveillance: Extensive": { category: "Governance", subcategory: "Internal Security", symbol: "●", description: "Surveillance - Extensive" },
+  "Surveillance: Minimal": { category: "Governance", subcategory: "Internal Security", symbol: "●", description: "Surveillance - Minimal" },
+  "Surveillance: None": { category: "Governance", subcategory: "Internal Security", symbol: "●", description: "Surveillance - None" },
+  "Surveillance: Targeted No Warrants": { category: "Governance", subcategory: "Internal Security", symbol: "●", description: "Surveillance - Targeted No Warrants" },
+  "Surveillance: Targeted Warrants": { category: "Governance", subcategory: "Internal Security", symbol: "●", description: "Surveillance - Targeted Warrants" },
+  "System Scale: Ethnic Group": { category: "World", subcategory: "Scale", symbol: "●", description: "System Scale - Ethnic Group" },
+  "System Scale: Many Places": { category: "World", subcategory: "Scale", symbol: "●", description: "System Scale - Many Places" },
+  "System Scale: My Country": { category: "World", subcategory: "Scale", symbol: "●", description: "System Scale - My Country" },
+  "System Scale: Universal": { category: "World", subcategory: "Scale", symbol: "●", description: "System Scale - Universal" },
+  "Taxation Type: Progressive": { category: "Economy", subcategory: "Taxation", symbol: "●", description: "Taxation Type - Progressive" },
+  "Taxation Type: Proportional": { category: "Economy", subcategory: "Taxation", symbol: "●", description: "Taxation Type - Proportional" },
+  "Taxation Type: Regressive": { category: "Economy", subcategory: "Taxation", symbol: "●", description: "Taxation Type - Regressive" },
+  "Taxation: Capital Gains": { category: "Economy", subcategory: "Taxation", symbol: "●", description: "Taxation - Capital Gains" },
+  "Taxation: Consumption": { category: "Economy", subcategory: "Taxation", symbol: "●", description: "Taxation - Consumption" },
+  "Taxation: Corporate": { category: "Economy", subcategory: "Taxation", symbol: "●", description: "Taxation - Corporate" },
+  "Taxation: Inheritance": { category: "Economy", subcategory: "Taxation", symbol: "●", description: "Taxation - Inheritance" },
+  "Taxation: Lifestyle": { category: "Economy", subcategory: "Taxation", symbol: "●", description: "Taxation - Lifestyle" },
+  "Taxation: Luxury": { category: "Economy", subcategory: "Taxation", symbol: "●", description: "Taxation - Luxury" },
+  "Taxation: None": { category: "Economy", subcategory: "Taxation", symbol: "●", description: "Taxation - None" },
+  "Taxation: Poll": { category: "Economy", subcategory: "Taxation", symbol: "●", description: "Taxation - Poll" },
+  "Taxation: Resource Rent": { category: "Economy", subcategory: "Taxation", symbol: "●", description: "Taxation - Resource Rent" },
+  "Taxation: Wealth": { category: "Economy", subcategory: "Taxation", symbol: "●", description: "Taxation - Wealth" },
+  "Trade Policy: Closed Economy": { category: "World", subcategory: "Economic globalization", symbol: "●", description: "Trade Policy - Closed Economy" },
+  "Trade Policy: Fair Trade": { category: "World", subcategory: "Economic globalization", symbol: "●", description: "Trade Policy - Fair Trade" },
+  "Trade Policy: Free Trade": { category: "World", subcategory: "Economic globalization", symbol: "●", description: "Trade Policy - Free Trade" },
+  "Trade Policy: Mercantilism": { category: "World", subcategory: "Economic globalization", symbol: "●", description: "Trade Policy - Mercantilism" },
+  "Trade Policy: Protectionism": { category: "World", subcategory: "Economic globalization", symbol: "●", description: "Trade Policy - Protectionism" },
+  "Trade Restrictions: Ideology": { category: "World", subcategory: "Economic globalization", symbol: "●", description: "Trade Restrictions - Ideology" },
+  "Trade Restrictions: None": { category: "World", subcategory: "Economic globalization", symbol: "●", description: "Trade Restrictions - None" },
+  "Trade Restrictions: Unethical Practices": { category: "World", subcategory: "Economic globalization", symbol: "●", description: "Trade Restrictions - Unethical Practices" },
+  "Traditional Monogamy": { category: "Culture & Social Issues", subcategory: "Family & Sex", symbol: "●", description: "Traditional Monogamy" },
+  "Traditional Polygyny": { category: "Culture & Social Issues", subcategory: "Family & Sex", symbol: "●", description: "Traditional Polygyny" },
+  "Transparency: Balanced": { category: "Governance", subcategory: "Bureaucracy", symbol: "●", description: "Transparency - Balanced" },
+  "Transparency: Government Secrecy": { category: "Governance", subcategory: "Bureaucracy", symbol: "●", description: "Transparency - Government Secrecy" },
+  "Transparency: Opaque": { category: "Governance", subcategory: "Bureaucracy", symbol: "●", description: "Transparency - Opaque" },
+  "Transparency: Radical": { category: "Governance", subcategory: "Bureaucracy", symbol: "●", description: "Transparency - Radical" },
+  "Tricameralism": { category: "Governance", subcategory: "Executive and Legislative Structure", symbol: "●", description: "Tricameralism" },
+  "Unconsensual marriage between adults allowed": { category: "Culture & Social Issues", subcategory: "Family & Sex", symbol: "●", description: "Unconsensual marriage between adults allowed" },
+  "Unicameral": { category: "Governance", subcategory: "Executive and Legislative Structure", symbol: "●", description: "Unicameral" },
+  "Unions Operation: Accurate Representation": { category: "Economy", subcategory: "Workers' Rights and Associations", symbol: "●", description: "Unions Operation - Accurate Representation" },
+  "Unions Operation: Collective Bargaining": { category: "Economy", subcategory: "Workers' Rights and Associations", symbol: "●", description: "Unions Operation - Collective Bargaining" },
+  "Unions Operation: Government Control": { category: "Economy", subcategory: "Workers' Rights and Associations", symbol: "●", description: "Unions Operation - Government Control" },
+  "Unions Operation: Non-Radical Only": { category: "Economy", subcategory: "Workers' Rights and Associations", symbol: "●", description: "Unions Operation - Non-Radical Only" },
+  "Unions Operation: Public Funding": { category: "Economy", subcategory: "Workers' Rights and Associations", symbol: "●", description: "Unions Operation - Public Funding" },
+  "Unions Operation: Strictly Regulated": { category: "Economy", subcategory: "Workers' Rights and Associations", symbol: "●", description: "Unions Operation - Strictly Regulated" },
+  "Unions Operation: Tripartism": { category: "Economy", subcategory: "Workers' Rights and Associations", symbol: "●", description: "Unions Operation - Tripartism" },
+  "Unions Role: Banned": { category: "Economy", subcategory: "Workers' Rights and Associations", symbol: "●", description: "Unions Role - Banned" },
+  "Unions Role: Discouraged": { category: "Economy", subcategory: "Workers' Rights and Associations", symbol: "●", description: "Unions Role - Discouraged" },
+  "Unions Role: Optional": { category: "Economy", subcategory: "Workers' Rights and Associations", symbol: "●", description: "Unions Role - Optional" },
+  "Unions Role: Promoted": { category: "Economy", subcategory: "Workers' Rights and Associations", symbol: "●", description: "Unions Role - Promoted" },
+  "Unions Role: Unnecessary": { category: "Economy", subcategory: "Workers' Rights and Associations", symbol: "●", description: "Unions Role - Unnecessary" },
+  "Unions Role: Widespread": { category: "Economy", subcategory: "Workers' Rights and Associations", symbol: "●", description: "Unions Role - Widespread" },
+  "Unions Structure: Elective": { category: "Economy", subcategory: "Workers' Rights and Associations", symbol: "●", description: "Unions Structure - Elective" },
+  "Unions Structure: Hierarchical": { category: "Economy", subcategory: "Workers' Rights and Associations", symbol: "●", description: "Unions Structure - Hierarchical" },
+  "Unions Structure: No Preference": { category: "Economy", subcategory: "Workers' Rights and Associations", symbol: "●", description: "Unions Structure - No Preference" },
+  "Unions Structure: Rank-and-File": { category: "Economy", subcategory: "Workers' Rights and Associations", symbol: "●", description: "Unions Structure - Rank-and-File" },
+  "Unitary State": { category: "Governance", subcategory: "Centralization", symbol: "●", description: "Unitary State" },
+  "Veto Right: Citizens Referendum": { category: "Governance", subcategory: "Executive and Legislative Structure", symbol: "●", description: "Veto Right - Citizens Referendum" },
+  "Veto Right: Constitutional Court": { category: "Governance", subcategory: "Executive and Legislative Structure", symbol: "●", description: "Veto Right - Constitutional Court" },
+  "Veto Right: Head of State": { category: "Governance", subcategory: "Executive and Legislative Structure", symbol: "●", description: "Veto Right - Head of State" },
+  "Veto Right: None": { category: "Governance", subcategory: "Executive and Legislative Structure", symbol: "●", description: "Veto Right - None" },
+  "Veto Right: Regional/Local": { category: "Governance", subcategory: "Executive and Legislative Structure", symbol: "●", description: "Veto Right - Regional/Local" },
+  "Veto Right: Upper Chamber": { category: "Governance", subcategory: "Executive and Legislative Structure", symbol: "●", description: "Veto Right - Upper Chamber" },
+  "Vote Weight: None": { category: "Governance", subcategory: "Distribution of Power", symbol: "●", description: "Vote Weight - None" },
+  "Vote Weight: Older": { category: "Governance", subcategory: "Distribution of Power", symbol: "●", description: "Vote Weight - Older" },
+  "Vote Weight: Racial": { category: "Governance", subcategory: "Distribution of Power", symbol: "●", description: "Vote Weight - Racial" },
+  "Vote Weight: Sex/Gender": { category: "Governance", subcategory: "Distribution of Power", symbol: "●", description: "Vote Weight - Sex/Gender" },
+  "Vote Weight: Wealth": { category: "Governance", subcategory: "Distribution of Power", symbol: "●", description: "Vote Weight - Wealth" },
+  "Vote Weight: Younger": { category: "Governance", subcategory: "Distribution of Power", symbol: "●", description: "Vote Weight - Younger" },
+  "Vote: Age Requirement": { category: "Governance", subcategory: "Distribution of Power", symbol: "●", description: "Vote - Age Requirement" },
+  "Vote: Aristocratic Title": { category: "Governance", subcategory: "Distribution of Power", symbol: "●", description: "Vote - Aristocratic Title" },
+  "Vote: Birth Citizenship": { category: "Governance", subcategory: "Distribution of Power", symbol: "●", description: "Vote - Birth Citizenship" },
+  "Vote: Citizenship": { category: "Governance", subcategory: "Distribution of Power", symbol: "●", description: "Vote - Citizenship" },
+  "Vote: Land Ownership": { category: "Governance", subcategory: "Distribution of Power", symbol: "●", description: "Vote - Land Ownership" },
+  "Vote: Literacy/Civic Knowledge": { category: "Governance", subcategory: "Distribution of Power", symbol: "●", description: "Vote - Literacy/Civic Knowledge" },
+  "Vote: Male Only": { category: "Governance", subcategory: "Distribution of Power", symbol: "●", description: "Vote - Male Only" },
+  "Vote: Married": { category: "Governance", subcategory: "Distribution of Power", symbol: "●", description: "Vote - Married" },// Total policies: 444
+
+  "Vote: No Criminal Record": { category: "Governance", subcategory: "Distribution of Power", symbol: "●", description: "Vote - No Criminal Record" },
+  "Vote: No Voting": { category: "Governance", subcategory: "Distribution of Power", symbol: "●", description: "Vote - No Voting" },
+  "Vote: Not Imprisoned": { category: "Governance", subcategory: "Distribution of Power", symbol: "●", description: "Vote - Not Imprisoned" },
+  "Vote: Parenthood": { category: "Governance", subcategory: "Distribution of Power", symbol: "●", description: "Vote - Parenthood" },
+  "Vote: Party Membership": { category: "Governance", subcategory: "Distribution of Power", symbol: "●", description: "Vote - Party Membership" },
+  "Vote: Racial Requirement": { category: "Governance", subcategory: "Distribution of Power", symbol: "●", description: "Vote - Racial Requirement" },
+  "Vote: Religious Requirement": { category: "Governance", subcategory: "Distribution of Power", symbol: "●", description: "Vote - Religious Requirement" },
+  "Vote: Residency": { category: "Governance", subcategory: "Distribution of Power", symbol: "●", description: "Vote - Residency" },
+  "Vote: Stable Income": { category: "Governance", subcategory: "Distribution of Power", symbol: "●", description: "Vote - Stable Income" },
+  "Vote: State Shares": { category: "Governance", subcategory: "Distribution of Power", symbol: "●", description: "Vote - State Shares" },
+  "Vote: Wealth Requirement": { category: "Governance", subcategory: "Distribution of Power", symbol: "●", description: "Vote - Wealth Requirement" },
+  "Wavelength Regulation: Government": { category: "Culture & Social Issues", subcategory: "Media and Speech", symbol: "●", description: "Wavelength Regulation - Government" },
+  "Wavelength Regulation: Homestead": { category: "Culture & Social Issues", subcategory: "Media and Speech", symbol: "●", description: "Wavelength Regulation - Homestead" },
+  "Wavelength Regulation: Local": { category: "Culture & Social Issues", subcategory: "Media and Speech", symbol: "●", description: "Wavelength Regulation - Local" },
+  "Wavelength Regulation: None": { category: "Culture & Social Issues", subcategory: "Media and Speech", symbol: "●", description: "Wavelength Regulation - None" },
+  "Workplace: Balanced": { category: "Economy", subcategory: "Workplace Hierarchy", symbol: "●", description: "Workplace - Balanced" },
+  "Workplace: Employer Control": { category: "Economy", subcategory: "Workplace Hierarchy", symbol: "●", description: "Workplace - Employer Control" },
+  "Workplace: Traditional Hierarchy": { category: "Economy", subcategory: "Workplace Hierarchy", symbol: "●", description: "Workplace - Traditional Hierarchy" },
+  "Workplace: Worker Self-Management": { category: "Economy", subcategory: "Workplace Hierarchy", symbol: "●", description: "Workplace - Worker Self-Management" }
+};
 
 let profiles = [];
 let selectedIndex = -1;
 
 function init() {
-  try { profiles = JSON.parse(localStorage.getItem('politicalSpectrumProfiles') || '[]'); }
+  try { 
+    const stored = JSON.parse(localStorage.getItem('politicalSpectrumProfiles') || '[]');
+    // Decode compressed profiles, keep old format as-is for backward compatibility
+    profiles = stored.map(p => {
+      if (isCompressedProfile(p)) {
+        const decoded = decodeProfile(p);
+        return decoded || p; // Fallback to original if decode fails
+      }
+      return p; // Old format, return as-is
+    });
+  }
   catch(e) { profiles = []; }
   renderList();
 }
@@ -209,33 +1638,80 @@ function renderList() {
 
   let html = '';
 
-  if (profiles.length >= 2) {
+  // Separate in_progress and completed profiles
+  const inProgressProfiles = [];
+  const completedProfiles = [];
+  
+  profiles.forEach((p, i) => {
+    if (p.status === 'in_progress') {
+      inProgressProfiles.push({ profile: p, originalIndex: i });
+    } else {
+      completedProfiles.push({ profile: p, originalIndex: i });
+    }
+  });
+
+  // Compare section (only for completed profiles)
+  if (completedProfiles.length >= 2) {
     html += `<div class="compare-section">
       <h3>Compare Two Profiles</h3>
       <select class="compare-select" id="compare-a">`;
-    profiles.forEach((p, i) => { html += `<option value="${i}">${p.label} (${formatDate(p.timestamp)})</option>`; });
+    completedProfiles.forEach((p, i) => { html += `<option value="${p.originalIndex}">${p.profile.label} (${formatDate(p.profile.timestamp)})</option>`; });
     html += `</select> vs <select class="compare-select" id="compare-b">`;
-    profiles.forEach((p, i) => { html += `<option value="${i}"${i === 1 ? ' selected' : ''}>${p.label} (${formatDate(p.timestamp)})</option>`; });
+    completedProfiles.forEach((p, i) => { html += `<option value="${p.originalIndex}"${i === 1 ? ' selected' : ''}>${p.profile.label} (${formatDate(p.profile.timestamp)})</option>`; });
     html += `</select> <button class="btn btn-view" onclick="compareProfiles()">Compare</button></div>`;
   }
 
-  profiles.forEach((profile, index) => {
-    const policyCount = countPolicies(profile.answers);
-    html += `
-      <div class="profile-card">
-        <div class="profile-info">
-          <div class="profile-name">${escapeHtml(profile.label)}</div>
-          <div class="profile-date">${formatDate(profile.timestamp)}</div>
-          <div class="profile-count">${policyCount} policies selected</div>
-        </div>
-        <div class="profile-actions">
-          <button class="btn btn-export" onclick="exportProfile(${index})">Export</button>
-          <button class="btn btn-view" onclick="viewProfile(${index})">View</button>
-          <button class="btn btn-edit" onclick="editProfile(${index})">Edit</button>
-          <button class="btn btn-delete" onclick="deleteProfile(${index})">Delete</button>
-        </div>
-      </div>`;
-  });
+  // Show in_progress profiles first (pinned to top)
+  if (inProgressProfiles.length > 0) {
+    html += `<div class="in-progress-section">
+      <h3 style="margin-bottom: 15px; color: var(--accent);">🔄 In Progress</h3>`;
+    
+    inProgressProfiles.forEach(({ profile, originalIndex }) => {
+      const policyCount = countPolicies(profile.answers);
+      const currentQ = profile.currentQuestion !== undefined ? ` (Question ${profile.currentQuestion + 1})` : '';
+      html += `
+        <div class="profile-card" style="border-left: 4px solid var(--accent); background: rgba(139, 0, 0, 0.05);">
+          <div class="profile-info">
+            <div class="profile-name">${escapeHtml(profile.label)}${currentQ}</div>
+            <div class="profile-date">${formatDate(profile.timestamp)}</div>
+            <div class="profile-count">${policyCount} policies selected</div>
+            <div class="profile-status" style="color: var(--accent); font-weight: 600; font-size: 0.85em; margin-top: 5px;">⚠️ In Progress - Not yet completed</div>
+          </div>
+          <div class="profile-actions">
+            <button class="btn btn-export" onclick="exportProfile(${originalIndex})">Export</button>
+            <button class="btn btn-edit" onclick="editProfile(${originalIndex})">Edit</button>
+            <button class="btn btn-delete" onclick="deleteProfile(${originalIndex})">Delete</button>
+          </div>
+        </div>`;
+    });
+    
+    html += `</div>`;
+  }
+
+  // Show completed profiles
+  if (completedProfiles.length > 0) {
+    if (inProgressProfiles.length > 0) {
+      html += `<h3 style="margin: 25px 0 15px 0;">Completed Profiles</h3>`;
+    }
+    
+    completedProfiles.forEach(({ profile, originalIndex }) => {
+      const policyCount = countPolicies(profile.answers);
+      html += `
+        <div class="profile-card">
+          <div class="profile-info">
+            <div class="profile-name">${escapeHtml(profile.label)}</div>
+            <div class="profile-date">${formatDate(profile.timestamp)}</div>
+            <div class="profile-count">${policyCount} policies selected</div>
+          </div>
+          <div class="profile-actions">
+            <button class="btn btn-export" onclick="exportProfile(${originalIndex})">Export</button>
+            <button class="btn btn-view" onclick="viewProfile(${originalIndex})">View</button>
+            <button class="btn btn-edit" onclick="editProfile(${originalIndex})">Edit</button>
+            <button class="btn btn-delete" onclick="deleteProfile(${originalIndex})">Delete</button>
+          </div>
+        </div>`;
+    });
+  }
 
   list.innerHTML = html;
 }
@@ -260,7 +1736,9 @@ function escapeHtml(str) {
 // ========== EXPORT ==========
 function exportProfile(index) {
   const profile = profiles[index];
-  const data = JSON.stringify(profile, null, 2);
+  // Export as compressed format
+  const compressed = encodeProfile(profile);
+  const data = JSON.stringify(compressed);
   const blob = new Blob([data], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -283,16 +1761,30 @@ function handleImport(event) {
   reader.onload = function(e) {
     try {
       const imported = JSON.parse(e.target.result);
-      // Validate structure
-      if (!imported.label || !imported.answers || !imported.timestamp) {
-        alert('Invalid profile file. Missing required fields (label, answers, timestamp).');
-        return;
+      
+      // Check if it's a compressed profile (string) or old format (object)
+      let profile;
+      if (typeof imported === 'string') {
+        // Compressed format - decode it
+        profile = decodeProfile(imported);
+        if (!profile) {
+          alert('Failed to decode compressed profile.');
+          return;
+        }
+      } else {
+        // Old uncompressed format - validate structure
+        if (!imported.label || !imported.answers || !imported.timestamp) {
+          alert('Invalid profile file. Missing required fields (label, answers, timestamp).');
+          return;
+        }
+        profile = imported;
       }
+      
       // Add to profiles
-      profiles.push(imported);
-      localStorage.setItem('politicalSpectrumProfiles', JSON.stringify(profiles));
+      profiles.push(profile);
+      saveProfilesToStorage();
       renderList();
-      alert('Profile "' + imported.label + '" imported successfully!');
+      alert('Profile "' + profile.label + '" imported successfully!');
     } catch(err) {
       alert('Failed to parse file. Make sure it is a valid exported profile (.json).');
     }
@@ -306,6 +1798,11 @@ function handleImport(event) {
 function viewProfile(index) {
   selectedIndex = index;
   const profile = profiles[index];
+  
+  console.log('viewProfile called with index:', index);
+  console.log('Profile:', profile);
+  console.log('Profile answers:', profile.answers);
+  console.log('Profile abstained:', profile.abstained);
 
   document.getElementById('list-view').style.display = 'none';
   document.getElementById('compare-view').style.display = 'none';
@@ -314,45 +1811,242 @@ function viewProfile(index) {
   document.getElementById('detail-delete-btn').onclick = function() { deleteProfile(index); };
 
   const db = profile.resolvedPolicies || policiesDB;
+  console.log('Using db:', db === policiesDB ? 'policiesDB' : 'profile.resolvedPolicies');
+  console.log('DB keys count:', Object.keys(db).length);
+  
   renderProfileResults(profile, db);
 }
 
 function loadPoliciesDB() {
   const merged = {};
+  // For backward compatibility, merge resolvedPolicies from old profiles
   profiles.forEach(p => { if (p.resolvedPolicies) Object.assign(merged, p.resolvedPolicies); });
   if (Object.keys(merged).length === 0) Object.assign(merged, policiesDB);
   return Promise.resolve(merged);
 }
 
+// Helper function to resolve policies from answers (for new optimized profiles)
+function resolvePoliciesFromAnswers(answers) {
+  const resolved = {};
+  let allPolicyKeys = [];
+  Object.values(answers).forEach(p => { if (Array.isArray(p)) allPolicyKeys.push(...p); });
+  allPolicyKeys = [...new Set(allPolicyKeys)];
+  allPolicyKeys.forEach(key => {
+    if (policiesDB[key]) {
+      resolved[key] = policiesDB[key];
+    }
+  });
+  return resolved;
+}
+
+// Helper function to build abstained subcategories (for new optimized profiles)
+function buildAbstainedSubcategories(abstained) {
+  // If questions array is not available, return empty array
+  if (typeof questions === 'undefined') {
+    console.warn('questions array not defined, cannot build abstained subcategories');
+    return [];
+  }
+  
+  const abstainedSubcategories = [];
+  const idToMeta = {};
+  questions.forEach(q => {
+    if (q.type === 'double') {
+      q.questions.forEach(sub => { idToMeta[sub.subId] = { category: q.category, subcategory: q.subcategory, text: sub.text }; });
+    } else if (q.id !== 0) {
+      idToMeta[q.id] = { category: q.category, subcategory: q.subcategory, text: q.text };
+    }
+  });
+  Object.keys(abstained).forEach(id => {
+    if (!abstained[id]) return;
+    const meta = idToMeta[id];
+    if (!meta) return;
+    const key = 'Abstained: ' + meta.text;
+    if (!abstainedSubcategories.some(a => a.key === key)) {
+      abstainedSubcategories.push({
+        key: key,
+        category: meta.category,
+        subcategory: meta.subcategory,
+        description: 'You chose to abstain from answering this question.'
+      });
+    }
+  });
+  return abstainedSubcategories;
+}
+
+// Helper function to build question metadata (for new optimized profiles)
+function buildQuestionMeta() {
+  // If questions array is not available, return empty array
+  if (typeof questions === 'undefined') {
+    console.warn('questions array not defined, cannot build question metadata');
+    return [];
+  }
+  
+  const questionMeta = [];
+  let qNum = 0;
+  questions.forEach(q => {
+    if (q.type === 'intro') return;
+    qNum++;
+    if (q.type === 'double') {
+      q.questions.forEach((sub, idx) => {
+        questionMeta.push({ 
+          id: sub.subId, 
+          category: q.category, 
+          subcategory: q.subcategory,
+          num: qNum,
+          subLetter: String.fromCharCode(97 + idx)
+        });
+      });
+    } else {
+      questionMeta.push({ 
+        id: q.id, 
+        category: q.category, 
+        subcategory: q.subcategory,
+        num: qNum
+      });
+    }
+  });
+  return questionMeta;
+}
+
+// Helper function to calculate disabled questions (for new optimized profiles)
+function calculateDisabledQuestions(answers) {
+  // If questions array is not available, return empty set
+  if (typeof questions === 'undefined') {
+    console.warn('questions array not defined, cannot calculate disabled questions');
+    return new Set();
+  }
+  
+  const disabled = new Set();
+  
+  questions.forEach(q => {
+    if (q.type === 'intro') return;
+    
+    // Check cross-question disabling
+    if (q.disablesQuestions) {
+      const dq = q.disablesQuestions;
+      const triggerAnswers = answers[q.id] || [];
+      let triggered = false;
+      
+      if (dq.optionIndex !== undefined) {
+        const triggerOpt = q.options[dq.optionIndex];
+        if (triggerOpt && triggerOpt.policies.every(p => triggerAnswers.includes(p))) triggered = true;
+      }
+      if (dq.optionIndices) {
+        dq.optionIndices.forEach(idx => {
+          const triggerOpt = q.options[idx];
+          if (triggerOpt && triggerOpt.policies.every(p => triggerAnswers.includes(p))) triggered = true;
+        });
+      }
+      
+      if (triggered) {
+        dq.targets.forEach(targetId => disabled.add(targetId));
+      }
+    }
+    
+    // Check disablesOtherParts (within double questions)
+    if (q.type === 'double' && q.disablesOtherParts) {
+      const dp = q.disablesOtherParts;
+      const triggeringAnswers = answers[dp.subId] || [];
+      const triggeringSub = q.questions.find(s => s.subId === dp.subId);
+      
+      if (triggeringSub) {
+        let isTriggered = false;
+        
+        if (dp.optionIndex !== undefined) {
+          const triggerPolicies = triggeringSub.options[dp.optionIndex].policies;
+          if (triggerPolicies.every(p => triggeringAnswers.includes(p))) isTriggered = true;
+        }
+        if (dp.optionIndices) {
+          dp.optionIndices.forEach(idx => {
+            const triggerPolicies = triggeringSub.options[idx].policies;
+            if (triggerPolicies.every(p => triggeringAnswers.includes(p))) isTriggered = true;
+          });
+        }
+        
+        if (isTriggered) {
+          dp.targets.forEach(targetSubId => disabled.add(targetSubId));
+        }
+      }
+    }
+    
+    // Check conditionalDisable (multiple conditions with AND logic)
+    if (q.type === 'double' && q.conditionalDisable) {
+      const cd = q.conditionalDisable;
+      let allConditionsMet = true;
+      
+      cd.conditions.forEach(condition => {
+        const conditionAnswers = answers[condition.subId] || [];
+        const conditionSub = q.questions.find(s => s.subId === condition.subId);
+        
+        if (conditionSub) {
+          const triggerPolicies = conditionSub.options[condition.optionIndex].policies;
+          if (!triggerPolicies.every(p => conditionAnswers.includes(p))) {
+            allConditionsMet = false;
+          }
+        } else {
+          allConditionsMet = false;
+        }
+      });
+      
+      if (allConditionsMet) {
+        cd.targets.forEach(targetSubId => disabled.add(targetSubId));
+      }
+    }
+  });
+  
+  return disabled;
+}
+
 function renderProfileResults(profile, db) {
+  console.log('renderProfileResults called');
+  console.log('Profile answers:', profile.answers);
+  console.log('DB:', db);
+  
   const answers = profile.answers;
   let allPolicies = [];
   Object.values(answers).forEach(p => { if (Array.isArray(p)) allPolicies.push(...p); });
   allPolicies = [...new Set(allPolicies)];
+  
+  console.log('allPolicies:', allPolicies);
+  console.log('allPolicies count:', allPolicies.length);
 
+  // For backward compatibility: use stored resolvedPolicies if available, otherwise calculate
   const hasResolved = profile.resolvedPolicies && Object.keys(profile.resolvedPolicies).length > 0;
+  const resolvedPolicies = hasResolved ? profile.resolvedPolicies : resolvePoliciesFromAnswers(answers);
   const hasPolicies = allPolicies.length > 0;
+  
+  console.log('hasResolved:', hasResolved);
+  console.log('resolvedPolicies:', resolvedPolicies);
+  console.log('hasPolicies:', hasPolicies);
 
   const grouped = {};
   let missingCount = 0;
   allPolicies.forEach(key => {
     const p = db[key];
-    if (!p) { missingCount++; return; }
+    if (!p) { 
+      console.log('Policy not found in db:', key);
+      missingCount++; 
+      return; 
+    }
     if (!grouped[p.category]) grouped[p.category] = {};
     if (!grouped[p.category][p.subcategory]) grouped[p.category][p.subcategory] = [];
     grouped[p.category][p.subcategory].push({ key, ...p });
   });
+  
+  console.log('grouped:', grouped);
+  console.log('missingCount:', missingCount);
 
-  // Add abstained subcategories from saved profile
-  if (profile.abstainedSubcategories) {
-    profile.abstainedSubcategories.forEach(a => {
-      if (!grouped[a.category]) grouped[a.category] = {};
-      if (!grouped[a.category][a.subcategory]) grouped[a.category][a.subcategory] = [];
-      if (!grouped[a.category][a.subcategory].some(p => p.key === a.key)) {
-        grouped[a.category][a.subcategory].push({ key: a.key, description: a.description });
-      }
-    });
-  }
+  // For backward compatibility: use stored abstainedSubcategories if available, otherwise calculate
+  const abstainedSubcategories = profile.abstainedSubcategories || buildAbstainedSubcategories(profile.abstained || {});
+  
+  // Add abstained subcategories
+  abstainedSubcategories.forEach(a => {
+    if (!grouped[a.category]) grouped[a.category] = {};
+    if (!grouped[a.category][a.subcategory]) grouped[a.category][a.subcategory] = [];
+    if (!grouped[a.category][a.subcategory].some(p => p.key === a.key)) {
+      grouped[a.category][a.subcategory].push({ key: a.key, description: a.description });
+    }
+  });
 
   const catOrder = ["Governance", "Economy", "World", "Culture & Social Issues"];
   const catCss = { "Governance": "results-cat-governance", "Economy": "results-cat-economy", "World": "results-cat-world", "Culture & Social Issues": "results-cat-culture" };
@@ -510,43 +2204,45 @@ function generateProfileImage(profile, grouped) {
   const catCss = { "Governance": "cr-cat-gov", "Economy": "cr-cat-eco", "World": "cr-cat-wor", "Culture & Social Issues": "cr-cat-cul" };
 
   // Add abstained subcategories to grouped (for image)
-  if (profile.abstainedSubcategories) {
-    profile.abstainedSubcategories.forEach(a => {
-      if (!grouped[a.category]) grouped[a.category] = {};
-      if (!grouped[a.category][a.subcategory]) grouped[a.category][a.subcategory] = [];
-      if (!grouped[a.category][a.subcategory].some(p => p.key === a.key)) {
-        grouped[a.category][a.subcategory].push({ key: a.key });
-      }
-    });
-  }
+  // For backward compatibility: use stored abstainedSubcategories if available, otherwise calculate
+  const abstainedSubcategories = profile.abstainedSubcategories || buildAbstainedSubcategories(profile.abstained || {});
+  abstainedSubcategories.forEach(a => {
+    if (!grouped[a.category]) grouped[a.category] = {};
+    if (!grouped[a.category][a.subcategory]) grouped[a.category][a.subcategory] = [];
+    if (!grouped[a.category][a.subcategory].some(p => p.key === a.key)) {
+      grouped[a.category][a.subcategory].push({ key: a.key });
+    }
+  });
 
   // Add "Not answered" for questions without answers AND not abstained (image only)
-  if (profile.questionMeta && Array.isArray(profile.questionMeta)) {
-    const answers = profile.answers || {};
-    const abstained = profile.abstained || {};
-    const disabledQuestions = new Set(profile.disabledQuestions || []);
+  // For backward compatibility: use stored questionMeta if available, otherwise calculate
+  const questionMeta = profile.questionMeta || buildQuestionMeta();
+  const answers = profile.answers || {};
+  const abstained = profile.abstained || {};
+  
+  // Calculate disabled questions on-the-fly
+  const disabledQuestions = calculateDisabledQuestions(answers);
+  
+  questionMeta.forEach(meta => {
+    // Build label using position number (e.g., "Q3", "Q3a", "Q12b")
+    let label = 'Q' + meta.num;
+    if (meta.subLetter) {
+      label += meta.subLetter;
+    }
     
-    profile.questionMeta.forEach(meta => {
-      // Build label using position number (e.g., "Q3", "Q3a", "Q12b")
-      let label = 'Q' + meta.num;
-      if (meta.subLetter) {
-        label += meta.subLetter;
+    const hasAnswer = answers[meta.id] && answers[meta.id].length > 0;
+    const isAbstained = abstained[meta.id];
+    const isDisabled = disabledQuestions.has(meta.id);
+    
+    if (!hasAnswer && !isAbstained && !isDisabled) {
+      if (!grouped[meta.category]) grouped[meta.category] = {};
+      if (!grouped[meta.category][meta.subcategory]) grouped[meta.category][meta.subcategory] = [];
+      const key = label + ': Not answered';
+      if (!grouped[meta.category][meta.subcategory].some(p => p.key === key)) {
+        grouped[meta.category][meta.subcategory].push({ key: key });
       }
-      
-      const hasAnswer = answers[meta.id] && answers[meta.id].length > 0;
-      const isAbstained = abstained[meta.id];
-      const isDisabled = disabledQuestions.has(meta.id);
-      
-      if (!hasAnswer && !isAbstained && !isDisabled) {
-        if (!grouped[meta.category]) grouped[meta.category] = {};
-        if (!grouped[meta.category][meta.subcategory]) grouped[meta.category][meta.subcategory] = [];
-        const key = label + ': Not answered';
-        if (!grouped[meta.category][meta.subcategory].some(p => p.key === key)) {
-          grouped[meta.category][meta.subcategory].push({ key: key });
-        }
-      }
-    });
-  }
+    }
+  });
 
   let html = `<div class="cr-header"><h1>What You Stand For</h1><p>${escapeHtml(profile.label)}</p></div><div class="cr-columns">`;
   catOrder.forEach(cat => {
@@ -639,7 +2335,7 @@ function generateProfileImage(profile, grouped) {
 function deleteProfile(index) {
   if (!confirm('Delete "' + profiles[index].label + '"? This cannot be undone.')) return;
   profiles.splice(index, 1);
-  localStorage.setItem('politicalSpectrumProfiles', JSON.stringify(profiles));
+  saveProfilesToStorage();
   showListView();
 }
 
@@ -672,7 +2368,7 @@ function compareProfiles() {
   document.getElementById('compare-view').style.display = 'block';
 
   loadPoliciesDB().then(db => {
-    // Also merge resolvedPolicies from the two profiles being compared
+    // Also merge resolvedPolicies from the two profiles being compared (for backward compatibility)
     const compareDb = { ...db };
     if (profiles[aIdx].resolvedPolicies) Object.assign(compareDb, profiles[aIdx].resolvedPolicies);
     if (profiles[bIdx].resolvedPolicies) Object.assign(compareDb, profiles[bIdx].resolvedPolicies);
@@ -681,8 +2377,9 @@ function compareProfiles() {
     const bPolicies = getPoliciesSet(profiles[bIdx].answers);
 
     // Also include abstained entries from both profiles
-    const aAbstained = profiles[aIdx].abstainedSubcategories || [];
-    const bAbstained = profiles[bIdx].abstainedSubcategories || [];
+    // For backward compatibility: use stored abstainedSubcategories if available, otherwise calculate
+    const aAbstained = profiles[aIdx].abstainedSubcategories || buildAbstainedSubcategories(profiles[aIdx].abstained || {});
+    const bAbstained = profiles[bIdx].abstainedSubcategories || buildAbstainedSubcategories(profiles[bIdx].abstained || {});
 
     const allKeys = [...new Set([...aPolicies, ...bPolicies])];
     const grouped = {};
