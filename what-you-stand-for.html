@@ -2531,9 +2531,45 @@ function renderQuestion() {
     </div>`;
     area.innerHTML = html;
   } else if (q.type === 'double') {
+    // Check cross-question disabling first
+    let crossDisabled = false;
+    let crossDisableMessage = '';
+    questions.forEach(otherQ => {
+      if (otherQ.disablesQuestions) {
+        const dq = otherQ.disablesQuestions;
+        if (dq.targets.includes(q.id)) {
+          const triggerAnswers = answers[otherQ.id] || [];
+          let triggered = false;
+          if (dq.optionIndex !== undefined) {
+            const triggerOpt = otherQ.options[dq.optionIndex];
+            if (triggerOpt && triggerOpt.policies.every(p => triggerAnswers.includes(p))) triggered = true;
+          }
+          if (dq.optionIndices) {
+            dq.optionIndices.forEach(idx => {
+              const triggerOpt = otherQ.options[idx];
+              if (triggerOpt && triggerOpt.policies.every(p => triggerAnswers.includes(p))) triggered = true;
+            });
+          }
+          if (triggered) {
+            crossDisabled = true;
+            crossDisableMessage = dq.message || '';
+            delete answers[q.id];
+            delete abstained[q.id];
+            // Also delete all sub-question answers
+            if (q.questions) {
+              q.questions.forEach(sub => {
+                delete answers[sub.subId];
+                delete abstained[sub.subId];
+              });
+            }
+          }
+        }
+      }
+    });
+    
     // Check if any sub-question disables others
     let disabledSubIds = new Set();
-    let disableMessage = '';
+    let disableMessage = crossDisableMessage;
     if (q.disablesOtherParts) {
       const dp = q.disablesOtherParts;
       const triggeringAnswers = answers[dp.subId] || [];
@@ -2613,7 +2649,7 @@ function renderQuestion() {
 
     q.questions.forEach((sub, si) => {
       if (si > 0) html += `<hr class="sub-divider">`;
-      const isDisabled = disabledSubIds.has(sub.subId);
+      const isDisabled = crossDisabled || disabledSubIds.has(sub.subId);
       const isMulti = sub.type === 'multi';
       const selectedPolicies = answers[sub.subId] || (isMulti ? [] : null);
 
