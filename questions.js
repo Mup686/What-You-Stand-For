@@ -128,7 +128,7 @@ const questions = [
     { text: "The legislature should be separate from the executive (though not necessarily equal to)", policies: ["Co-existence of legislature and executive"] },
     { text: "The executive should perform both legislative and executive functions", policies: ["Supreme executive"] },
     { text: "There should be no formal legislature and executive shouldn't replace its functions", policies: ["No legislature"], tooltip: "No person, group or institution should have law-making power" }
-  ], disablesQuestions: { optionIndex: 3, targets: [101, 152, 11], message: "No legislature selected — subsequent questions are not applicable." } },
+  ], disablesQuestions: { optionIndices: [2, 3], targets: [101, 152, 11], message: "Executive performs legislative functions or no legislature selected — subsequent questions are not applicable." } },
   
   { id: 101, category: "Governance", subcategory: "Executive and Legislative Structure", type: "double",
     conditionalDisable: [
