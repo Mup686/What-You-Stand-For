@@ -689,38 +689,6 @@ const questions = [
     { text: "None of the above", policies: ["Foreign Property: None"] }
   ] },
   
-  // WORLD - Economic Globalization
-  { id: 1011, category: "World", subcategory: "Economic Globalization", type: "double",
-    disablesOtherParts: { subId: "1011a", optionIndex: 4, targets: ["1011b"], message: "Completely closed economy selected — restrictions question is not applicable." },
-    questions: [
-    { subId: "1011a", text: "What foreign trade policy is most desirable?", type: "single", questionTooltip: "If you believe in united world government or post-trade economy, choose the option your transitionary regime should follow.", options: [
-      { text: "Free trade", policies: ["Trade Policy: Free Trade"] },
-      { text: "Protectionism", policies: ["Trade Policy: Protectionism"] },
-      { text: "Mercantilism", policies: ["Trade Policy: Mercantilism"] },
-      { text: "Fair trade", policies: ["Trade Policy: Fair Trade"] },
-      { text: "Completely closed economy", policies: ["Trade Policy: Closed Economy"] }
-    ] },
-    { subId: "1011b", text: "Should there be restrictions to specific countries?", type: "single", options: [
-      { text: "Yes, based on their ideology", policies: ["Trade Restrictions: Ideology"] },
-      { text: "Yes, based on their unethical practices and policies", policies: ["Trade Restrictions: Unethical Practices"] },
-      { text: "No", policies: ["Trade Restrictions: None"] }
-    ] }
-  ] },
-  { id: 1012, category: "World", subcategory: "Economic Globalization", text: "Should economic globalisation continue?", type: "single", options: [
-    { text: "Yes", policies: ["Globalization: Continue"] },
-    { text: "Generally yes, but state/s should try to have some diverse local industry just in case", policies: ["Globalization: Yes with Local Diversity"] },
-    { text: "My state should strive towards being more self-sufficient", policies: ["Globalization: State Self-Sufficiency"] },
-    { text: "No, countries should strive towards self-sufficiency", policies: ["Globalization: No, Countries Self-Sufficient"] },
-    { text: "No, economies should become more localised", policies: ["Globalization: No, Localized"] }
-  ] },
-  { id: 1013, category: "World", subcategory: "Economic Globalization", text: "What kind of property should it be illegal for foreigners to own in your country without a special permit?", type: "multi", options: [
-    { text: "Personal property", policies: ["Foreign Property: Personal"] },
-    { text: "Real estate", policies: ["Foreign Property: Real Estate"] },
-    { text: "Stocks and companies", policies: ["Foreign Property: Stocks and Companies"] },
-    { text: "None of the above", policies: ["Foreign Property: None"] }
-  ] },
-  
-  // WORLD - War Policy
   { id: 120, category: "World", subcategory: "War Policy", text: "When is the use of military force justified?", type: "multi", exclusiveIndex: 5, options: [
     { text: "Direct self-defense against an armed attack", policies: ["Military Force: Self-Defense"] },
     { text: "Humanitarian intervention to stop genocide or mass atrocities", policies: ["Military Force: Humanitarian"] },

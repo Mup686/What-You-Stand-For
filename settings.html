@@ -406,6 +406,15 @@
         <div class="setting-item">
           <div class="setting-row">
             <div class="setting-info">
+              <h4>Skip to results with all policies</h4>
+              <p>Go directly to the results page with all policies selected (for testing).</p>
+            </div>
+            <button onclick="skipToResultsWithAllPolicies()" style="margin-top: 8px; padding: 8px 24px; border: 1px solid var(--border); background: var(--border); color: var(--bg); cursor: pointer; font-family: 'Playfair Display', Georgia, serif; font-size: 0.85em; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">Go to Results (All Policies)</button>
+          </div>
+        </div>
+        <div class="setting-item">
+          <div class="setting-row">
+            <div class="setting-info">
               <h4>Keyboard shortcuts (N = Next, M = Abstain)</h4>
               <p>Press N to advance to the next question, M to toggle abstain. Only works during the quiz.</p>
             </div>
@@ -525,6 +534,11 @@ function debugClick() {
 
 function skipToResults() {
   localStorage.setItem('politicalSpectrumSkipToResults', 'true');
+  window.location.href = 'what-you-stand-for.html';
+}
+
+function skipToResultsWithAllPolicies() {
+  localStorage.setItem('politicalSpectrumSkipToResultsWithAllPolicies', 'true');
   window.location.href = 'what-you-stand-for.html';
 }
 </script>

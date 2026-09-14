@@ -935,9 +935,11 @@ function encodeProfile(profile) {
   // 4. Create compact profile
   const compact = {
     l: profile.label,
+    s: profile.status || 'completed',  // Preserve status field
     t: timestamp,
     a: encodedAnswers,
-    b: abstainedArray
+    b: abstainedArray,
+    c: profile.currentQuestion  // Preserve currentQuestion for in_progress profiles
   };
   
   // 5. Compress with LZ-string
@@ -966,9 +968,11 @@ function decodeProfile(compressed) {
   
   return {
     label: compact.l,
+    status: compact.s || 'completed',  // Preserve status field, default to 'completed' for old profiles
     timestamp: timestamp,
     answers: answers,
-    abstained: abstained
+    abstained: abstained,
+    currentQuestion: compact.c  // Preserve currentQuestion for in_progress profiles
   };
 }
 
@@ -2326,6 +2330,61 @@ function initShuffledQuestions() {
   }
 })();
 
+// Check for skip-to-results-with-all-policies flag from Settings page
+(function checkSkipToResultsWithAllPolicies() {
+  if (localStorage.getItem('politicalSpectrumSkipToResultsWithAllPolicies') === 'true') {
+    localStorage.removeItem('politicalSpectrumSkipToResultsWithAllPolicies');
+    document.addEventListener('DOMContentLoaded', function() {
+      // Select all policies from all questions
+      questions.forEach(q => {
+        if (q.type === 'intro') return;
+        
+        if (q.type === 'double') {
+          q.questions.forEach(sub => {
+            if (sub.type === 'multi') {
+              // For multi-select, select all policies
+              answers[sub.subId] = [];
+              sub.options.forEach(opt => {
+                opt.policies.forEach(p => {
+                  if (!answers[sub.subId].includes(p)) {
+                    answers[sub.subId].push(p);
+                  }
+                });
+              });
+            } else {
+              // For single-select, select the first option
+              if (sub.options.length > 0) {
+                answers[sub.subId] = [...sub.options[0].policies];
+              }
+            }
+          });
+        } else {
+          if (q.type === 'multi') {
+            // For multi-select, select all policies
+            answers[q.id] = [];
+            q.options.forEach(opt => {
+              opt.policies.forEach(p => {
+                if (!answers[q.id].includes(p)) {
+                  answers[q.id].push(p);
+                }
+              });
+            });
+          } else {
+            // For single-select, select the first option
+            if (q.options.length > 0) {
+              answers[q.id] = [...q.options[0].policies];
+            }
+          }
+        }
+      });
+      
+      document.getElementById('start-screen').classList.remove('active');
+      document.getElementById('results-screen').classList.add('active');
+      showResults();
+    });
+  }
+})();
+
 // Check for resume data from Saved page
 (function checkResume() {
   const resumeData = localStorage.getItem('politicalSpectrumResume');
@@ -2452,36 +2511,58 @@ function startQuiz() {
   initShuffledQuestions();
   if (settings.shuffleAnswers) initShuffledOptions();
   
-  // Check for saved progress
-  const savedProgress = localStorage.getItem('politicalSpectrumProgress');
-  if (savedProgress) {
-    try {
-      const progressData = JSON.parse(savedProgress);
-      const timeDiff = Date.now() - new Date(progressData.timestamp).getTime();
-      const hoursDiff = timeDiff / (1000 * 60 * 60);
-      
-      // Only offer to resume if saved within last 7 days
-      if (hoursDiff < 168) {
-        const resume = confirm(`You have saved progress from ${new Date(progressData.timestamp).toLocaleString()}. Would you like to resume?`);
-        if (resume) {
-          currentQuestion = progressData.currentQuestion;
-          answers = progressData.answers;
-          abstained = progressData.abstained;
-          quizStartTime = Date.now();
-          if (settings.showTime) startTimer();
-          renderQuestion();
-          return;
-        } else {
-          // Clear saved progress if user doesn't want to resume
-          localStorage.removeItem('politicalSpectrumProgress');
-        }
+  // Check for saved progress in politicalSpectrumProfiles
+  let profiles = [];
+  try {
+    profiles = JSON.parse(localStorage.getItem('politicalSpectrumProfiles') || '[]');
+  } catch(e) { profiles = []; }
+  
+  // Find in_progress profile
+  const inProgressProfile = profiles.find(p => {
+    if (typeof p === 'string') {
+      const decoded = decodeProfile(p);
+      return decoded && decoded.status === 'in_progress';
+    }
+    return p.status === 'in_progress';
+  });
+  
+  if (inProgressProfile) {
+    const decodedProfile = typeof inProgressProfile === 'string' ? decodeProfile(inProgressProfile) : inProgressProfile;
+    const timeDiff = Date.now() - new Date(decodedProfile.timestamp).getTime();
+    const hoursDiff = timeDiff / (1000 * 60 * 60);
+    
+    // Only offer to resume if saved within last 7 days
+    if (hoursDiff < 168) {
+      const resume = confirm(`You have saved progress from ${new Date(decodedProfile.timestamp).toLocaleString()}. Would you like to resume?`);
+      if (resume) {
+        currentQuestion = decodedProfile.currentQuestion;
+        answers = decodedProfile.answers;
+        abstained = decodedProfile.abstained;
+        quizStartTime = Date.now();
+        if (settings.showTime) startTimer();
+        renderQuestion();
+        return;
       } else {
-        // Clear old progress data
-        localStorage.removeItem('politicalSpectrumProgress');
+        // Clear saved progress if user doesn't want to resume
+        profiles = profiles.filter(p => {
+          if (typeof p === 'string') {
+            const decoded = decodeProfile(p);
+            return decoded && decoded.status !== 'in_progress';
+          }
+          return p.status !== 'in_progress';
+        });
+        localStorage.setItem('politicalSpectrumProfiles', JSON.stringify(profiles));
       }
-    } catch (e) {
-      console.error('Error loading saved progress:', e);
-      localStorage.removeItem('politicalSpectrumProgress');
+    } else {
+      // Clear old progress data
+      profiles = profiles.filter(p => {
+        if (typeof p === 'string') {
+          const decoded = decodeProfile(p);
+          return decoded && decoded.status !== 'in_progress';
+        }
+        return p.status !== 'in_progress';
+      });
+      localStorage.setItem('politicalSpectrumProfiles', JSON.stringify(profiles));
     }
   }
   
