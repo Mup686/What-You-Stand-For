@@ -329,6 +329,7 @@ const questions = [
   // GOVERNANCE - Judiciary (TRIPLE)
   { id: 20, category: "Governance", subcategory: "Judiciary", type: "double",
     disablesOtherParts: { subId: "20a", optionIndex: 4, targets: ["20b", "20c"], message: "No courts selected — jury questions are not applicable." },
+    disablesQuestions: { subId: "20a", optionIndex: 4, targets: [103], message: "No courts selected — court role question is not applicable." },
     conditionalDisable: {
       conditions: [
         { subId: "20b", optionIndex: 3 },
@@ -570,7 +571,9 @@ const questions = [
   ] },
   
   // ECONOMY - Intellectual Property
-  { id: 1010, category: "Economy", subcategory: "Intellectual Property", type: "double", questions: [
+  { id: 1010, category: "Economy", subcategory: "Intellectual Property", type: "double",
+    disablesOtherParts: { subId: "1010a", optionIndex: 6, targets: ["1010b", "1010c"], message: "No intellectual property selected — duration and exemption questions are not applicable." },
+    questions: [
     { subId: "1010a", text: "What types of intellectual property should exist?", type: "multi", exclusiveIndex: 6, options: [
       { text: "Patents — protect inventions and processes", policies: ["IP Type: Patents"] },
       { text: "Copyrights — protect creative works (books, music, art, software)", policies: ["IP Type: Copyrights"] },

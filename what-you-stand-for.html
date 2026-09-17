@@ -2769,15 +2769,17 @@ function renderQuestion() {
       if (otherQ.disablesQuestions) {
         const dq = otherQ.disablesQuestions;
         if (dq.targets.includes(q.id)) {
-          const triggerAnswers = answers[otherQ.id] || [];
+          const triggerAnswers = dq.subId ? (answers[dq.subId] || []) : (answers[otherQ.id] || []);
           let triggered = false;
           if (dq.optionIndex !== undefined) {
-            const triggerOpt = otherQ.options[dq.optionIndex];
+            const triggerSub = dq.subId ? otherQ.questions.find(s => s.subId === dq.subId) : null;
+            const triggerOpt = triggerSub ? triggerSub.options[dq.optionIndex] : otherQ.options[dq.optionIndex];
             if (triggerOpt && triggerOpt.policies.every(p => triggerAnswers.includes(p))) triggered = true;
           }
           if (dq.optionIndices) {
             dq.optionIndices.forEach(idx => {
-              const triggerOpt = otherQ.options[idx];
+              const triggerSub = dq.subId ? otherQ.questions.find(s => s.subId === dq.subId) : null;
+              const triggerOpt = triggerSub ? triggerSub.options[idx] : otherQ.options[idx];
               if (triggerOpt && triggerOpt.policies.every(p => triggerAnswers.includes(p))) triggered = true;
             });
           }
@@ -2932,15 +2934,17 @@ function renderQuestion() {
       if (otherQ.disablesQuestions) {
         const dq = otherQ.disablesQuestions;
         if (dq.targets.includes(q.id)) {
-          const triggerAnswers = answers[otherQ.id] || [];
+          const triggerAnswers = dq.subId ? (answers[dq.subId] || []) : (answers[otherQ.id] || []);
           let triggered = false;
           if (dq.optionIndex !== undefined) {
-            const triggerOpt = otherQ.options[dq.optionIndex];
+            const triggerSub = dq.subId ? otherQ.questions.find(s => s.subId === dq.subId) : null;
+            const triggerOpt = triggerSub ? triggerSub.options[dq.optionIndex] : otherQ.options[dq.optionIndex];
             if (triggerOpt && triggerOpt.policies.every(p => triggerAnswers.includes(p))) triggered = true;
           }
           if (dq.optionIndices) {
             dq.optionIndices.forEach(idx => {
-              const triggerOpt = otherQ.options[idx];
+              const triggerSub = dq.subId ? otherQ.questions.find(s => s.subId === dq.subId) : null;
+              const triggerOpt = triggerSub ? triggerSub.options[idx] : otherQ.options[idx];
               if (triggerOpt && triggerOpt.policies.every(p => triggerAnswers.includes(p))) triggered = true;
             });
           }
@@ -3132,16 +3136,18 @@ function isQuestionAnswered(q) {
   for (let i = 0; i < questions.length; i++) {
     const otherQ = questions[i];
     if (otherQ.disablesQuestions && otherQ.disablesQuestions.targets.includes(q.id)) {
-      const triggerAnswers = answers[otherQ.id] || [];
       const dq = otherQ.disablesQuestions;
+      const triggerAnswers = dq.subId ? (answers[dq.subId] || []) : (answers[otherQ.id] || []);
       let triggered = false;
       if (dq.optionIndex !== undefined) {
-        const triggerOpt = otherQ.options[dq.optionIndex];
+        const triggerSub = dq.subId ? otherQ.questions.find(s => s.subId === dq.subId) : null;
+        const triggerOpt = triggerSub ? triggerSub.options[dq.optionIndex] : otherQ.options[dq.optionIndex];
         if (triggerOpt && triggerOpt.policies.every(p => triggerAnswers.includes(p))) triggered = true;
       }
       if (dq.optionIndices) {
         dq.optionIndices.forEach(idx => {
-          const triggerOpt = otherQ.options[idx];
+          const triggerSub = dq.subId ? otherQ.questions.find(s => s.subId === dq.subId) : null;
+          const triggerOpt = triggerSub ? triggerSub.options[idx] : otherQ.options[idx];
           if (triggerOpt && triggerOpt.policies.every(p => triggerAnswers.includes(p))) triggered = true;
         });
       }
@@ -3464,16 +3470,18 @@ function getDisabledQuestions() {
     // Check disablesQuestions (cross-question disabling)
     if (q.disablesQuestions) {
       const dq = q.disablesQuestions;
-      const triggerAnswers = answers[q.id] || [];
+      const triggerAnswers = dq.subId ? (answers[dq.subId] || []) : (answers[q.id] || []);
       let triggered = false;
       
       if (dq.optionIndex !== undefined) {
-        const triggerOpt = q.options[dq.optionIndex];
+        const triggerSub = dq.subId ? q.questions.find(s => s.subId === dq.subId) : null;
+        const triggerOpt = triggerSub ? triggerSub.options[dq.optionIndex] : q.options[dq.optionIndex];
         if (triggerOpt && triggerOpt.policies.every(p => triggerAnswers.includes(p))) triggered = true;
       }
       if (dq.optionIndices) {
         dq.optionIndices.forEach(idx => {
-          const triggerOpt = q.options[idx];
+          const triggerSub = dq.subId ? q.questions.find(s => s.subId === dq.subId) : null;
+          const triggerOpt = triggerSub ? triggerSub.options[idx] : q.options[idx];
           if (triggerOpt && triggerOpt.policies.every(p => triggerAnswers.includes(p))) triggered = true;
         });
       }
@@ -3644,13 +3652,15 @@ function showResults() {
         if (figureValue === null) return; // Skip unknown/not applicable
         
         const userHasPolicy = userPolicies.has(policy);
+        
+        // Only count when at least one side supports the policy
+        if (figureValue === false && !userHasPolicy) return; // Both oppose — skip
+        
         totalCompared++;
         
         if (figureValue === true && userHasPolicy) {
           agreements++;
           if (keyAgreements.length < 5) keyAgreements.push(policy);
-        } else if (figureValue === false && !userHasPolicy) {
-          agreements++;
         } else {
           disagreements++;
           if (keyDisagreements.length < 5 && figureValue === true) {
@@ -3761,11 +3771,13 @@ function showResults() {
           if (!categoryStats[cat]) return;
           
           const userHasPolicy = userPolicies.has(policy);
+          
+          // Only count when at least one side supports the policy
+          if (figureValue === false && !userHasPolicy) return; // Both oppose — skip
+          
           categoryStats[cat].total++;
           
           if (figureValue === true && userHasPolicy) {
-            categoryStats[cat].agreements++;
-          } else if (figureValue === false && !userHasPolicy) {
             categoryStats[cat].agreements++;
           }
         });
@@ -4311,7 +4323,12 @@ function showHistoricalComparison(figureId) {
     });
     
     // Sort subcategories
-    Object.keys(subcategories).sort().forEach(subcat => {
+    const subcatOrder = ["Governance Principle", "Centralization", "Distribution of Power", "Head of State & Head of Government", "Executive and Legislative Structure", "Church and State", "Bureaucracy", "Army Model", "Policing", "Internal Security", "Judiciary", "Justice", "Citizenship", "Ownership", "Contracts", "Regulation", "Workplace Hierarchy", "Workers' Rights and Associations", "Banking", "Agriculture", "Intellectual Property", "Healthcare", "Taxation", "Scale", "International Cooperation", "Immigration", "Economic globalization", "War Policy", "Education", "Gender equality, family & sex", "Ethnicities and Cultures", "Caste and Estate System", "Media and Speech", "Forced Labor", "Technology"];
+    Object.keys(subcategories).sort((a, b) => {
+      const ai = subcatOrder.indexOf(a);
+      const bi = subcatOrder.indexOf(b);
+      return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+    }).forEach(subcat => {
       const subcatDiv = document.createElement('div');
       subcatDiv.style.cssText = 'margin-bottom: 20px; margin-left: 15px;';
       
@@ -4326,10 +4343,11 @@ function showHistoricalComparison(figureId) {
       subcategories[subcat].forEach(({ policy, figureValue, policyData }) => {
         const userHasPolicy = userPolicies.has(policy);
         
+        // Only compare when at least one side supports the policy
+        if (figureValue === false && !userHasPolicy) return; // Both oppose — skip
+        
         let agreement = false;
         if (figureValue === true && userHasPolicy) {
-          agreement = true;
-        } else if (figureValue === false && !userHasPolicy) {
           agreement = true;
         }
         

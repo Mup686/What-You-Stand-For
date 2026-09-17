@@ -1979,11 +1979,6 @@ function handleImport(event) {
 function viewProfile(index) {
   selectedIndex = index;
   const profile = profiles[index];
-  
-  console.log('viewProfile called with index:', index);
-  console.log('Profile:', profile);
-  console.log('Profile answers:', profile.answers);
-  console.log('Profile abstained:', profile.abstained);
 
   document.getElementById('list-view').style.display = 'none';
   document.getElementById('compare-view').style.display = 'none';
@@ -1992,8 +1987,6 @@ function viewProfile(index) {
   document.getElementById('detail-delete-btn').onclick = function() { deleteProfile(index); };
 
   const db = profile.resolvedPolicies || policiesDB;
-  console.log('Using db:', db === policiesDB ? 'policiesDB' : 'profile.resolvedPolicies');
-  console.log('DB keys count:', Object.keys(db).length);
   
   renderProfileResults(profile, db);
 }
@@ -2105,16 +2098,18 @@ function calculateDisabledQuestions(answers) {
     // Check cross-question disabling
     if (q.disablesQuestions) {
       const dq = q.disablesQuestions;
-      const triggerAnswers = answers[q.id] || [];
+      const triggerAnswers = dq.subId ? (answers[dq.subId] || []) : (answers[q.id] || []);
       let triggered = false;
       
       if (dq.optionIndex !== undefined) {
-        const triggerOpt = q.options[dq.optionIndex];
+        const triggerSub = dq.subId ? q.questions.find(s => s.subId === dq.subId) : null;
+        const triggerOpt = triggerSub ? triggerSub.options[dq.optionIndex] : q.options[dq.optionIndex];
         if (triggerOpt && triggerOpt.policies.every(p => triggerAnswers.includes(p))) triggered = true;
       }
       if (dq.optionIndices) {
         dq.optionIndices.forEach(idx => {
-          const triggerOpt = q.options[idx];
+          const triggerSub = dq.subId ? q.questions.find(s => s.subId === dq.subId) : null;
+          const triggerOpt = triggerSub ? triggerSub.options[idx] : q.options[idx];
           if (triggerOpt && triggerOpt.policies.every(p => triggerAnswers.includes(p))) triggered = true;
         });
       }
@@ -2179,33 +2174,24 @@ function calculateDisabledQuestions(answers) {
 }
 
 function renderProfileResults(profile, db) {
-  console.log('renderProfileResults called');
-  console.log('Profile answers:', profile.answers);
-  console.log('DB:', db);
   
   const answers = profile.answers;
   let allPolicies = [];
   Object.values(answers).forEach(p => { if (Array.isArray(p)) allPolicies.push(...p); });
   allPolicies = [...new Set(allPolicies)];
   
-  console.log('allPolicies:', allPolicies);
-  console.log('allPolicies count:', allPolicies.length);
 
   // For backward compatibility: use stored resolvedPolicies if available, otherwise calculate
   const hasResolved = profile.resolvedPolicies && Object.keys(profile.resolvedPolicies).length > 0;
   const resolvedPolicies = hasResolved ? profile.resolvedPolicies : resolvePoliciesFromAnswers(answers);
   const hasPolicies = allPolicies.length > 0;
   
-  console.log('hasResolved:', hasResolved);
-  console.log('resolvedPolicies:', resolvedPolicies);
-  console.log('hasPolicies:', hasPolicies);
 
   const grouped = {};
   let missingCount = 0;
   allPolicies.forEach(key => {
     const p = db[key];
     if (!p) { 
-      console.log('Policy not found in db:', key);
       missingCount++; 
       return; 
     }
@@ -2214,8 +2200,6 @@ function renderProfileResults(profile, db) {
     grouped[p.category][p.subcategory].push({ key, ...p });
   });
   
-  console.log('grouped:', grouped);
-  console.log('missingCount:', missingCount);
 
   // For backward compatibility: use stored abstainedSubcategories if available, otherwise calculate
   const abstainedSubcategories = profile.abstainedSubcategories || buildAbstainedSubcategories(profile.abstained || {});
@@ -2307,13 +2291,15 @@ function renderProfileResults(profile, db) {
         if (figureValue === null) return;
         
         const userHasPolicy = userPolicies.has(policy);
+        
+        // Only count when at least one side supports the policy
+        if (figureValue === false && !userHasPolicy) return; // Both oppose — skip
+        
         totalCompared++;
         
         if (figureValue === true && userHasPolicy) {
           agreements++;
           if (keyAgreements.length < 5) keyAgreements.push(policy);
-        } else if (figureValue === false && !userHasPolicy) {
-          agreements++;
         } else {
           disagreements++;
           if (keyDisagreements.length < 5 && figureValue === true) {
@@ -2391,10 +2377,12 @@ function renderProfileResults(profile, db) {
           const cat = policyData.category;
           if (!categoryStats[cat]) return;
           const userHasPolicy = userPolicies.has(policy);
+          
+          // Only count when at least one side supports the policy
+          if (figureValue === false && !userHasPolicy) return; // Both oppose — skip
+          
           categoryStats[cat].total++;
           if (figureValue === true && userHasPolicy) {
-            categoryStats[cat].agreements++;
-          } else if (figureValue === false && !userHasPolicy) {
             categoryStats[cat].agreements++;
           }
         });
@@ -2837,7 +2825,12 @@ function showEditorComparison(figureId) {
       subcategories[subcat].push({ policy, figureValue });
     });
     
-    Object.keys(subcategories).sort().forEach(subcat => {
+    const subcatOrder = ["Governance Principle", "Centralization", "Distribution of Power", "Head of State & Head of Government", "Executive and Legislative Structure", "Church and State", "Bureaucracy", "Army Model", "Policing", "Internal Security", "Judiciary", "Justice", "Citizenship", "Ownership", "Contracts", "Regulation", "Workplace Hierarchy", "Workers' Rights and Associations", "Banking", "Agriculture", "Intellectual Property", "Healthcare", "Taxation", "Scale", "International Cooperation", "Immigration", "Economic globalization", "War Policy", "Education", "Gender equality, family & sex", "Ethnicities and Cultures", "Caste and Estate System", "Media and Speech", "Forced Labor", "Technology"];
+    Object.keys(subcategories).sort((a, b) => {
+      const ai = subcatOrder.indexOf(a);
+      const bi = subcatOrder.indexOf(b);
+      return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+    }).forEach(subcat => {
       const subcatDiv = document.createElement('div');
       subcatDiv.style.cssText = 'margin-bottom: 20px; margin-left: 15px;';
       
@@ -2851,9 +2844,11 @@ function showEditorComparison(figureId) {
       
       subcategories[subcat].forEach(({ policy, figureValue }) => {
         const userHasPolicy = userPolicies.has(policy);
+        // Only compare when at least one side supports the policy
+        if (figureValue === false && !userHasPolicy) return; // Both oppose — skip
+        
         let agreement = false;
         if (figureValue === true && userHasPolicy) agreement = true;
-        else if (figureValue === false && !userHasPolicy) agreement = true;
         
         const policyDiv = document.createElement('div');
         policyDiv.style.cssText = 'margin-bottom: 8px; padding: 8px; background: var(--card-bg); border-left: 3px solid ' + (agreement ? 'var(--cat-economy)' : 'var(--accent)') + ';';
