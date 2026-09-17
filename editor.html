@@ -1820,8 +1820,26 @@ function generateProfileImage(profile, grouped) {
 
   el.innerHTML = buildCompactResultsHTML(grouped, escapeHtml(profile.label));
 
-  // Apply current page theme using shared function
-  applyThemeToCompact(el, 'current');
+  // Apply current page theme to compact results (inline, matching quiz page)
+  const cs2 = getComputedStyle(document.documentElement);
+  el.style.background = cs2.getPropertyValue('--bg').trim();
+  el.style.color = cs2.getPropertyValue('--text').trim();
+  el.querySelector('.cr-header').style.borderTopColor = cs2.getPropertyValue('--border').trim();
+  el.querySelector('.cr-header').style.borderBottomColor = cs2.getPropertyValue('--border').trim();
+  if (el.querySelector('.cr-header p')) el.querySelector('.cr-header p').style.color = cs2.getPropertyValue('--text-light').trim();
+  el.querySelectorAll('.cr-category').forEach(c => {
+    const h = c.querySelector('.cr-category-header');
+    if (c.classList.contains('cr-cat-gov')) h.style.background = cs2.getPropertyValue('--cat-governance').trim();
+    if (c.classList.contains('cr-cat-eco')) h.style.background = cs2.getPropertyValue('--cat-economy').trim();
+    if (c.classList.contains('cr-cat-wor')) h.style.background = cs2.getPropertyValue('--cat-world').trim();
+    if (c.classList.contains('cr-cat-cul')) h.style.background = cs2.getPropertyValue('--cat-culture').trim();
+  });
+  el.querySelectorAll('.cr-category-body').forEach(b => { b.style.background = cs2.getPropertyValue('--card-bg').trim(); b.style.borderColor = cs2.getPropertyValue('--border-light').trim(); });
+  el.querySelectorAll('.cr-sub-title').forEach(t => { t.style.color = cs2.getPropertyValue('--text').trim(); t.style.borderBottomColor = cs2.getPropertyValue('--border-light').trim(); });
+  el.querySelectorAll('.cr-policy').forEach(p => p.style.color = cs2.getPropertyValue('--text-light').trim());
+  el.querySelectorAll('.cr-empty').forEach(p => p.style.color = cs2.getPropertyValue('--text-light').trim());
+  el.querySelector('.cr-footer').style.borderTopColor = cs2.getPropertyValue('--border').trim();
+  el.querySelector('.cr-footer').style.color = cs2.getPropertyValue('--text-light').trim();
 
   // Reset theme and quality selectors
   const themeSel = document.getElementById('image-theme-select');
