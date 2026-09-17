@@ -1521,24 +1521,45 @@ function calculateDisabledQuestions(answers) {
     // Check conditionalDisable (multiple conditions with AND logic)
     if (q.type === 'double' && q.conditionalDisable) {
       const cd = q.conditionalDisable;
-      let allConditionsMet = true;
       
-      cd.conditions.forEach(condition => {
-        const conditionAnswers = answers[condition.subId] || [];
-        const conditionSub = q.questions.find(s => s.subId === condition.subId);
+      // Support both array format (OR logic) and object with conditions (AND logic)
+      if (Array.isArray(cd)) {
+        // OR logic: check each condition independently
+        cd.forEach(condition => {
+          const conditionAnswers = answers[condition.subId] || [];
+          const conditionSub = q.questions.find(s => s.subId === condition.subId);
+          
+          if (conditionSub) {
+            const triggerPolicies = conditionSub.options[condition.optionIndex].policies;
+            if (triggerPolicies.every(p => conditionAnswers.includes(p))) {
+              // This condition is met, add its targets
+              if (condition.targets) {
+                condition.targets.forEach(t => disabled.add(t));
+              }
+            }
+          }
+        });
+      } else if (cd.conditions) {
+        // AND logic: all conditions must be met
+        let allConditionsMet = true;
         
-        if (conditionSub) {
-          const triggerPolicies = conditionSub.options[condition.optionIndex].policies;
-          if (!triggerPolicies.every(p => conditionAnswers.includes(p))) {
+        cd.conditions.forEach(condition => {
+          const conditionAnswers = answers[condition.subId] || [];
+          const conditionSub = q.questions.find(s => s.subId === condition.subId);
+          
+          if (conditionSub) {
+            const triggerPolicies = conditionSub.options[condition.optionIndex].policies;
+            if (!triggerPolicies.every(p => conditionAnswers.includes(p))) {
+              allConditionsMet = false;
+            }
+          } else {
             allConditionsMet = false;
           }
-        } else {
-          allConditionsMet = false;
+        });
+        
+        if (allConditionsMet) {
+          cd.targets.forEach(targetSubId => disabled.add(targetSubId));
         }
-      });
-      
-      if (allConditionsMet) {
-        cd.targets.forEach(targetSubId => disabled.add(targetSubId));
       }
     }
   });
