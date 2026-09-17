@@ -306,6 +306,21 @@
       </div>
 
       <div class="setting-item">
+        <div class="setting-info">
+          <h4>Historical figures to show</h4>
+          <p>Number of matching historical figures to display on the results page. This setting persists across quiz attempts.</p>
+        </div>
+        <select id="set-historicalFigureCount" onchange="saveSetting('historicalFigureCount', this.value)" style="margin-top: 10px; padding: 8px 12px; border: 1px solid var(--border-light); background: var(--bg); color: var(--text); font-family: inherit; font-size: 0.9em; border-radius: 4px; cursor: pointer; width: 100%; max-width: 200px;">
+          <option value="1">1 figure</option>
+          <option value="3">3 figures</option>
+          <option value="5" selected>5 figures (default)</option>
+          <option value="10">10 figures</option>
+          <option value="20">20 figures</option>
+          <option value="all">All available</option>
+        </select>
+      </div>
+
+      <div class="setting-item">
         <div class="setting-row">
           <div class="setting-info">
             <h4>Show total time</h4>
@@ -483,6 +498,12 @@ function loadSettings() {
   const fontVal = settings.fontFamily || 'default';
   const fontRadio = document.querySelector(`input[name="fontFamily"][value="${fontVal}"]`);
   if (fontRadio) fontRadio.checked = true;
+  
+  // Historical figure count select
+  const figureCountVal = settings.historicalFigureCount || '5';
+  const figureCountSelect = document.getElementById('set-historicalFigureCount');
+  if (figureCountSelect) figureCountSelect.value = figureCountVal;
+  
   applyAccessibility();
 }
 

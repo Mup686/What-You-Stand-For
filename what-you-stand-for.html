@@ -11,6 +11,7 @@
 (function(){try{var s=JSON.parse(localStorage.getItem('politicalSpectrumSettings')||'{}');var css='';if(s.boldText){css+='body,body *{font-weight:700!important}'}var f={arial:'Arial,sans-serif',helvetica:'Helvetica,Arial,sans-serif',verdana:'Verdana,Geneva,sans-serif',atkinson:"'Atkinson Hyperlegible',sans-serif"};if(s.fontFamily&&f[s.fontFamily]){css+='body,body *,body h1,body h2,body h3,body h4{font-family:'+f[s.fontFamily]+'!important}';if(s.fontFamily==='atkinson'){var l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap';document.head.appendChild(l)}}if(css){var st=document.createElement('style');st.textContent=css;document.head.appendChild(st)}}catch(e){}})();
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="historical_figures.js"></script>
 <script src="questions.js"></script>
 
 <!-- LZ-String Compression Library -->
@@ -1324,6 +1325,58 @@ function isCompressedProfile(data) {
     background: #eee8dd;
     border-left: 3px solid var(--border-light);
   }
+  
+  /* Abstained subquestion styling */
+  .sub-question.sub-abstained {
+    opacity: 0.5;
+    position: relative;
+  }
+  
+  .sub-question.sub-abstained::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(0, 0, 0, 0.02) 10px,
+      rgba(0, 0, 0, 0.02) 20px
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  .sub-question.sub-abstained .question-text {
+    text-decoration: line-through;
+    color: var(--text-light);
+  }
+  
+  .sub-question.sub-abstained .sub-label {
+    opacity: 0.6;
+  }
+  
+  .abstained-notice {
+    font-size: 0.85em;
+    font-style: italic;
+    color: var(--text-light);
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    background: #f5f0e8;
+    border-left: 3px solid var(--text-light);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .abstained-notice::before {
+    content: '⊘';
+    font-size: 1.2em;
+    font-style: normal;
+  }
 
   /* TOOLTIP */
   .tooltip-wrap {
@@ -1410,6 +1463,109 @@ function isCompressedProfile(data) {
   .btn-abstain:hover { background: var(--text-light); }
   .btn-abstain.abstained { background: white; color: var(--border); border: 2px solid var(--border); }
   .btn-abstain.abstained:hover { background: #eee; }
+  
+  /* Abstain dropdown container */
+  .abstain-container {
+    display: flex;
+    gap: 4px;
+    position: relative;
+  }
+  
+  .abstain-container .btn-abstain {
+    flex: 0 0 calc(75% - 2px);
+  }
+  
+  .abstain-dropdown-wrapper {
+    flex: 0 0 calc(25% - 2px);
+    position: relative;
+    display: none;
+  }
+  
+  .abstain-dropdown-wrapper.active {
+    display: block;
+  }
+  
+  .abstain-dropdown-trigger {
+    width: 100%;
+    height: 100%;
+    background: var(--border);
+    color: var(--bg);
+    border: none;
+    font-weight: 700;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Source Serif 4', Georgia, serif;
+  }
+  
+  .abstain-dropdown-trigger:hover {
+    background: var(--text-light);
+  }
+  
+  .abstain-dropdown-trigger:active {
+    transform: scale(0.95);
+  }
+  
+  .abstain-dropdown {
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    background: var(--card-bg);
+    border: 2px solid var(--border);
+    box-shadow: 0 -4px 12px rgba(0,0,0,0.15);
+    min-width: 250px;
+    max-width: 350px;
+    padding: 8px 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+  }
+  
+  .abstain-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  
+  .abstain-dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: 0.9em;
+    gap: 10px;
+  }
+  
+  .abstain-dropdown-item:hover {
+    background: var(--bg);
+  }
+  
+  .abstain-dropdown-item input[type="checkbox"] {
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+  
+  .abstain-dropdown-item label {
+    cursor: pointer;
+    flex: 1;
+    line-height: 1.4;
+    color: var(--text);
+  }
+  
+  .abstain-dropdown-item.abstained {
+    opacity: 0.5;
+    background: var(--bg);
+  }
+  
+  .abstain-dropdown-item.abstained label {
+    text-decoration: line-through;
+    color: var(--text-light);
+  }
 
   .results-header { text-align: center; margin-bottom: 35px; }
   .results-header h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 2.2em; font-weight: 900; margin-bottom: 10px; }
@@ -1570,7 +1726,13 @@ function isCompressedProfile(data) {
     <div id="question-area" class="fade-in"></div>
     <div class="quiz-nav">
       <button class="btn-nav" id="btn-prev" onclick="prevQuestion()">&#8592; Previous</button>
-      <button class="btn-nav btn-abstain" id="btn-abstain" onclick="abstainQuestion()">Abstain</button>
+      <div class="abstain-container" id="abstain-container">
+        <button class="btn-nav btn-abstain" id="btn-abstain" onclick="abstainQuestion()">Abstain</button>
+        <div class="abstain-dropdown-wrapper" id="abstain-dropdown-wrapper">
+          <button class="abstain-dropdown-trigger" id="abstain-dropdown-trigger">∧</button>
+          <div class="abstain-dropdown" id="abstain-dropdown"></div>
+        </div>
+      </div>
       <button class="btn-nav btn-next" id="btn-next" onclick="nextQuestion()">Next &#8594;</button>
     </div>
   </div>
@@ -2270,6 +2432,8 @@ let quizStartTime = null;
 let timerInterval = null;
 let shuffledOptionOrders = {};
 let questionsShuffled = false;
+let abstainDropdownTimeout = null;
+let lastUserPolicies = new Set();
 
 function getSettings() {
   try { return JSON.parse(localStorage.getItem('politicalSpectrumSettings') || '{}'); }
@@ -2341,40 +2505,26 @@ function initShuffledQuestions() {
         
         if (q.type === 'double') {
           q.questions.forEach(sub => {
-            if (sub.type === 'multi') {
-              // For multi-select, select all policies
-              answers[sub.subId] = [];
-              sub.options.forEach(opt => {
-                opt.policies.forEach(p => {
-                  if (!answers[sub.subId].includes(p)) {
-                    answers[sub.subId].push(p);
-                  }
-                });
-              });
-            } else {
-              // For single-select, select the first option
-              if (sub.options.length > 0) {
-                answers[sub.subId] = [...sub.options[0].policies];
-              }
-            }
-          });
-        } else {
-          if (q.type === 'multi') {
-            // For multi-select, select all policies
-            answers[q.id] = [];
-            q.options.forEach(opt => {
+            // For both single and multi-select, collect ALL policies from all options
+            answers[sub.subId] = [];
+            sub.options.forEach(opt => {
               opt.policies.forEach(p => {
-                if (!answers[q.id].includes(p)) {
-                  answers[q.id].push(p);
+                if (!answers[sub.subId].includes(p)) {
+                  answers[sub.subId].push(p);
                 }
               });
             });
-          } else {
-            // For single-select, select the first option
-            if (q.options.length > 0) {
-              answers[q.id] = [...q.options[0].policies];
-            }
-          }
+          });
+        } else {
+          // For both single and multi-select, collect ALL policies from all options
+          answers[q.id] = [];
+          q.options.forEach(opt => {
+            opt.policies.forEach(p => {
+              if (!answers[q.id].includes(p)) {
+                answers[q.id].push(p);
+              }
+            });
+          });
         }
       });
       
@@ -2731,14 +2881,18 @@ function renderQuestion() {
     q.questions.forEach((sub, si) => {
       if (si > 0) html += `<hr class="sub-divider">`;
       const isDisabled = crossDisabled || disabledSubIds.has(sub.subId);
+      const isAbstained = abstained[sub.subId] || false;
       const isMulti = sub.type === 'multi';
       const selectedPolicies = answers[sub.subId] || (isMulti ? [] : null);
 
-      html += `<div class="sub-question${isDisabled ? ' sub-disabled' : ''}">`;
+      html += `<div class="sub-question${isDisabled ? ' sub-disabled' : ''}${isAbstained ? ' sub-abstained' : ''}">`;
       html += `<div class="sub-label">Part ${si + 1} of ${q.questions.length}</div>`;
       html += `<div class="question-text">${sub.text}</div>`;
+      
       if (isDisabled && disableMessage) {
         html += `<div class="disabled-notice">${disableMessage}</div>`;
+      } else if (isAbstained) {
+        html += `<div class="abstained-notice">⊘ This part has been abstained</div>`;
       } else if (isMulti) {
         const maxNote = sub.maxSelect ? ` (select up to ${sub.maxSelect})` : '';
         html += `<div class="question-instruction">Select all that apply${maxNote}.</div>`;
@@ -2757,12 +2911,12 @@ function renderQuestion() {
           isSelected = selectedPolicies && opt.policies.every(p => selectedPolicies.includes(p));
         }
         let cls = isMulti ? 'option option-multi' : 'option';
-        if (isDisabled) cls += ' disabled';
+        if (isDisabled || isAbstained) cls += ' disabled';
         let optText = opt.text;
         if (opt.tooltip) {
           optText += ` <span class="tooltip-wrap"><span class="tooltip-icon">i</span><span class="tooltip-popup">${opt.tooltip}</span></span>`;
         }
-        const onclick = isDisabled ? '' : ` onclick="selectDoubleOption('${sub.subId}', ${i}, ${isMulti})"`;
+        const onclick = (isDisabled || isAbstained) ? '' : ` onclick="selectDoubleOption('${sub.subId}', ${i}, ${isMulti})"`;
         html += `<div class="${cls}${isSelected ? ' selected' : ''}"${onclick}>${optText}</div>`;
       });
       html += `</div></div>`;
@@ -2858,6 +3012,7 @@ function renderQuestion() {
     document.getElementById('debug-skip').style.display = 'none';
     timerEl.style.display = 'none';
     document.getElementById('btn-next').disabled = false;
+    document.getElementById('abstain-dropdown-wrapper').classList.remove('active');
   } else {
     abstainBtn.style.display = '';
     document.getElementById('debug-skip').style.display = '';
@@ -2872,6 +3027,102 @@ function renderQuestion() {
     // Show abstain as selected if all parts are abstained
     const allAbstained = isQuestionAbstained(q);
     abstainBtn.classList.toggle('abstained', allAbstained);
+    
+    // Handle dropdown for double/triple questions
+    if (q.type === 'double' || q.type === 'triple') {
+      document.getElementById('abstain-dropdown-wrapper').classList.add('active');
+      populateAbstainDropdown(q);
+    } else {
+      document.getElementById('abstain-dropdown-wrapper').classList.remove('active');
+    }
+  }
+}
+
+function populateAbstainDropdown(q) {
+  const dropdown = document.getElementById('abstain-dropdown');
+  const subQuestions = q.questions || [];
+  
+  let html = '';
+  subQuestions.forEach((sub, index) => {
+    const subId = sub.subId;
+    const isAbstained = abstained[subId] || false;
+    const subLabel = sub.text || `Part ${index + 1}`;
+    
+    html += `
+      <div class="abstain-dropdown-item ${isAbstained ? 'abstained' : ''}" data-sub-id="${subId}">
+        <input type="checkbox" id="abstain-check-${subId}" ${isAbstained ? 'checked' : ''} />
+        <label for="abstain-check-${subId}">${subLabel}</label>
+      </div>
+    `;
+  });
+  
+  dropdown.innerHTML = html;
+  
+  // Add event listeners to checkboxes
+  const checkboxes = dropdown.querySelectorAll('input[type="checkbox"]');
+  checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', (e) => {
+      const subId = e.target.closest('.abstain-dropdown-item').dataset.subId;
+      toggleSubQuestionAbstain(subId, e.target.checked);
+    });
+  });
+  
+  // Add hover handlers for dropdown
+  const wrapper = document.getElementById('abstain-dropdown-wrapper');
+  const trigger = document.getElementById('abstain-dropdown-trigger');
+  
+  // Remove old listeners to avoid duplicates
+  wrapper.removeEventListener('mouseenter', showAbstainDropdown);
+  wrapper.removeEventListener('mouseleave', hideAbstainDropdown);
+  
+  wrapper.addEventListener('mouseenter', showAbstainDropdown);
+  wrapper.addEventListener('mouseleave', hideAbstainDropdown);
+}
+
+function showAbstainDropdown() {
+  if (abstainDropdownTimeout) {
+    clearTimeout(abstainDropdownTimeout);
+    abstainDropdownTimeout = null;
+  }
+  document.getElementById('abstain-dropdown').classList.add('show');
+}
+
+function hideAbstainDropdown() {
+  abstainDropdownTimeout = setTimeout(() => {
+    document.getElementById('abstain-dropdown').classList.remove('show');
+  }, 200);
+}
+
+function toggleSubQuestionAbstain(subId, shouldAbstain) {
+  if (shouldAbstain) {
+    // Abstain this subquestion
+    delete answers[subId];
+    abstained[subId] = true;
+  } else {
+    // Un-abstain this subquestion
+    delete abstained[subId];
+  }
+  
+  // Update the dropdown item visual state
+  const item = document.querySelector(`.abstain-dropdown-item[data-sub-id="${subId}"]`);
+  if (item) {
+    item.classList.toggle('abstained', shouldAbstain);
+  }
+  
+  // Check if all subquestions are now abstained
+  const q = questions[currentQuestion];
+  if (q.type === 'double' || q.type === 'triple') {
+    const allAbstained = isQuestionAbstained(q);
+    document.getElementById('btn-abstain').classList.toggle('abstained', allAbstained);
+  }
+  
+  // Re-render to update the question display
+  renderQuestion();
+  
+  // Auto-save progress if enabled
+  const settings = getSettings();
+  if (settings.autoSaveProgress) {
+    saveProgress();
   }
 }
 
@@ -3315,6 +3566,9 @@ function showResults() {
   let allPolicies = [];
   Object.values(answers).forEach(p => { if (Array.isArray(p)) allPolicies.push(...p); });
   allPolicies = [...new Set(allPolicies)];
+  
+  // Store globally for access from showHistoricalComparison
+  lastUserPolicies = new Set(allPolicies);
 
   const grouped = {};
   allPolicies.forEach(key => {
@@ -3374,6 +3628,220 @@ function showResults() {
     }
     html += `</div></div>`;
   });
+  // Historical figures matching
+  if (typeof historicalFigures !== 'undefined' && historicalFigures.length > 0) {
+    const userPolicies = new Set(allPolicies);
+    const matches = [];
+    
+    historicalFigures.forEach(figure => {
+      let agreements = 0;
+      let disagreements = 0;
+      let totalCompared = 0;
+      const keyAgreements = [];
+      const keyDisagreements = [];
+      
+      Object.entries(figure.policies).forEach(([policy, figureValue]) => {
+        if (figureValue === null) return; // Skip unknown/not applicable
+        
+        const userHasPolicy = userPolicies.has(policy);
+        totalCompared++;
+        
+        if (figureValue === true && userHasPolicy) {
+          agreements++;
+          if (keyAgreements.length < 5) keyAgreements.push(policy);
+        } else if (figureValue === false && !userHasPolicy) {
+          agreements++;
+        } else {
+          disagreements++;
+          if (keyDisagreements.length < 5 && figureValue === true) {
+            keyDisagreements.push(policy);
+          }
+        }
+      });
+      
+      const similarity = totalCompared > 0 ? (agreements / totalCompared) * 100 : 0;
+      
+      if (similarity > 0) {
+        matches.push({
+          figure,
+          similarity,
+          agreements,
+          disagreements,
+          totalCompared,
+          keyAgreements,
+          keyDisagreements
+        });
+      }
+    });
+    
+    matches.sort((a, b) => b.similarity - a.similarity);
+    
+    // Get saved figure count or default to 5
+    const settings = getSettings();
+    let figureCount = settings.historicalFigureCount || 5;
+    if (figureCount === 'all') {
+      figureCount = matches.length;
+    } else {
+      figureCount = Math.min(parseInt(figureCount), matches.length);
+    }
+    
+    const topMatches = matches.slice(0, figureCount);
+    
+    if (topMatches.length > 0) {
+      html += `<div class="results-category" style="margin-bottom: 35px; border: 1px solid var(--border-light); background: var(--card-bg);">`;
+      html += `<div class="results-category-header" style="background: var(--text); padding: 15px 20px; color: var(--bg); font-family: 'Playfair Display', Georgia, serif; font-size: 1.4em; font-weight: 700; letter-spacing: 1px;">Historical Figure Matches</div>`;
+      html += `<div class="results-category-body" style="padding: 20px;">`;
+      
+      // Warning message
+      html += `<div style="margin-bottom: 20px; padding: 12px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 3px;">`;
+      html += `<p style="margin: 0; font-size: 0.9em; line-height: 1.5; color: #856404;">`;
+      html += `<strong>⚠️ Note:</strong> This feature is still in progress and should not be taken too seriously. The historical figure profiles likely contain many errors and oversimplifications — mapping complex thinkers onto 621 fixed policy options inevitably distorts their views. The matching algorithm is experimental and results are indicative at best.`;
+      html += `</p>`;
+      html += `</div>`;
+      
+      // Figure count selector
+      html += `<div style="margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">`;
+      html += `<label style="font-size: 0.9em; color: var(--text-light); font-weight: 600;">Show:</label>`;
+      html += `<select id="historical-figure-count" onchange="updateHistoricalFigureCount(this.value)" style="font-family: 'Source Serif 4', Georgia, serif; font-size: 0.9em; padding: 6px 12px; border: 2px solid var(--border-light); background: var(--card-bg); color: var(--text); cursor: pointer; border-radius: 3px;">`;
+      html += `<option value="1" ${figureCount === 1 ? 'selected' : ''}>1 figure</option>`;
+      html += `<option value="3" ${figureCount === 3 ? 'selected' : ''}>3 figures</option>`;
+      html += `<option value="5" ${figureCount === 5 ? 'selected' : ''}>5 figures</option>`;
+      html += `<option value="10" ${figureCount === 10 ? 'selected' : ''}>10 figures</option>`;
+      html += `<option value="20" ${figureCount === 20 ? 'selected' : ''}>20 figures</option>`;
+      html += `<option value="all" ${figureCount === matches.length ? 'selected' : ''}>All (${matches.length})</option>`;
+      html += `</select>`;
+      html += `</div>`;
+      
+      html += `<p style="margin-bottom: 20px; font-style: italic; color: var(--text-light);">Based on your policy positions, here are the historical figures you're most similar to:</p>`;
+      
+      topMatches.forEach((match, index) => {
+        const f = match.figure;
+        const isControversial = f.id.includes('hitler') || f.id.includes('stalin');
+        
+        html += `<div style="margin-bottom: 25px; padding: 15px; border: 2px solid var(--border-light); background: var(--bg);">`;
+        html += `<div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px;">`;
+        html += `<div>`;
+        html += `<h3 style="font-family: 'Playfair Display', Georgia, serif; font-size: 1.3em; font-weight: 700; margin: 0; color: var(--text);">${f.name}</h3>`;
+        html += `<p style="font-size: 0.9em; color: var(--text-light); margin: 5px 0 0 0;">${f.era} · ${f.nationality}</p>`;
+        html += `</div>`;
+        html += `<div style="text-align: right;">`;
+        html += `<div style="font-size: 1.8em; font-weight: 700; color: var(--accent); font-family: 'Playfair Display', Georgia, serif;">${match.similarity.toFixed(1)}%</div>`;
+        html += `<div style="font-size: 0.75em; color: var(--text-light);">similarity</div>`;
+        html += `</div>`;
+        html += `</div>`;
+        
+        html += `<p style="margin: 10px 0; line-height: 1.6; color: var(--text);">${f.description}</p>`;
+        html += `<p style="margin: 10px 0; font-size: 0.9em; color: var(--text-light);"><strong>Ideology:</strong> ${f.ideology}</p>`;
+        
+        if (isControversial) {
+          html += `<div style="margin: 15px 0; padding: 12px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 3px;">`;
+          html += `<p style="margin: 0; font-size: 0.9em; line-height: 1.5; color: #856404;">`;
+          html += `<strong>⚠️ Important:</strong> This match is based purely on policy positions and does not reflect endorsement of this figure's actions, including atrocities, human rights violations, or harmful ideologies. Historical context matters—shared positions on governance structure do not equate to moral equivalence.`;
+          html += `</p>`;
+          html += `</div>`;
+        }
+        
+        // Category-level breakdown
+        html += `<div style="margin: 15px 0;">`;
+        html += `<div style="margin-top: 10px; font-size: 0.9em;">`;
+        
+        // Calculate category-level percentages
+        const categoryStats = {};
+        ['Governance', 'Economy', 'World', 'Culture & Social Issues'].forEach(cat => {
+          categoryStats[cat] = { agreements: 0, total: 0 };
+        });
+        
+        Object.entries(f.policies).forEach(([policy, figureValue]) => {
+          if (figureValue === null) return;
+          
+          const policyData = policiesDB[policy];
+          if (!policyData) return;
+          
+          const cat = policyData.category;
+          if (!categoryStats[cat]) return;
+          
+          const userHasPolicy = userPolicies.has(policy);
+          categoryStats[cat].total++;
+          
+          if (figureValue === true && userHasPolicy) {
+            categoryStats[cat].agreements++;
+          } else if (figureValue === false && !userHasPolicy) {
+            categoryStats[cat].agreements++;
+          }
+        });
+        
+        const catDisplayNames = {
+          'Governance': 'Governance',
+          'Economy': 'Economy',
+          'World': 'Foreign',
+          'Culture & Social Issues': 'Social'
+        };
+        
+        const catColors = {
+          'Governance': 'var(--cat-governance)',
+          'Economy': 'var(--cat-economy)',
+          'World': 'var(--cat-world)',
+          'Culture & Social Issues': 'var(--cat-culture)'
+        };
+        
+        ['Governance', 'Economy', 'World', 'Culture & Social Issues'].forEach(cat => {
+          const stats = categoryStats[cat];
+          const percentage = stats.total > 0 ? (stats.agreements / stats.total * 100).toFixed(0) : 0;
+          const color = catColors[cat];
+          
+          html += `<div style="margin-top: 8px; display: flex; justify-content: space-between; align-items: center; padding: 6px 10px; background: var(--card-bg); border-left: 3px solid ${color};">`;
+          html += `<span style="font-weight: 600; color: ${color};">${catDisplayNames[cat]}</span>`;
+          html += `<span style="font-weight: 700; font-size: 1.1em; color: ${percentage >= 70 ? 'var(--cat-economy)' : percentage >= 50 ? 'var(--text)' : 'var(--accent)'};">${percentage}%</span>`;
+          html += `</div>`;
+        });
+        
+        html += `</div>`;
+        html += `</div>`;
+        
+        if (match.keyAgreements.length > 0) {
+          html += `<details style="margin-top: 15px;">`;
+          html += `<summary style="cursor: pointer; font-weight: 600; color: var(--text); padding: 5px 0;">Key Agreements (${match.agreements} total)</summary>`;
+          html += `<ul style="margin: 10px 0 0 20px; font-size: 0.9em; line-height: 1.8; color: var(--text-light);">`;
+          match.keyAgreements.forEach(policy => {
+            html += `<li>${policy}</li>`;
+          });
+          if (match.agreements > match.keyAgreements.length) {
+            html += `<li style="font-style: italic;">...and ${match.agreements - match.keyAgreements.length} more</li>`;
+          }
+          html += `</ul>`;
+          html += `</details>`;
+        }
+        
+        if (match.keyDisagreements.length > 0) {
+          html += `<details style="margin-top: 10px;">`;
+          html += `<summary style="cursor: pointer; font-weight: 600; color: var(--text); padding: 5px 0;">Key Disagreements (${match.disagreements} total)</summary>`;
+          html += `<ul style="margin: 10px 0 0 20px; font-size: 0.9em; line-height: 1.8; color: var(--text-light);">`;
+          match.keyDisagreements.forEach(policy => {
+            html += `<li>${policy}</li>`;
+          });
+          if (match.disagreements > match.keyDisagreements.length) {
+            html += `<li style="font-style: italic;">...and ${match.disagreements - match.keyDisagreements.length} more</li>`;
+          }
+          html += `</ul>`;
+          html += `</details>`;
+        }
+        
+        html += `<div style="margin-top: 10px; font-size: 0.85em; color: var(--text-light);">`;
+        html += `Compared ${match.totalCompared} policies · ${match.agreements} agreements · ${match.disagreements} disagreements`;
+        html += `</div>`;
+        
+        // Compare Details button
+        html += `<div style="margin-top: 15px; text-align: center;">`;
+        html += `<button onclick="showHistoricalComparison('${f.id}')" style="padding: 8px 20px; background: var(--accent); color: white; border: none; border-radius: 4px; cursor: pointer; font-family: 'Source Serif 4', Georgia, serif; font-size: 0.9em; font-weight: 600;">Compare Details</button>`;
+        html += `</div>`;
+        
+        html += `</div>`;
+      });
+      
+      html += `</div></div>`;
+    }
+  }
+  
   body.innerHTML = html;
   window.scrollTo(0, 0);
 
@@ -3773,6 +4241,169 @@ function restartQuiz() {
   document.getElementById('results-screen').classList.remove('active');
   document.getElementById('start-screen').classList.add('active');
   window.scrollTo(0, 0);
+}
+
+function showHistoricalComparison(figureId) {
+  const figure = historicalFigures.find(f => f.id === figureId);
+  if (!figure) {
+    alert('Historical figure not found');
+    return;
+  }
+  
+  // Get user policies from stored global
+  const userPolicies = lastUserPolicies;
+  
+  // Create modal
+  const modal = document.createElement('div');
+  modal.id = 'historical-comparison-modal';
+  modal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 10000; overflow-y: auto; padding: 20px;';
+  
+  const modalContent = document.createElement('div');
+  modalContent.style.cssText = 'max-width: 900px; margin: 20px auto; background: var(--bg); border: 2px solid var(--border); border-radius: 8px; padding: 30px; position: relative;';
+  
+  // Close button
+  const closeBtn = document.createElement('button');
+  closeBtn.innerHTML = '×';
+  closeBtn.style.cssText = 'position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 2em; cursor: pointer; color: var(--text); font-weight: bold; line-height: 1;';
+  closeBtn.onclick = () => document.body.removeChild(modal);
+  modalContent.appendChild(closeBtn);
+  
+  // Header
+  const header = document.createElement('div');
+  header.style.cssText = 'margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid var(--border-light);';
+  header.innerHTML = `
+    <h2 style="font-family: 'Playfair Display', Georgia, serif; font-size: 1.8em; margin: 0 0 10px 0; color: var(--text);">Policy Comparison</h2>
+    <p style="font-size: 1.1em; color: var(--text-light); margin: 0;"><strong>${figure.name}</strong> (${figure.era}) vs. Your Positions</p>
+  `;
+  modalContent.appendChild(header);
+  
+  // Build comparison by category
+  const categories = ['Governance', 'Economy', 'World', 'Culture & Social Issues'];
+  const catColors = {
+    'Governance': 'var(--cat-governance)',
+    'Economy': 'var(--cat-economy)',
+    'World': 'var(--cat-world)',
+    'Culture & Social Issues': 'var(--cat-culture)'
+  };
+  
+  categories.forEach(category => {
+    const catDiv = document.createElement('div');
+    catDiv.style.cssText = 'margin-bottom: 25px;';
+    
+    const catHeader = document.createElement('h3');
+    catHeader.style.cssText = `font-family: 'Playfair Display', Georgia, serif; font-size: 1.3em; color: ${catColors[category]}; margin: 0 0 15px 0; padding-bottom: 8px; border-bottom: 2px solid var(--border-light);`;
+    catHeader.textContent = category;
+    catDiv.appendChild(catHeader);
+    
+    // Group policies by subcategory
+    const subcategories = {};
+    Object.entries(figure.policies).forEach(([policy, figureValue]) => {
+      if (figureValue === null) return;
+      
+      const policyData = policiesDB[policy];
+      if (!policyData || policyData.category !== category) return;
+      
+      const subcat = policyData.subcategory;
+      if (!subcategories[subcat]) {
+        subcategories[subcat] = [];
+      }
+      subcategories[subcat].push({ policy, figureValue, policyData });
+    });
+    
+    // Sort subcategories
+    Object.keys(subcategories).sort().forEach(subcat => {
+      const subcatDiv = document.createElement('div');
+      subcatDiv.style.cssText = 'margin-bottom: 20px; margin-left: 15px;';
+      
+      const subcatHeader = document.createElement('h4');
+      subcatHeader.style.cssText = 'font-size: 1.05em; font-weight: 600; color: var(--text); margin: 0 0 10px 0;';
+      subcatHeader.textContent = subcat;
+      subcatDiv.appendChild(subcatHeader);
+      
+      const policyList = document.createElement('div');
+      policyList.style.cssText = 'margin-left: 15px;';
+      
+      subcategories[subcat].forEach(({ policy, figureValue, policyData }) => {
+        const userHasPolicy = userPolicies.has(policy);
+        
+        let agreement = false;
+        if (figureValue === true && userHasPolicy) {
+          agreement = true;
+        } else if (figureValue === false && !userHasPolicy) {
+          agreement = true;
+        }
+        
+        const policyDiv = document.createElement('div');
+        policyDiv.style.cssText = 'margin-bottom: 8px; padding: 8px; background: var(--card-bg); border-left: 3px solid ' + (agreement ? 'var(--cat-economy)' : 'var(--accent)') + ';';
+        
+        const policyName = document.createElement('div');
+        policyName.style.cssText = 'font-weight: 600; font-size: 0.95em; color: var(--text); margin-bottom: 4px;';
+        policyName.textContent = policy;
+        policyDiv.appendChild(policyName);
+        
+        const comparison = document.createElement('div');
+        comparison.style.cssText = 'font-size: 0.85em; color: var(--text-light);';
+        
+        const figurePosition = figureValue ? 'Supported' : 'Opposed';
+        const userPosition = userHasPolicy ? 'Supported' : 'Opposed';
+        const agreementText = agreement ? '✓ Agreement' : '✗ Disagreement';
+        const agreementColor = agreement ? 'var(--cat-economy)' : 'var(--accent)';
+        
+        comparison.innerHTML = `<span style="color: ${agreementColor}; font-weight: 600;">${agreementText}</span> · ${figure.name}: ${figurePosition} · You: ${userPosition}`;
+        policyDiv.appendChild(comparison);
+        
+        policyList.appendChild(policyDiv);
+      });
+      
+      subcatDiv.appendChild(policyList);
+      catDiv.appendChild(subcatDiv);
+    });
+    
+    modalContent.appendChild(catDiv);
+  });
+  
+  // Footer
+  const footer = document.createElement('div');
+  footer.style.cssText = 'margin-top: 20px; padding-top: 15px; border-top: 2px solid var(--border-light); text-align: center;';
+  footer.innerHTML = `
+    <p style="font-size: 0.85em; color: var(--text-light); font-style: italic;">
+      This comparison shows policy positions, not moral character or historical context.
+    </p>
+    <button onclick="document.body.removeChild(document.getElementById('historical-comparison-modal'))" style="margin-top: 10px; padding: 10px 30px; background: var(--border); color: var(--bg); border: none; border-radius: 4px; cursor: pointer; font-family: 'Playfair Display', Georgia, serif; font-size: 1em; font-weight: 600;">Close</button>
+  `;
+  modalContent.appendChild(footer);
+  
+  modal.appendChild(modalContent);
+  document.body.appendChild(modal);
+  
+  // Close on escape key
+  const escapeHandler = (e) => {
+    if (e.key === 'Escape') {
+      if (document.body.contains(modal)) {
+        document.body.removeChild(modal);
+      }
+      document.removeEventListener('keydown', escapeHandler);
+    }
+  };
+  document.addEventListener('keydown', escapeHandler);
+  
+  // Close on background click
+  modal.onclick = (e) => {
+    if (e.target === modal) {
+      document.body.removeChild(modal);
+      document.removeEventListener('keydown', escapeHandler);
+    }
+  };
+}
+
+function updateHistoricalFigureCount(count) {
+  // Save the selected count to settings
+  const settings = getSettings();
+  settings.historicalFigureCount = count;
+  localStorage.setItem('politicalSpectrumSettings', JSON.stringify(settings));
+  
+  // Re-render the results to show the updated number of figures
+  showResults();
 }
 </script>
 <!-- FLOATING NOTICES -->

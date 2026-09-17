@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — What You Stand For</title>
+<script>
+(function(){var t={sepia:{'--bg':'#f5f0e8','--text':'#1a1a1a','--text-light':'#4a4a4a','--accent':'#8b0000','--border':'#2a2a2a','--border-light':'#c0b8a8','--card-bg':'#faf8f4','--cat-governance':'#1a3a5c','--cat-economy':'#2d5016','--cat-world':'#5c3a1a','--cat-culture':'#4a1a5c'},dark:{'--bg':'#1a1215','--text':'#e8e0d8','--text-light':'#a09890','--accent':'#c0392b','--border':'#4a2a30','--border-light':'#4a3a3e','--card-bg':'#2a1e22','--cat-governance':'#4a7ab0','--cat-economy':'#5a9a3a','--cat-world':'#b07a3a','--cat-culture':'#9a5ab0'},cold:{'--bg':'#e8ecf0','--text':'#1a2030','--text-light':'#4a5568','--accent':'#2c5282','--border':'#2d3748','--border-light':'#a0aec0','--card-bg':'#f0f4f8','--cat-governance':'#2c5282','--cat-economy':'#2a6b3a','--cat-world':'#7a5a2a','--cat-culture':'#5a3a7a'},ink:{'--bg':'#fafaf5','--text':'#111111','--text-light':'#555555','--accent':'#000000','--border':'#111111','--border-light':'#cccccc','--card-bg':'#ffffff','--cat-governance':'#003366','--cat-economy':'#006633','--cat-world':'#663300','--cat-culture':'#660033'},rosewood:{'--bg':'#f5ebe0','--text':'#2a1a1e','--text-light':'#6b4a52','--accent':'#6b3a4a','--border':'#3a2228','--border-light':'#c8a8b0','--card-bg':'#faf2ee','--cat-governance':'#3a4a6b','--cat-economy':'#3a6b3a','--cat-world':'#6b4a2a','--cat-culture':'#6b2a5a'},lavender:{'--bg':'#f0eaf5','--text':'#2a2535','--text-light':'#5a5068','--accent':'#8e7aa0','--border':'#2a2535','--border-light':'#b8a8c8','--card-bg':'#f8f4fa','--cat-governance':'#3a5a8c','--cat-economy':'#3a6a2a','--cat-world':'#7a4a1a','--cat-culture':'#6a3a8c'},telegraph:{'--bg':'#d9cdb4','--text':'#2a2e24','--text-light':'#5c6b4f','--accent':'#5c6b4f','--border':'#2a2e24','--border-light':'#a89e88','--card-bg':'#e4dac4','--cat-governance':'#3a5a3a','--cat-economy':'#4a6a2a','--cat-world':'#6a5a2a','--cat-culture':'#5a3a5a'},forest:{'--bg':'#f0ead6','--text':'#1a2e24','--text-light':'#4a6a5a','--accent':'#2d4a3e','--border':'#1a2e24','--border-light':'#b0c4a8','--card-bg':'#f5f0e0','--cat-governance':'#1a4a5c','--cat-economy':'#2d6b16','--cat-world':'#5c4a1a','--cat-culture':'#4a1a4a'},sandstone:{'--bg':'#d4c5a9','--text':'#2e1f0f','--text-light':'#6a5a3a','--accent':'#8b4513','--border':'#2e1f0f','--border-light':'#b0a080','--card-bg':'#e0d4b8','--cat-governance':'#4a3a6b','--cat-economy':'#4a6b2a','--cat-world':'#8b4513','--cat-culture':'#6b2a4a'}};var n=localStorage.getItem('politicalSpectrumTheme')||'sepia';if(t[n]){var r=document.documentElement.style;Object.entries(t[n]).forEach(function(e){r.setProperty(e[0],e[1])})}})();
+</script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap');
+
+  :root {
+    --bg: #f5f0e8; --text: #1a1a1a; --text-light: #4a4a4a; --accent: #8b0000;
+    --border: #2a2a2a; --border-light: #c0b8a8; --card-bg: #faf8f4;
+    --cat-governance: #1a3a5c; --cat-economy: #2d5016; --cat-world: #5c3a1a; --cat-culture: #4a1a5c;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; transition: background 0.3s, color 0.3s; }
+
+  .top-nav { background: var(--border); border-bottom: 2px solid var(--accent); padding: 0; position: sticky; top: 0; z-index: 1000; }
+  .top-nav ul { list-style: none; display: flex; justify-content: center; max-width: 780px; margin: 0 auto; }
+  .top-nav li { flex: 1; text-align: center; }
+  .top-nav a { display: block; padding: 12px 10px; color: var(--bg); text-decoration: none; font-family: 'Playfair Display', Georgia, serif; font-size: 0.85em; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; transition: background 0.2s; }
+  .top-nav a:hover, .top-nav a.active { background: var(--accent); }
+
+  .container { max-width: 780px; margin: 0 auto; padding: 20px; }
+
+  .masthead { text-align: center; border-top: 4px double var(--border); border-bottom: 4px double var(--border); padding: 20px 0; margin-bottom: 30px; }
+  .masthead h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 2.2em; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 5px; }
+  .masthead .subtitle { font-style: italic; font-size: 1em; color: var(--text-light); }
+
+  .content-section { margin-bottom: 35px; }
+  .content-section h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.6em; font-weight: 700; margin-bottom: 15px; color: var(--accent); border-bottom: 2px solid var(--border-light); padding-bottom: 8px; }
+  .content-section h3 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.2em; font-weight: 700; margin-top: 20px; margin-bottom: 10px; color: var(--text); }
+  .content-section p { margin-bottom: 15px; font-size: 1em; line-height: 1.7; }
+  .content-section ul, .content-section ol { margin-left: 25px; margin-bottom: 15px; }
+  .content-section li { margin-bottom: 8px; line-height: 1.6; }
+
+  .highlight-box { background: var(--card-bg); border-left: 4px solid var(--accent); padding: 15px 20px; margin: 20px 0; font-size: 0.95em; }
+  .highlight-box strong { color: var(--accent); }
+
+  .category-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0; }
+  .category-card { background: var(--card-bg); border: 1px solid var(--border-light); padding: 15px; }
+  .category-card h4 { font-family: 'Playfair Display', Georgia, serif; font-size: 1.1em; margin-bottom: 10px; }
+  .category-card ul { list-style: none; margin-left: 0; }
+  .category-card li { font-size: 0.9em; color: var(--text-light); padding-left: 15px; position: relative; }
+  .category-card li:before { content: "—"; position: absolute; left: 0; color: var(--accent); }
+
+  .cat-governance h4 { color: var(--cat-governance); }
+  .cat-economy h4 { color: var(--cat-economy); }
+  .cat-world h4 { color: var(--cat-world); }
+  .cat-culture h4 { color: var(--cat-culture); }
+
+  .footer-note { text-align: center; font-size: 0.8em; color: var(--text-light); margin-top: 40px; padding-top: 15px; border-top: 4px double var(--border); font-style: italic; }
+
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px dotted var(--accent); }
+  a:hover { border-bottom-style: solid; }
+
+  @media (max-width: 600px) {
+    .category-grid { grid-template-columns: 1fr; }
+    .masthead h1 { font-size: 1.6em; }
+    .container { padding: 15px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="what-you-stand-for.html">Test</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="editor.html">Saved</a></li>
+    <li><a href="settings.html">Settings</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+
+  <div class="masthead">
+    <h1>About</h1>
+    <div class="subtitle">Understanding "What You Stand For"</div>
+  </div>
+
+  <div class="content-section">
+    <h2>What Is This Quiz?</h2>
+    <p><strong>What You Stand For</strong> is a comprehensive political spectrum quiz that goes beyond simple left-right classifications. Instead of placing you on a single axis, it identifies the specific policies you support across four major domains of political life, creating a detailed ideological profile that reflects the complexity of real political beliefs.</p>
+    
+    <div class="highlight-box">
+      <strong>Key Insight:</strong> Most political quizzes reduce your beliefs to a single point on a line. This quiz recognizes that political beliefs are multi-dimensional. You might support free markets but also strong environmental regulations, or favor democratic governance while supporting traditional social values. This quiz captures that complexity.
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>How It Works</h2>
+    
+    <h3>The Four Domains</h3>
+    <p>The quiz covers four major domains of political life, each containing multiple subcategories:</p>
+    
+    <div class="category-grid">
+      <div class="category-card cat-governance">
+        <h4>I. Governance</h4>
+        <ul>
+          <li>Governance Principle</li>
+          <li>Centralization</li>
+          <li>Distribution of Power</li>
+          <li>Executive & Legislative Structure</li>
+          <li>Church and State</li>
+          <li>Bureaucracy</li>
+          <li>Army Model</li>
+          <li>Policing</li>
+          <li>Internal Security</li>
+          <li>Judiciary</li>
+          <li>Justice</li>
+          <li>Citizenship</li>
+        </ul>
+      </div>
+      
+      <div class="category-card cat-economy">
+        <h4>II. Economy</h4>
+        <ul>
+          <li>Ownership</li>
+          <li>Contracts</li>
+          <li>Regulation</li>
+          <li>Workplace Hierarchy</li>
+          <li>Workers' Rights</li>
+          <li>Banking</li>
+          <li>Agriculture</li>
+          <li>Intellectual Property</li>
+          <li>Healthcare</li>
+          <li>Taxation</li>
+        </ul>
+      </div>
+      
+      <div class="category-card cat-world">
+        <h4>III. World</h4>
+        <ul>
+          <li>Scale</li>
+          <li>International Cooperation</li>
+          <li>Immigration</li>
+          <li>Trade Policy</li>
+          <li>Globalization</li>
+          <li>Foreign Property</li>
+          <li>Military Force</li>
+        </ul>
+      </div>
+      
+      <div class="category-card cat-culture">
+        <h4>IV. Culture & Social</h4>
+        <ul>
+          <li>Education</li>
+          <li>Gender Equality</li>
+          <li>Cultural Diversity</li>
+          <li>Legal Equality</li>
+          <li>Speech & Media</li>
+          <li>Forced Labor</li>
+          <li>Technology</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Question Types</h3>
+    <p>The quiz uses several question types to capture the nuance of political beliefs:</p>
+    
+    <ul>
+      <li><strong>Single-select:</strong> Choose one option from several mutually exclusive choices</li>
+      <li><strong>Multi-select:</strong> Choose all options that apply to your beliefs</li>
+      <li><strong>Double questions:</strong> Two related questions presented together, where the answer to one may affect the other</li>
+    </ul>
+
+    <h3>Answering Questions</h3>
+    <p>For each question, you can:</p>
+    <ul>
+      <li><strong>Select an answer:</strong> Choose the option(s) that best reflect your beliefs</li>
+      <li><strong>Abstain:</strong> Skip the question if you're unsure or have no strong opinion</li>
+      <li><strong>Partial abstention:</strong> For double questions, you can abstain from individual parts</li>
+    </ul>
+  </div>
+
+  <div class="content-section">
+    <h2>Understanding Your Results</h2>
+    
+    <h3>Your Policy Profile</h3>
+    <p>Your results show all the policies you selected, organized by category and subcategory. Each policy includes a brief description explaining what it means. You can click on any policy to expand its description.</p>
+    
+    <h3>Historical Figure Matching</h3>
+    <p>One of the unique features of this quiz is the ability to compare your policy positions with historical figures. The quiz currently includes profiles of 10 figures spanning different eras and ideologies:</p>
+    <ul>
+      <li><strong>John Locke (1689–1704):</strong> Classical liberalism and natural rights</li>
+      <li><strong>Thomas Paine (1791–1797):</strong> Radical republicanism and proto-welfare</li>
+      <li><strong>Maximilien Robespierre (1789–1794):</strong> Jacobin republic of virtue</li>
+      <li><strong>Edmund Burke (1770–1797):</strong> Whig constitutionalism and ordered liberty</li>
+      <li><strong>John Stuart Mill (1865–1873):</strong> Liberal socialism and utilitarian radicalism</li>
+      <li><strong>Alexis de Tocqueville (1835–1851):</strong> Liberal constitutionalism and democratic analysis</li>
+      <li><strong>Mohandas K. Gandhi (1931–1948):</strong> Nonviolent swaraj and trusteeship</li>
+      <li><strong>Ludwig von Mises (1927–1966):</strong> Classical liberalism and Austrian economics</li>
+      <li><strong>Adolf Hitler (1933–1945):</strong> National Socialist Germany</li>
+      <li><strong>Barack Obama (2009–2017):</strong> Modern American liberalism</li>
+    </ul>
+    
+    <div class="highlight-box">
+      <strong>Important Note:</strong> Historical figure matching is for educational purposes only. A high similarity score does not mean you share all beliefs with that figure, nor does it imply endorsement of their actions. The matching algorithm compares policy positions, not moral character or historical context.
+    </div>
+
+    <h3>How Matching Works</h3>
+    <p>The matching algorithm uses a bidirectional agreement model:</p>
+    <ul>
+      <li><strong>Agreement:</strong> Both you and the figure selected the same policy, or both opposed it</li>
+      <li><strong>Disagreement:</strong> You selected a policy the figure opposed, or vice versa</li>
+      <li><strong>Null:</strong> The figure's position is unknown or the question is anachronistic</li>
+    </ul>
+    <p>The similarity percentage represents the proportion of comparable policies where you agree. You can adjust how many historical figures to display in Settings.</p>
+  </div>
+
+  <div class="content-section">
+    <h2>Features</h2>
+    
+    <h3>Customization</h3>
+    <ul>
+      <li><strong>Multiple themes:</strong> Choose from 9 newspaper-inspired color themes</li>
+      <li><strong>Font options:</strong> Select from multiple font families for better readability</li>
+      <li><strong>Bold text:</strong> Option to make all text bold for accessibility</li>
+      <li><strong>Question shuffling:</strong> Randomize question order</li>
+      <li><strong>Answer shuffling:</strong> Randomize answer order within questions</li>
+    </ul>
+
+    <h3>Progress Tracking</h3>
+    <ul>
+      <li><strong>Auto-save:</strong> Automatically save your progress as you answer questions</li>
+      <li><strong>Manual save:</strong> Save your progress at any time</li>
+      <li><strong>Resume:</strong> Resume where you left off if you close your browser</li>
+      <li><strong>Multiple profiles:</strong> Save multiple completed profiles with custom names</li>
+    </ul>
+
+    <h3>Results Features</h3>
+    <ul>
+      <li><strong>Downloadable image:</strong> Download your results as a shareable image</li>
+      <li><strong>Multiple image themes:</strong> Choose from 9 themes for your results image</li>
+      <li><strong>Historical comparison:</strong> Compare your positions with historical figures</li>
+      <li><strong>Profile comparison:</strong> Compare multiple saved profiles side-by-side</li>
+    </ul>
+  </div>
+
+  <div class="content-section">
+    <h2>Limitations and Considerations</h2>
+    
+    <h3>Quiz Limitations</h3>
+    <ul>
+      <li><strong>Anachronistic questions:</strong> Some questions ask about concepts that didn't exist in certain historical periods</li>
+      <li><strong>Missing nuances:</strong> Some historical positions cannot be fully represented by the available answer options</li>
+      <li><strong>Modern framing:</strong> Questions are framed for contemporary political contexts</li>
+      <li><strong>Cultural bias:</strong> Questions may reflect Western political traditions more than others</li>
+    </ul>
+
+    <h3>Historical Figure Limitations</h3>
+    <ul>
+      <li><strong>Profile accuracy:</strong> Historical profiles are approximations — mapping complex thinkers onto 621 fixed policy options inevitably distorts their views</li>
+      <li><strong>Null values:</strong> Many policies are marked as null for historical figures due to anachronism or lack of documentation</li>
+      <li><strong>Historical context:</strong> Matching doesn't account for historical context or evolution of beliefs</li>
+      <li><strong>Scholarly debate:</strong> Historical interpretations may be contested among scholars</li>
+    </ul>
+
+    <div class="highlight-box">
+      <strong>Research Note:</strong> Historical figure profiles are based on primary sources and scholarly consensus. However, historical interpretation is always subject to debate. Profile notes document known controversies and limitations. See <a href="HISTORICAL_RESEARCH_QUESTION_PROBLEMS.md">Problems with Quiz Questions for Historical Research</a> for detailed analysis.
+    </div>
+  </div>
+
+  <div class="content-section">
+    <h2>Privacy and Data</h2>
+    <p><strong>All data is stored locally in your browser.</strong> No data is sent to any server. Your quiz results, saved profiles, and settings remain on your device.</p>
+    
+    <ul>
+      <li><strong>Local storage:</strong> All data is stored in your browser's local storage</li>
+      <li><strong>No tracking:</strong> No analytics or tracking is used</li>
+      <li><strong>No accounts:</strong> No user accounts or registration required</li>
+      <li><strong>Export/import:</strong> You can export and import your profiles for backup</li>
+    </ul>
+  </div>
+
+  <div class="content-section">
+    <h2>Getting Started</h2>
+    <p>Ready to discover what you stand for? <a href="what-you-stand-for.html">Take the quiz now</a>.</p>
+    <p>Have questions about how the quiz works? Check the <a href="index.html">home page</a> for an overview.</p>
+    <p>Want to customize your experience? Visit <a href="settings.html">Settings</a>.</p>
+  </div>
+
+  <div class="footer-note">
+    What You Stand For — A Detailed Policy Assessment<br>
+    All data stored locally in your browser. No tracking, no accounts, no server storage.
+  </div>
+
+</div>
+
+</body>
+</html>
