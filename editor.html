@@ -1739,8 +1739,14 @@ function renderProfileResults(profile, db) {
   document.getElementById('detail-content').innerHTML = html;
   window.scrollTo(0, 0);
 
-  // Generate compact image
-  generateProfileImage(profile, grouped);
+  // Generate compact image (respect disableImage setting)
+  const editorSettings = JSON.parse(localStorage.getItem('politicalSpectrumSettings') || '{}');
+  if (editorSettings.disableImage) {
+    const imgSection = document.getElementById('results-image-section');
+    if (imgSection) imgSection.style.display = 'none';
+  } else {
+    generateProfileImage(profile, grouped);
+  }
 }
 
 
@@ -1814,26 +1820,8 @@ function generateProfileImage(profile, grouped) {
 
   el.innerHTML = buildCompactResultsHTML(grouped, escapeHtml(profile.label));
 
-  // Apply current page theme to compact results
-  const cs2 = getComputedStyle(document.documentElement);
-  el.querySelector('.cr-header').style.borderTopColor = cs2.getPropertyValue('--border').trim();
-  el.querySelector('.cr-header').style.borderBottomColor = cs2.getPropertyValue('--border').trim();
-  if (el.querySelector('.cr-header p')) el.querySelector('.cr-header p').style.color = cs2.getPropertyValue('--text-light').trim();
-  el.querySelectorAll('.cr-category').forEach(c => {
-    const h = c.querySelector('.cr-category-header');
-    if (c.classList.contains('cr-cat-gov')) h.style.background = cs2.getPropertyValue('--cat-governance').trim();
-    if (c.classList.contains('cr-cat-eco')) h.style.background = cs2.getPropertyValue('--cat-economy').trim();
-    if (c.classList.contains('cr-cat-wor')) h.style.background = cs2.getPropertyValue('--cat-world').trim();
-    if (c.classList.contains('cr-cat-cul')) h.style.background = cs2.getPropertyValue('--cat-culture').trim();
-  });
-  el.querySelectorAll('.cr-category-body').forEach(b => { b.style.background = cs2.getPropertyValue('--card-bg').trim(); b.style.borderColor = cs2.getPropertyValue('--border-light').trim(); });
-  el.querySelectorAll('.cr-sub-title').forEach(t => { t.style.color = cs2.getPropertyValue('--text').trim(); t.style.borderBottomColor = cs2.getPropertyValue('--border-light').trim(); });
-  el.querySelectorAll('.cr-policy').forEach(p => p.style.color = cs2.getPropertyValue('--text-light').trim());
-  el.querySelectorAll('.cr-empty').forEach(p => p.style.color = cs2.getPropertyValue('--text-light').trim());
-  el.querySelector('.cr-footer').style.borderTopColor = cs2.getPropertyValue('--border').trim();
-  el.querySelector('.cr-footer').style.color = cs2.getPropertyValue('--text-light').trim();
-  el.style.background = cs2.getPropertyValue('--bg').trim();
-  el.style.color = cs2.getPropertyValue('--text').trim();
+  // Apply current page theme using shared function
+  applyThemeToCompact(el, 'current');
 
   // Reset theme and quality selectors
   const themeSel = document.getElementById('image-theme-select');
@@ -1843,16 +1831,27 @@ function generateProfileImage(profile, grouped) {
 
   setTimeout(() => {
     if (typeof html2canvas === 'undefined') {
-      document.getElementById('results-image-section').style.display = 'none';
+      const imgSection = document.getElementById('results-image-section');
+      if (imgSection) imgSection.style.display = 'none';
+      return;
+    }
+    // Ensure compact-results has content
+    if (!el.innerHTML || el.innerHTML.trim() === '') {
+      const imgSection = document.getElementById('results-image-section');
+      if (imgSection) imgSection.style.display = 'none';
       return;
     }
     renderCompactImage(el, scale, 'political-spectrum-' + profile.label.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.png').then(({ imgData }) => {
-      document.getElementById('results-image').src = imgData;
+      const img = document.getElementById('results-image');
+      if (img) img.src = imgData;
       const btn = document.getElementById('btn-download-image');
-      btn.href = imgData;
-      btn.download = 'political-spectrum-' + profile.label.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.png';
-    }).catch(() => {
-      document.getElementById('results-image-section').style.display = 'none';
+      if (btn) {
+        btn.href = imgData;
+        btn.download = 'political-spectrum-' + profile.label.replace(/[^a-z0-9]/gi, '_').toLowerCase() + '.png';
+      }
+    }).catch((err) => {
+      const imgSection = document.getElementById('results-image-section');
+      if (imgSection) imgSection.style.display = 'none';
     });
   }, 100);
 }
